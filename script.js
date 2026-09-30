@@ -915,12 +915,21 @@ function compressImageFile(file, maxWidth = 1280, maxHeight = 1600, quality = 0.
 // ==========================================================================
 // GLOBAL CLOUD DATABASE SYNCHRONIZATION ENGINE (FIREBASE RTDB & REST)
 // ==========================================================================
+const DEFAULT_CLOUD_CONFIG = {
+  databaseURL: 'https://minegta-web-files-default-rtdb.firebaseio.com'
+};
+
 function getCloudConfig() {
   try {
     const raw = localStorage.getItem(CLOUD_CONFIG_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && parsed.databaseURL && parsed.databaseURL.trim().length > 8) {
+        return parsed;
+      }
+    }
   } catch(e) {}
-  return { databaseURL: '' };
+  return DEFAULT_CLOUD_CONFIG;
 }
 
 function saveCloudConfig(cfg) {
