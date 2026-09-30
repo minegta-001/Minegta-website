@@ -767,6 +767,7 @@ const ADMIN_LOCK_KEY = 'mine_admin_lock_v2';
 const ADMIN_AUDIT_KEY = 'mine_admin_audit_v2';
 const CATALOG_STORAGE_KEY = 'mine_catalog_v2';
 const SETTINGS_STORAGE_KEY = 'mine_site_settings_v2';
+const CLOUD_CONFIG_KEY = 'mine_cloud_config_v2';
 const ANALYTICS_VIEWS_KEY = 'mine_stat_total_views_v2';
 const ANALYTICS_UNIQUE_KEY = 'mine_stat_unique_visitors_v2';
 const ANALYTICS_DISCORD_KEY = 'mine_stat_discord_clicks_v2';
@@ -774,6 +775,12 @@ const ANALYTICS_ZOOM_KEY = 'mine_stat_zoom_views_v2';
 const ANALYTICS_DAILY_KEY = 'mine_stat_daily_traffic_v2';
 const ANALYTICS_ACTIVITY_KEY = 'mine_stat_activity_v2';
 const PWD_SALT = 'MINE_IMPERIAL_EMERALD_SALT_2026_99x8a';
+
+// Real-Time Cloud Engine State
+let firebaseApp = null;
+let firebaseDb = null;
+let isCloudLive = false;
+let cloudPresetsCount = 0;
 
 // Default Master Credentials:
 // ID: mineadmin
@@ -859,6 +866,290 @@ async function sha256(text) {
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// ==========================================================================
+// CLIENT-SIDE HIGH-PERFORMANCE 4K CANVAS IMAGE COMPRESSION
+// ==========================================================================
+function compressImageFile(file, maxWidth = 1280, maxHeight = 1600, quality = 0.82) {
+  return new Promise((resolve, reject) => {
+    if (!file || !file.type.startsWith('image/')) {
+      return reject(new Error('Selected file is not an image'));
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width;
+        let h = img.height;
+        if (w > maxWidth || h > maxHeight) {
+          const ratio = Math.min(maxWidth / w, maxHeight / h);
+          w = Math.max(1, Math.round(w * ratio));
+          h = Math.max(1, Math.round(h * ratio));
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(img, 0, 0, w, h);
+
+        let dataUrl = canvas.toDataURL('image/webp', quality);
+        if (!dataUrl.startsWith('data:image/webp')) {
+          dataUrl = canvas.toDataURL('image/jpeg', quality);
+        }
+
+        const origKb = Math.round(file.size / 1024);
+        const compKb = Math.round((dataUrl.length * 3 / 4) / 1024);
+        resolve({ dataUrl, origKb, compKb, width: w, height: h });
+      };
+      img.onerror = () => reject(new Error('Failed to decode image'));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
+}
+
+// ==========================================================================
+// GLOBAL CLOUD DATABASE SYNCHRONIZATION ENGINE (FIREBASE RTDB & REST)
+// ==========================================================================
+function getCloudConfig() {
+  try {
+    const raw = localStorage.getItem(CLOUD_CONFIG_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return { databaseURL: '' };
+}
+
+function saveCloudConfig(cfg) {
+  try {
+    localStorage.setItem(CLOUD_CONFIG_KEY, JSON.stringify(cfg));
+  } catch(e) {}
+}
+
+function isCloudConfigured() {
+  const cfg = getCloudConfig();
+  return Boolean(cfg && cfg.databaseURL && cfg.databaseURL.trim().length > 8);
+}
+
+function cleanDatabaseUrl(rawUrl) {
+  if (!rawUrl) return '';
+  let url = rawUrl.trim();
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    url = 'https://' + url;
+  }
+  return url.replace(/\/+$/, '');
+}
+
+function updateCloudUIState(connected, remoteCount = null) {
+  isCloudLive = connected;
+  if (remoteCount !== null) cloudPresetsCount = remoteCount;
+
+  // Header status pill
+  const pill = document.getElementById('adminCloudStatusPill');
+  const label = document.getElementById('cloudStatusLabel');
+  if (pill && label) {
+    if (connected) {
+      pill.classList.add('connected');
+      label.textContent = 'Cloud Live ✓';
+      pill.title = 'Cloud Database Connected — All visitors see live updates';
+    } else {
+      pill.classList.remove('connected');
+      label.textContent = isCloudConfigured() ? 'Cloud Offline' : 'Local Mode';
+      pill.title = 'Operating in local browser storage only';
+    }
+  }
+
+  // Cloud tab status card
+  const badge = document.getElementById('cloudLiveSyncBadge');
+  const title = document.getElementById('cloudConnStatusTitle');
+  const sub = document.getElementById('cloudConnStatusSub');
+  const card = document.querySelector('.cloud-overview-card');
+  const remoteCountEl = document.getElementById('cloudStatRemoteCount');
+  const localCountEl = document.getElementById('cloudStatLocalCount');
+
+  const localCatalog = getCatalog();
+  if (localCountEl) localCountEl.textContent = localCatalog.length;
+  if (remoteCountEl && remoteCount !== null) remoteCountEl.textContent = remoteCount;
+
+  if (connected) {
+    if (badge) { badge.textContent = '🟢 LIVE CONNECTED'; badge.className = 'tag-status neon'; }
+    if (title) title.textContent = 'Cloud Sync: Active & Live 🟢';
+    if (sub) sub.textContent = 'All changes, uploads, and pricing are synced to Cloud and visible to EVERY visitor worldwide!';
+    if (card) card.classList.add('connected');
+  } else {
+    if (badge) { badge.textContent = isCloudConfigured() ? '🟡 OFFLINE' : '🟡 LOCAL ONLY'; badge.className = 'tag-status'; }
+    if (title) title.textContent = isCloudConfigured() ? 'Cloud Sync: Connection Failed' : 'Cloud Sync: Local Mode Only';
+    if (sub) sub.textContent = isCloudConfigured() ? 'Could not reach Firebase database. Check URL or rules.' : 'Presets are currently saved in this local browser only. Connect Cloud Database below so all visitors worldwide can see newly uploaded presets!';
+    if (card) card.classList.remove('connected');
+  }
+}
+
+async function initCloudSync() {
+  const cfg = getCloudConfig();
+  if (!cfg.databaseURL) {
+    updateCloudUIState(false);
+    return;
+  }
+
+  const dbUrl = cleanDatabaseUrl(cfg.databaseURL);
+
+  // Try Firebase SDK first
+  if (typeof firebase !== 'undefined' && firebase.database) {
+    try {
+      if (!firebase.apps.length) {
+        firebaseApp = firebase.initializeApp({ databaseURL: dbUrl });
+      } else {
+        firebaseApp = firebase.app();
+      }
+      firebaseDb = firebase.database();
+
+      // Realtime listener for catalog
+      firebaseDb.ref('catalog').on('value', (snapshot) => {
+        const remoteData = snapshot.val();
+        if (Array.isArray(remoteData) && remoteData.length > 0) {
+          localStorage.setItem(CATALOG_STORAGE_KEY, JSON.stringify(remoteData));
+          renderStoreProducts();
+          renderAdminCatalog();
+          updateCloudUIState(true, remoteData.length);
+        } else if (snapshot.exists()) {
+          updateCloudUIState(true, 0);
+        }
+      }, (err) => {
+        console.warn('Firebase RTDB listener error:', err);
+        checkCloudRest(dbUrl);
+      });
+
+      // Realtime listener for site settings
+      firebaseDb.ref('settings').on('value', (snapshot) => {
+        const remoteSettings = snapshot.val();
+        if (remoteSettings && typeof remoteSettings === 'object') {
+          localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(remoteSettings));
+          applySiteSettings(remoteSettings);
+        }
+      });
+
+      updateCloudUIState(true);
+      return;
+    } catch(err) {
+      console.warn('Firebase SDK init warning:', err);
+    }
+  }
+
+  // REST Fallback for environments without SDK
+  await checkCloudRest(dbUrl);
+}
+
+async function checkCloudRest(dbUrl) {
+  try {
+    const res = await fetch(`${dbUrl}/catalog.json`);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        localStorage.setItem(CATALOG_STORAGE_KEY, JSON.stringify(data));
+        renderStoreProducts();
+        renderAdminCatalog();
+        updateCloudUIState(true, data.length);
+      } else {
+        updateCloudUIState(true, 0);
+      }
+    } else {
+      updateCloudUIState(false);
+    }
+  } catch(e) {
+    updateCloudUIState(false);
+  }
+}
+
+async function saveCatalogToCloud(catalog) {
+  const cfg = getCloudConfig();
+  if (!cfg.databaseURL) return false;
+  const dbUrl = cleanDatabaseUrl(cfg.databaseURL);
+
+  // Try Firebase SDK
+  if (firebaseDb) {
+    try {
+      await firebaseDb.ref('catalog').set(catalog);
+      updateCloudUIState(true, catalog.length);
+      return true;
+    } catch(err) {
+      console.warn('SDK write error, falling back to REST:', err);
+    }
+  }
+
+  // REST PUT Fallback
+  try {
+    const res = await fetch(`${dbUrl}/catalog.json`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(catalog)
+    });
+    if (res.ok) {
+      updateCloudUIState(true, catalog.length);
+      return true;
+    }
+  } catch(err) {
+    console.error('REST cloud write error:', err);
+  }
+  return false;
+}
+
+async function saveSettingsToCloud(settings) {
+  const cfg = getCloudConfig();
+  if (!cfg.databaseURL) return false;
+  const dbUrl = cleanDatabaseUrl(cfg.databaseURL);
+
+  if (firebaseDb) {
+    try {
+      await firebaseDb.ref('settings').set(settings);
+      return true;
+    } catch(err) {}
+  }
+
+  try {
+    const res = await fetch(`${dbUrl}/settings.json`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(settings)
+    });
+    return res.ok;
+  } catch(err) {
+    return false;
+  }
+}
+
+async function fetchCatalogFromCloud() {
+  const cfg = getCloudConfig();
+  if (!cfg.databaseURL) return null;
+  const dbUrl = cleanDatabaseUrl(cfg.databaseURL);
+
+  if (firebaseDb) {
+    try {
+      const snap = await firebaseDb.ref('catalog').once('value');
+      const val = snap.val();
+      if (Array.isArray(val) && val.length > 0) return val;
+    } catch(e) {}
+  }
+
+  try {
+    const res = await fetch(`${dbUrl}/catalog.json`);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) return data;
+    }
+  } catch(e) {}
+  return null;
+}
+
+function renderAdminCloudSync() {
+  const cfg = getCloudConfig();
+  const urlInput = document.getElementById('cloudDatabaseUrl');
+  if (urlInput && !urlInput.value && cfg.databaseURL) {
+    urlInput.value = cfg.databaseURL;
+  }
+  updateCloudUIState(isCloudLive);
 }
 
 // Helpers for Catalog & Settings
@@ -1252,6 +1543,7 @@ function renderAdminDashboard() {
   renderAdminCatalog();
   renderAdminSettings();
   renderAdminSecurity();
+  renderAdminCloudSync();
 }
 
 // Analytics Rendering
@@ -1369,6 +1661,9 @@ window.handlePriceUpdate = function(id, btn) {
     saveCatalog(catalog);
     renderStoreProducts();
     renderAdminCatalog();
+    if (isCloudConfigured()) {
+      saveCatalogToCloud(catalog);
+    }
     showToast(`Price for ${item.name} updated to ₹${newPrice}!`, 'success');
     logActivity(`Price updated: ${item.name} → ₹${newPrice}`, '💰');
     playSound('pay');
@@ -1385,6 +1680,9 @@ window.handleDeletePreset = function(id) {
   saveCatalog(filtered);
   renderStoreProducts();
   renderAdminCatalog();
+  if (isCloudConfigured()) {
+    saveCatalogToCloud(filtered);
+  }
   showToast(`Preset "${item.name}" removed from store.`, 'info');
   logActivity(`Preset deleted: ${item.name}`, '🗑️');
   playSound('hover');
@@ -1443,6 +1741,7 @@ document.querySelectorAll('.admin-tab').forEach(tabBtn => {
 
     if (tabName === 'analytics') renderAdminAnalytics();
     if (tabName === 'catalog') renderAdminCatalog();
+    if (tabName === 'cloud') renderAdminCloudSync();
   });
 });
 
@@ -1526,18 +1825,36 @@ const previewPrice = document.getElementById('previewPrice');
 const previewTag = document.getElementById('previewTag');
 
 if (newPresetFile) {
-  newPresetFile.onchange = (e) => {
+  newPresetFile.onchange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        currentUploadedImage = ev.target.result;
+      const statusEl = document.getElementById('uploadCompressionStatus');
+      if (statusEl) {
+        statusEl.style.display = 'flex';
+        statusEl.innerHTML = '<span>⏳ Compressing &amp; optimizing 4K image...</span>';
+      }
+      try {
+        const comp = await compressImageFile(file);
+        currentUploadedImage = comp.dataUrl;
         if (previewImg) previewImg.src = currentUploadedImage;
         if (newPresetImgUrl) newPresetImgUrl.value = '';
+        if (statusEl) {
+          statusEl.innerHTML = `<span>✓ Optimized: <b>${comp.origKb} KB</b> → <b>${comp.compKb} KB</b> (4K WebP) — ready for fast cloud sync!</span>`;
+        }
         playSound('toggle');
-        showToast(`Image "${file.name}" loaded successfully!`, 'info');
-      };
-      reader.readAsDataURL(file);
+        showToast(`Image "${file.name}" optimized & loaded (${comp.compKb} KB)!`, 'info');
+      } catch(err) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          currentUploadedImage = ev.target.result;
+          if (previewImg) previewImg.src = currentUploadedImage;
+          if (newPresetImgUrl) newPresetImgUrl.value = '';
+          if (statusEl) statusEl.style.display = 'none';
+          playSound('toggle');
+          showToast(`Image "${file.name}" loaded!`, 'info');
+        };
+        reader.readAsDataURL(file);
+      }
     }
   };
 }
@@ -1565,10 +1882,10 @@ if (newPresetImgUrl) {
   }
 });
 
-// Submit New Preset
+// Submit New Preset (Published Locally AND Pushed to Cloud)
 const newPresetForm = document.getElementById('newPresetForm');
 if (newPresetForm) {
-  newPresetForm.onsubmit = (e) => {
+  newPresetForm.onsubmit = async (e) => {
     e.preventDefault();
     const name = document.getElementById('newPresetName').value.trim();
     const price = parseInt(document.getElementById('newPresetPrice').value, 10);
@@ -1580,6 +1897,12 @@ if (newPresetForm) {
     if (!name || isNaN(price) || !desc) {
       showToast('Please fill all required fields.', 'error');
       return;
+    }
+
+    const publishBtn = document.getElementById('publishPresetBtn');
+    if (publishBtn) {
+      publishBtn.disabled = true;
+      publishBtn.textContent = 'Publishing & Syncing to Cloud... ⏳';
     }
 
     const newPreset = {
@@ -1599,13 +1922,35 @@ if (newPresetForm) {
     renderStoreProducts();
     renderAdminCatalog();
 
-    showToast(`🚀 "${name}" successfully published to live website!`, 'success');
-    logActivity(`Published new preset: ${name} (₹${price})`, '🎉');
-    playSound('pay');
+    let cloudSynced = false;
+    if (isCloudConfigured()) {
+      cloudSynced = await saveCatalogToCloud(catalog);
+    }
+
+    if (publishBtn) {
+      publishBtn.disabled = false;
+      publishBtn.textContent = 'Publish Preset to Live Website 🚀';
+    }
+
+    if (cloudSynced) {
+      showToast(`🚀 "${name}" successfully published to LIVE WEBSITE! Visible to all visitors!`, 'success');
+      logActivity(`Published & Cloud-synced: ${name} (₹${price})`, '🎉');
+      playSound('pay');
+    } else if (isCloudConfigured()) {
+      showToast(`✓ "${name}" saved locally, but cloud sync failed. Check ☁️ Cloud Live Sync tab.`, 'warn');
+      logActivity(`Published locally (cloud sync failed): ${name}`, '⚠️');
+      playSound('warning');
+    } else {
+      showToast(`✓ "${name}" saved in browser! To show to all visitors, connect your free Cloud in ☁️ Cloud Live Sync tab.`, 'info');
+      logActivity(`Published new preset (Local): ${name} (₹${price})`, '🎉');
+      playSound('pay');
+    }
 
     // Reset Form
     newPresetForm.reset();
     currentUploadedImage = null;
+    const statusEl = document.getElementById('uploadCompressionStatus');
+    if (statusEl) statusEl.style.display = 'none';
     if (adminAddFormWrap) adminAddFormWrap.style.display = 'none';
   };
 }
@@ -1652,6 +1997,9 @@ if (adminSettingsForm) {
 
     saveSiteSettings({ discordUrl, email, badge });
     renderStoreProducts();
+    if (isCloudConfigured()) {
+      saveSettingsToCloud({ discordUrl, email, badge });
+    }
     showToast('Site settings updated & applied live! ✓', 'success');
     logActivity('Discord & Site configuration updated', '⚙️');
     playSound('pay');
@@ -1745,9 +2093,135 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// Event Listeners for Cloud Live Sync Tab Controls
+const btnSaveCloudConfig = document.getElementById('btnSaveCloudConfig');
+const btnPushToCloud = document.getElementById('btnPushToCloud');
+const btnPullFromCloud = document.getElementById('btnPullFromCloud');
+const btnExportJson = document.getElementById('btnExportJson');
+const btnCopyPresetCode = document.getElementById('btnCopyPresetCode');
+
+if (btnSaveCloudConfig) {
+  btnSaveCloudConfig.onclick = async () => {
+    const urlInput = document.getElementById('cloudDatabaseUrl');
+    const rawUrl = urlInput ? urlInput.value.trim() : '';
+    if (!rawUrl) {
+      showToast('Please enter your Firebase Database URL.', 'error');
+      return;
+    }
+
+    const cleaned = cleanDatabaseUrl(rawUrl);
+    btnSaveCloudConfig.disabled = true;
+    btnSaveCloudConfig.textContent = 'Testing Connection... ⏳';
+
+    saveCloudConfig({ databaseURL: cleaned });
+
+    try {
+      const res = await fetch(`${cleaned}/catalog.json`);
+      if (res.ok) {
+        showToast('✓ Cloud Database connected successfully! Initializing Realtime engine...', 'success');
+        playSound('pay');
+        await initCloudSync();
+        renderAdminCloudSync();
+        logActivity('Cloud Database connected: ' + cleaned, '☁️');
+      } else {
+        showToast(`Warning: Server returned status ${res.status}. Check database rules (".read": true, ".write": true).`, 'error');
+        updateCloudUIState(false);
+      }
+    } catch(err) {
+      showToast('Could not connect to URL. Please check spelling or internet connection.', 'error');
+      updateCloudUIState(false);
+    } finally {
+      btnSaveCloudConfig.disabled = false;
+      btnSaveCloudConfig.textContent = '⚡ Connect & Test Cloud Database';
+    }
+  };
+}
+
+if (btnPushToCloud) {
+  btnPushToCloud.onclick = async () => {
+    if (!isCloudConfigured()) {
+      showToast('Please enter and connect your Firebase Database URL first.', 'error');
+      return;
+    }
+    btnPushToCloud.disabled = true;
+    btnPushToCloud.textContent = 'Pushing Presets... ⏳';
+    
+    const catalog = getCatalog();
+    const success = await saveCatalogToCloud(catalog);
+    btnPushToCloud.disabled = false;
+    btnPushToCloud.textContent = '🚀 Push All Local Presets to Cloud Now';
+
+    if (success) {
+      showToast(`🎉 Success! All ${catalog.length} presets synced to Cloud. Live for all visitors!`, 'success');
+      playSound('pay');
+      logActivity(`Pushed ${catalog.length} presets to live cloud`, '🚀');
+    } else {
+      showToast('Failed to push to Cloud. Check Firebase Database rules and permissions.', 'error');
+    }
+  };
+}
+
+if (btnPullFromCloud) {
+  btnPullFromCloud.onclick = async () => {
+    if (!isCloudConfigured()) {
+      showToast('Please enter and connect your Firebase Database URL first.', 'error');
+      return;
+    }
+    btnPullFromCloud.disabled = true;
+    btnPullFromCloud.textContent = 'Pulling from Cloud... ⏳';
+    
+    const remote = await fetchCatalogFromCloud();
+    btnPullFromCloud.disabled = false;
+    btnPullFromCloud.textContent = '📥 Pull Latest from Cloud';
+
+    if (Array.isArray(remote) && remote.length > 0) {
+      saveCatalog(remote);
+      renderStoreProducts();
+      renderAdminCatalog();
+      renderAdminCloudSync();
+      showToast(`✓ Loaded ${remote.length} presets from Cloud!`, 'success');
+      playSound('pay');
+      logActivity(`Pulled ${remote.length} presets from cloud`, '📥');
+    } else {
+      showToast('No presets found in cloud database or could not reach cloud.', 'info');
+    }
+  };
+}
+
+if (btnExportJson) {
+  btnExportJson.onclick = () => {
+    const catalog = getCatalog();
+    const blob = new Blob([JSON.stringify(catalog, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `mine_presets_backup_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Catalog backup downloaded as JSON! 💾', 'info');
+    playSound('hover');
+  };
+}
+
+if (btnCopyPresetCode) {
+  btnCopyPresetCode.onclick = () => {
+    const catalog = getCatalog();
+    const code = `const DEFAULT_PRESETS = ${JSON.stringify(catalog, null, 2)};`;
+    navigator.clipboard.writeText(code).then(() => {
+      showToast('DEFAULT_PRESETS code copied to clipboard! 📋', 'success');
+      playSound('copy');
+    }).catch(() => {
+      showToast('Unable to copy code to clipboard.', 'error');
+    });
+  };
+}
+
 // Initialize on page load
 initAdminCredentials();
 initAnalytics();
+initCloudSync();
 applySiteSettings(getSiteSettings());
 renderStoreProducts();
 

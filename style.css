@@ -2994,4 +2994,204 @@ body.cc-lightbox-open, body.cc-lightbox-open * {
   color: var(--text-muted);
 }
 .audit-entry.success { border-left: 3px solid var(--emerald-neon); }
-.audit-entry.warn { border-left: 3px solid #ff5252; color: #ff8e8e; }
+.audit-entry.warn { border-left: 3px solid #ff5252; color: #ff8e8e; }
+
+/* --------------------------------------------------------------------------
+   CLOUD LIVE SYNC & REALTIME DATABASE STYLING
+   -------------------------------------------------------------------------- */
+.cloud-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 15px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+.cloud-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffb703;
+  box-shadow: 0 0 8px rgba(255, 183, 3, 0.6);
+  transition: all 0.3s ease;
+}
+.cloud-status-pill.connected {
+  background: rgba(0, 245, 155, 0.08);
+  border-color: rgba(0, 245, 155, 0.35);
+  color: var(--emerald-neon);
+  box-shadow: 0 0 15px rgba(0, 245, 155, 0.15);
+}
+.cloud-status-pill.connected .cloud-status-dot {
+  background: var(--emerald-neon);
+  box-shadow: 0 0 10px var(--emerald-neon);
+  animation: dotBlink 1.8s infinite;
+}
+
+.upload-compression-status {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(0, 245, 155, 0.08);
+  border: 1px solid rgba(0, 245, 155, 0.25);
+  color: var(--emerald-neon);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.25s ease;
+}
+
+.cloud-overview-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0, 245, 155, 0.07), rgba(247, 231, 178, 0.04));
+  border: 1px solid rgba(0, 245, 155, 0.22);
+  margin-bottom: 22px;
+  box-shadow: inset 0 0 30px rgba(0, 245, 155, 0.03);
+}
+.cloud-overview-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 260px;
+}
+.cloud-icon-circle {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 245, 155, 0.12);
+  border: 1.5px solid var(--emerald-neon);
+  color: var(--emerald-neon);
+  box-shadow: 0 0 20px var(--emerald-glow-sm);
+  transition: all 0.3s ease;
+}
+.cloud-overview-card.connected .cloud-icon-circle {
+  background: linear-gradient(135deg, rgba(0, 245, 155, 0.25), rgba(247, 231, 178, 0.15));
+  box-shadow: 0 0 25px var(--emerald-glow);
+}
+.cloud-overview-left h5 {
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+.cloud-conn-sub {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  display: block;
+}
+.cloud-overview-stats {
+  display: flex;
+  gap: 12px;
+}
+.cloud-stat-mini {
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  min-width: 90px;
+}
+.cloud-stat-mini .mini-lbl {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-dim);
+  margin-bottom: 3px;
+  font-weight: 700;
+}
+.cloud-stat-mini .mini-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--emerald-neon);
+}
+
+.cloud-action-btns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  margin-bottom: 22px;
+}
+
+.cloud-guide-box {
+  padding: 20px 22px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  margin-bottom: 22px;
+}
+.cloud-guide-box h5 {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #f7e7b2;
+  margin-bottom: 14px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.cloud-guide-steps {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.cloud-guide-steps code {
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(0, 245, 155, 0.1);
+  border: 1px solid rgba(0, 245, 155, 0.25);
+  color: var(--emerald-neon);
+  font-family: monospace;
+  font-size: 12px;
+}
+.guide-note {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: rgba(0, 245, 155, 0.08);
+  border-left: 3px solid var(--emerald-neon);
+  font-size: 12.5px;
+  color: #ffffff;
+  line-height: 1.5;
+}
+
+.cloud-backup-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+.cloud-backup-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}

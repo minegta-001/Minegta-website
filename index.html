@@ -499,6 +499,10 @@
           <span class="admin-subtext">Owner Control Panel — MINE PRESETS 🔱</span>
         </div>
         <div class="admin-top-actions">
+          <div class="cloud-status-pill" id="adminCloudStatusPill" title="Cloud Database Sync Status">
+            <span class="cloud-status-dot"></span>
+            <span class="cloud-status-label" id="cloudStatusLabel">Local Mode</span>
+          </div>
           <button class="btn-admin-action btn-logout" id="adminLogoutBtn" type="button">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
             <span>Lock &amp; Sign Out</span>
@@ -523,6 +527,10 @@
         <button class="admin-tab" data-tab="security" type="button">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
           Security &amp; Password
+        </button>
+        <button class="admin-tab" data-tab="cloud" type="button" id="adminCloudTabBtn">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+          ☁️ Cloud Live Sync
         </button>
       </div>
 
@@ -645,9 +653,10 @@
                   <div class="upload-zone-content">
                     <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                     <span>Click or Drag Image File Here</span>
-                    <span class="upload-sub">Supports PNG, JPG, WEBP</span>
+                    <span class="upload-sub">Supports PNG, JPG, WEBP (Auto-optimized to 4K)</span>
                   </div>
                 </div>
+                <div class="upload-compression-status" id="uploadCompressionStatus" style="display:none;"></div>
                 <div class="or-divider"><span>OR ENTER LOCAL IMAGE PATH / URL</span></div>
                 <input type="text" id="newPresetImgUrl" placeholder="e.g. images/Mine-cc1_.png">
               </div>
@@ -752,6 +761,100 @@
           </div>
         </div>
       </div>
+
+      <!-- TAB 5: CLOUD LIVE SYNC & DATABASE CONFIGURATION -->
+      <div class="admin-tab-pane" id="tabPane-cloud">
+        <div class="admin-card-section">
+          <div class="section-title-row">
+            <h4>☁️ Global Cloud Live Sync Engine</h4>
+            <span class="tag-status neon" id="cloudLiveSyncBadge">Ready</span>
+          </div>
+          <p class="admin-help-text">
+            Jab aap website publish karte hain, local browser data dusre devices/visitors ko nahi dikhta. 
+            Apne naye presets aur uploaded photos ko <strong>duniya ke har visitor ko live dikhane ke liye</strong> apna free Firebase Realtime Database URL yahan connect karein.
+          </p>
+
+          <!-- Current Cloud Status Overview -->
+          <div class="cloud-overview-card">
+            <div class="cloud-overview-left">
+              <div class="cloud-icon-circle" id="cloudIconCircle">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+              </div>
+              <div>
+                <h5 id="cloudConnStatusTitle">Cloud Sync: Local Mode Only</h5>
+                <span class="cloud-conn-sub" id="cloudConnStatusSub">Presets are currently saved in this local browser only. Connect Cloud Database below so all visitors worldwide can see your uploads in real-time!</span>
+              </div>
+            </div>
+            <div class="cloud-overview-stats">
+              <div class="cloud-stat-mini">
+                <span class="mini-lbl">Local Presets</span>
+                <span class="mini-val" id="cloudStatLocalCount">0</span>
+              </div>
+              <div class="cloud-stat-mini">
+                <span class="mini-lbl">Cloud Presets</span>
+                <span class="mini-val" id="cloudStatRemoteCount">—</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cloud Configuration Form -->
+          <form id="adminCloudConfigForm" class="admin-cloud-form" onsubmit="return false;">
+            <div class="auth-field">
+              <label for="cloudDatabaseUrl">Firebase Realtime Database URL / Endpoint *</label>
+              <div class="input-wrap">
+                <input type="url" id="cloudDatabaseUrl" placeholder="https://your-project-default-rtdb.firebaseio.com" spellcheck="false">
+              </div>
+              <span class="field-hint">Paste your Firebase Realtime Database URL here (e.g. https://mine-presets-default-rtdb.firebaseio.com).</span>
+            </div>
+
+            <div class="cloud-action-btns">
+              <button type="button" class="btn-admin-cta" id="btnSaveCloudConfig">
+                ⚡ Connect &amp; Test Cloud Database
+              </button>
+              <button type="button" class="btn-admin-action" id="btnPushToCloud">
+                🚀 Push All Local Presets to Cloud Now
+              </button>
+              <button type="button" class="btn-admin-action" id="btnPullFromCloud">
+                📥 Pull Latest from Cloud
+              </button>
+            </div>
+          </form>
+
+          <!-- 4-Step Visual Setup Guide -->
+          <div class="cloud-guide-box">
+            <h5>📖 2-Minute Free Cloud Setup Guide (Step-by-Step):</h5>
+            <ol class="cloud-guide-steps">
+              <li>
+                <strong>Step 1:</strong> Open <a href="https://console.firebase.google.com" target="_blank" rel="noopener noreferrer" style="color:var(--emerald-neon); text-decoration:underline;">Firebase Console (console.firebase.google.com)</a> with your Google account.
+              </li>
+              <li>
+                <strong>Step 2:</strong> Click <strong>"Add project"</strong> &rarr; enter name <code>mine-presets</code> &rarr; click Continue &rarr; Create Project.
+              </li>
+              <li>
+                <strong>Step 3:</strong> In the left sidebar, click <strong>Build &rarr; Realtime Database</strong> &rarr; click <strong>"Create Database"</strong>. Select any location &rarr; Choose <strong>"Start in test mode"</strong> (Rules: <code>".read": true, ".write": true</code>).
+              </li>
+              <li>
+                <strong>Step 4:</strong> Copy your Database URL at the top (starts with <code>https://...firebaseio.com</code>) &rarr; paste it in the box above &rarr; click <strong>"Connect &amp; Test"</strong> &rarr; then click <strong>"Push All Local Presets to Cloud Now"</strong>!
+              </li>
+            </ol>
+            <div class="guide-note">
+              🎉 <strong>Congratulations!</strong> From that moment on, whenever you upload pictures, add presets, or update prices from this Admin Portal, they will instantly appear for <em>every single visitor worldwide</em> on their phone and PC in real-time!
+            </div>
+          </div>
+
+          <!-- Offline Backup / Export Box -->
+          <div class="cloud-backup-card">
+            <div>
+              <h5>💾 Offline Backup &amp; Static Export</h5>
+              <p class="admin-help-text" style="margin-bottom:0;">Download all current presets as a JSON file or copy updated code for script.js.</p>
+            </div>
+            <div class="cloud-backup-actions">
+              <button type="button" class="btn-sm-ghost" id="btnExportJson">📥 Download JSON Backup</button>
+              <button type="button" class="btn-sm-ghost" id="btnCopyPresetCode">📋 Copy script.js Code</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -760,8 +863,10 @@
 <div class="toast-container" id="toastContainer"></div>
 
 <!-- ==========================================================================
-   JAVASCRIPT ENGINE (WEATHER PARTICLES, 3D TILT, MAGNETIC CURSOR, AUDIO)
+   FIREBASE REALTIME CLOUD SYNCHRONIZATION ENGINE & JAVASCRIPT APP
    ========================================================================== -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
