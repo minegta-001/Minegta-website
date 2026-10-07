@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aman Motion Lab — Kinetic Motion Graphics, Oscilloscope & Color Science | MINE PRESETS</title>
+  <meta name="description" content="Aman Motion Lab: Live 120 FPS Oscilloscope, Cinema S-Curve, RGB Waveform Parade & Vectorscope Radar. Precision 10-bit color science engineered by Aman.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/website-icon.png">
+  <style>
+    /* Dedicated Aman Motion Lab Page Styling */
+    body {
+      background: #050508;
+      color: #f5f5f7;
+      overflow-x: hidden;
+    }
+    .lab-page-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8, 8, 12, 0.88);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px 24px;
+    }
+    .lab-nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .lab-nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #a1a1aa;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease;
+    }
+    .lab-nav-back:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateX(-2px);
+    }
+    .lab-nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .lab-brand-accent {
+      background: linear-gradient(135deg, #22d3ee, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .lab-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .lab-nav-links a {
+      font-size: 13px;
+      font-weight: 600;
+      color: #a1a1aa;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .lab-nav-links a:hover {
+      color: #ffffff;
+    }
+    .lab-cta-course {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #ffffff, #e2e8f0);
+      color: #ffffff !important;
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 12.5px !important;
+      font-weight: 700 !important;
+      border: 1px solid rgba(192, 132, 252, 0.4);
+      transition: all 0.2s;
+    }
+    .lab-cta-course:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(124, 58, 237, 0.4);
+    }
+    @media (max-width: 820px) {
+      .lab-nav-links { display: none; }
+    }
+
+    /* Lab Hero Section */
+    .lab-hero {
+      position: relative;
+      padding: 80px 24px 40px 24px;
+      text-align: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .lab-ambient-radial {
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(34, 211, 238, 0.12) 0%, rgba(255, 255, 255, 0.08) 40%, transparent 70%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .lab-hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    .lab-badge-strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      color: #67e8f9;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .lab-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22d3ee;
+      box-shadow: 0 0 10px #22d3ee;
+      animation: dotPulse 1.4s infinite;
+    }
+    .lab-hero h1 {
+      font-size: clamp(34px, 5.5vw, 62px);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      color: #ffffff;
+      margin-bottom: 18px;
+    }
+    .lab-gradient-text {
+      background: linear-gradient(135deg, #ffffff 20%, #22d3ee 65%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .lab-hero-desc {
+      font-size: clamp(15px, 2vw, 17px);
+      line-height: 1.6;
+      color: #a1a1aa;
+      max-width: 780px;
+      margin: 0 auto 30px auto;
+    }
+
+    /* Interactive Scope Deck */
+    .lab-stage-section {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 0 24px 60px 24px;
+    }
+    .lab-console-card {
+      position: relative;
+      border-radius: 28px;
+      background: radial-gradient(circle at 50% 0%, #15151e 0%, #07070b 100%);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 35px 120px rgba(0, 0, 0, 0.95), 0 0 60px rgba(34, 211, 238, 0.05);
+      overflow: hidden;
+      backdrop-filter: blur(25px);
+    }
+    .lab-canvas-container {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      background: #000000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: crosshair;
+    }
+    #labCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .lab-canvas-container {
+        height: 290px;
+      }
+    }
+
+    /* Live Signal Control Deck */
+    .lab-controls-deck {
+      margin-top: 24px;
+      padding: 24px 28px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      align-items: center;
+    }
+    .lab-control-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .lab-ctrl-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #a1a1aa;
+      display: flex;
+      justify-content: space-between;
+    }
+    .lab-ctrl-label span:last-child {
+      color: #22d3ee;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .lab-slider {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      outline: none;
+      cursor: pointer;
+    }
+    .lab-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #22d3ee;
+      cursor: pointer;
+      box-shadow: 0 0 10px #22d3ee;
+      border: 2px solid #ffffff;
+      transition: transform 0.1s;
+    }
+    .lab-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+    .lab-toggle-btn {
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .lab-toggle-btn.active {
+      background: rgba(34, 211, 238, 0.18);
+      border-color: #22d3ee;
+      color: #22d3ee;
+    }
+
+    /* Science Bento Grid */
+    .lab-bento-section {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 20px 24px 80px 24px;
+    }
+    .lab-bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 960px) {
+      .lab-bento-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .lab-b-card {
+      padding: 32px 28px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .lab-b-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    }
+    .lab-b-tag {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #22d3ee;
+      margin-bottom: 8px;
+    }
+    .lab-b-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+    .lab-b-metric {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 38px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .lab-b-unit {
+      font-size: 14px;
+      color: #a1a1aa;
+    }
+    .lab-b-desc {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #a1a1aa;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    /* Comparison Bar Box */
+    .lab-compare-box {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .lab-compare-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .lab-compare-row span:first-child {
+      width: 80px;
+      color: #d4d4d8;
+    }
+    .lab-bar-smooth {
+      flex: 1;
+      height: 14px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #0f172a 0%, #38bdf8 50%, #f8fafc 100%);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+    }
+    .lab-bar-stepped {
+      flex: 1;
+      height: 14px;
+      border-radius: 4px;
+      background: repeating-linear-gradient(90deg, #0f172a 0px, #0f172a 16px, #1e293b 16px, #1e293b 32px, #334155 32px, #334155 48px, #475569 48px, #475569 64px, #64748b 64px, #64748b 80px, #94a3b8 80px, #94a3b8 96px, #cbd5e1 96px, #cbd5e1 112px, #f8fafc 112px, #f8fafc 128px);
+      opacity: 0.7;
+    }
+
+    /* Bottom Gateway Cards */
+    .lab-gateway-section {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 0 24px 100px 24px;
+    }
+    .lab-gateway-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 850px) {
+      .lab-gateway-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .lab-gate-card {
+      border-radius: 24px;
+      padding: 34px 30px;
+      background: linear-gradient(135deg, rgba(20, 16, 32, 0.9) 0%, rgba(10, 8, 16, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .lab-gate-card.blue {
+      background: linear-gradient(135deg, rgba(14, 24, 40, 0.9) 0%, rgba(8, 12, 20, 0.95) 100%);
+      border-color: rgba(34, 211, 238, 0.35);
+    }
+    .lab-gate-head h3 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .lab-gate-head p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #a1a1aa;
+    }
+    .lab-gate-pricing {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 14px 0 6px 0;
+    }
+    .lab-gate-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .lab-gate-pill strong {
+      color: #ffffff;
+    }
+    .lab-gate-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .lab-gate-btn-purple {
+      background: linear-gradient(135deg, #ffffff, #e2e8f0);
+      border: 1px solid #ffffff;
+      color: #ffffff;
+    }
+    .lab-gate-btn-purple:hover {
+      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
+      transform: translateY(-2px);
+    }
+    .lab-gate-btn-blue {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      border: 1px solid #38bdf8;
+      color: #ffffff;
+    }
+    .lab-gate-btn-blue:hover {
+      box-shadow: 0 8px 30px rgba(2, 132, 199, 0.5);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top Navigation -->
+  <header class="lab-page-nav">
+    <div class="lab-nav-inner">
+      <a href="index.html" class="lab-nav-back" title="Back to MINE PRESETS Store">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Back to Store</span>
+      </a>
+
+      <a href="#labConsole" class="lab-nav-brand">
+        <img src="images/website-icon.png" alt="Icon" width="28" height="28" style="border-radius:6px;">
+        <span>AMAN<span class="lab-brand-accent">MOTION LAB</span></span>
+      </a>
+
+      <div class="lab-nav-links">
+        <a href="#labConsole">Live Oscilloscope</a>
+        <a href="#science">Color Science</a>
+        <a href="course.html" class="lab-cta-course">✦ MINE GTA Course (AE) ↗</a>
+        <a href="index.html#store">Explore Store ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="lab-hero">
+    <div class="lab-ambient-radial"></div>
+    <div class="lab-hero-content">
+      <div class="lab-badge-strip">
+        <span class="lab-badge-dot"></span>
+        <span>AMAN MOTION LAB • 120 FPS KINETIC OSCILLOSCOPE</span>
+      </div>
+      <h1>PURE SIGNAL DYNAMICS.<br><span class="lab-gradient-text">ZERO BANDING.</span></h1>
+      <p class="lab-hero-desc">
+        Engineered by Aman with mathematical S-curve optics, 10-bit sub-pixel phosphor vectors, and real-time frequency response. Touch, drag, or switch modes below to bend the live signal in real time.
+      </p>
+    </div>
+  </section>
+
+  <!-- Interactive Stage Section -->
+  <main class="lab-stage-section" id="labConsole">
+    <div class="lab-console-card">
+      <!-- Top Bar with Mode Switchers -->
+      <div class="console-top-bar">
+        <div class="console-beacon">
+          <span class="signal-dot"></span>
+          <span class="signal-title">AMAN OSCILLOSCOPE MONITOR</span>
+          <span class="signal-badge">120 FPS HARDWARE ACCEL</span>
+        </div>
+
+        <div class="scope-mode-chips">
+          <button type="button" class="scope-mode-chip active" data-mode="scurve">
+            <span class="mode-idx">01</span> ✦ Cinema S-Curve
+          </button>
+          <button type="button" class="scope-mode-chip" data-mode="parade">
+            <span class="mode-idx">02</span> ⚡ RGB Parade
+          </button>
+          <button type="button" class="scope-mode-chip" data-mode="beatsync">
+            <span class="mode-idx">03</span> 〰️ Beat-Sync Audio
+          </button>
+          <button type="button" class="scope-mode-chip" data-mode="vector">
+            <span class="mode-idx">04</span> 🌀 Vectorscope Radar
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Interactive Canvas Viewport -->
+      <div class="lab-canvas-container" id="labCanvasWrap">
+        <canvas id="labCanvas" width="1220" height="380"></canvas>
+        <div class="canvas-grid-overlay"></div>
+        <div class="canvas-interactive-hint">
+          <span class="hint-icon">✦</span> HOVER / DRAG TO MODULATE SIGNAL FREQUENCY
+        </div>
+      </div>
+
+      <!-- High-Tech Telemetry Strip -->
+      <div class="console-telemetry-strip">
+        <div class="telemetry-cell">
+          <span class="t-lbl">LUMA LEVELS (IRE)</span>
+          <span class="t-val" id="telLuma">0 — 1023 <small>[ACTIVE: 842]</small></span>
+        </div>
+        <div class="telemetry-cell">
+          <span class="t-lbl">COLOR DEPTH PIPELINE</span>
+          <span class="t-val">10-BIT PRORES <small>[1.07B COLORS]</small></span>
+        </div>
+        <div class="telemetry-cell">
+          <span class="t-lbl">HARMONIC ACCURACY</span>
+          <span class="t-val" id="telDelta">DELTA &lt; 0.08% <small>[ZERO BANDING]</small></span>
+        </div>
+        <div class="telemetry-cell">
+          <span class="t-lbl">FREQUENCY SPECTRUM</span>
+          <span class="t-val" id="telFreq">24Hz — 48kHz <small>[BEAT-SYNCED]</small></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Signal Control Deck (Gain, Frequency, Bloom, Audio tone) -->
+    <div class="lab-controls-deck">
+      <div class="lab-control-item">
+        <label class="lab-ctrl-label" for="sliderGain">
+          <span>Signal Gain / IRE</span>
+          <span id="lblGainVal">1.00x</span>
+        </label>
+        <input type="range" class="lab-slider" id="sliderGain" min="0.5" max="1.8" step="0.05" value="1.0">
+      </div>
+
+      <div class="lab-control-item">
+        <label class="lab-ctrl-label" for="sliderFreq">
+          <span>Oscillator Frequency</span>
+          <span id="lblFreqVal">1.00x</span>
+        </label>
+        <input type="range" class="lab-slider" id="sliderFreq" min="0.4" max="2.5" step="0.1" value="1.0">
+      </div>
+
+      <div class="lab-control-item">
+        <label class="lab-ctrl-label">
+          <span>Phosphor Bloom Glow</span>
+          <span id="lblBloomVal">ON</span>
+        </label>
+        <button type="button" class="lab-toggle-btn active" id="btnToggleBloom">
+          <span>✨ Soft Phosphor Glow</span>
+        </button>
+      </div>
+
+      <div class="lab-control-item">
+        <label class="lab-ctrl-label">
+          <span>Interactive Audio</span>
+          <span id="lblAudioVal">MUTED</span>
+        </label>
+        <button type="button" class="lab-toggle-btn" id="btnToggleSynthAudio">
+          <span>🔊 Synthesizer Audio</span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Science Bento Breakdown Section -->
+  <section class="lab-bento-section" id="science">
+    <div class="section-head" style="text-align:center; max-width:760px; margin:0 auto 34px auto;">
+      <div class="eyebrow" style="color:#22d3ee;">Calibrated Optical Engineering</div>
+      <h2 style="color:#ffffff;">Why MINE Color Science Outperforms Generic Presets</h2>
+      <p style="color:var(--text-muted);">
+        Every LUT and adjustment profile in MINE PRESETS is computed with continuous S-curves to protect skin tones, highlight rolloff, and display fidelity.
+      </p>
+    </div>
+
+    <div class="lab-bento-grid">
+      <!-- Card 1: Zero Banding -->
+      <div class="lab-b-card">
+        <span class="lab-b-tag">CALIBRATED SCIENCE</span>
+        <h3 class="lab-b-title">Zero Color Banding</h3>
+        <div class="lab-b-metric">0.00<span class="lab-b-unit">%</span></div>
+        <p class="lab-b-desc">
+          Continuous mathematical curve anti-aliasing completely eliminates stepped color bands on high-brightness OLED and Retina displays.
+        </p>
+        <div class="lab-compare-box">
+          <div class="lab-compare-row">
+            <span>MINE 10-BIT:</span>
+            <div class="lab-bar-smooth"></div>
+          </div>
+          <div class="lab-compare-row">
+            <span>GENERIC 8-BIT:</span>
+            <div class="lab-bar-stepped"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Dynamic Stops -->
+      <div class="lab-b-card">
+        <span class="lab-b-tag">OPTICAL ROLLOFF</span>
+        <h3 class="lab-b-title">14.8+ Dynamic Stops</h3>
+        <div class="lab-b-metric">14.8<span class="lab-b-unit">STOPS</span></div>
+        <p class="lab-b-desc">
+          Smooth logarithmic shoulder protection ensures sky highlights and specular sources never blow out into harsh pure white clipping.
+        </p>
+        <div class="m-badge-list">
+          <span class="m-chip">ARRI LogC3 / C4</span>
+          <span class="m-chip">Sony S-Log3</span>
+          <span class="m-chip">RED IPP2</span>
+          <span class="m-chip">Apple Log</span>
+        </div>
+      </div>
+
+      <!-- Card 3: 120 FPS GPU -->
+      <div class="lab-b-card">
+        <span class="lab-b-tag">PIPELINE PERFORMANCE</span>
+        <h3 class="lab-b-title">Real-Time 120 FPS</h3>
+        <div class="lab-b-metric">0.0<span class="lab-b-unit">ms</span></div>
+        <p class="lab-b-desc">
+          Engineered without bloated nested adjustment layers. Instant hardware GPU playback with zero timeline dropped frames.
+        </p>
+        <div class="m-badge-list">
+          <span class="m-chip">Premiere .prfpset</span>
+          <span class="m-chip">After Effects .ffx</span>
+          <span class="m-chip">DaVinci .cube</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Direct Gateway Cards -->
+  <section class="lab-gateway-section">
+    <div class="lab-gateway-grid">
+      <!-- Course Gateway Card -->
+      <div class="lab-gate-card">
+        <div class="lab-gate-head">
+          <span style="font-size:11px; font-weight:800; color:#ffffff; letter-spacing:1px; text-transform:uppercase;">OFFICIAL MENTORSHIP</span>
+          <h3>MINE GTA • After Effects Professional Course</h3>
+          <p>
+            Want to learn how to create motion design, 3D tracking, and Hollywood VFX like this? Join Aman's exclusive 4-month / 16-week masterclass.
+          </p>
+          <div class="lab-gate-pricing">
+            <span class="lab-gate-pill">Month 01 &amp; 02: <strong>₹10,000 / mo</strong></span>
+            <span class="lab-gate-pill">Month 03 &amp; 04: <strong>₹12,000 / mo</strong></span>
+          </div>
+        </div>
+        <a href="course.html" class="lab-gate-btn lab-gate-btn-purple">
+          <span>Explore 16-Week Course &amp; Apply ↗</span>
+        </a>
+      </div>
+
+      <!-- Preset Store Gateway Card -->
+      <div class="lab-gate-card blue">
+        <div class="lab-gate-head">
+          <span style="font-size:11px; font-weight:800; color:#22d3ee; letter-spacing:1px; text-transform:uppercase;">READY-TO-USE PRESETS</span>
+          <h3>MINE PRESETS • 4K Master Collections</h3>
+          <p>
+            Download battle-tested CC profiles, beat-synced optical transitions, and grading systems for Premiere Pro, AE, and DaVinci Resolve.
+          </p>
+          <div class="lab-gate-pricing">
+            <span class="lab-gate-pill">Instant Download</span>
+            <span class="lab-gate-pill">Lifetime License</span>
+            <span class="lab-gate-pill">UPI QR Payment</span>
+          </div>
+        </div>
+        <a href="index.html#store" class="lab-gate-btn lab-gate-btn-blue">
+          <span>Explore Store Packs ↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-in">
+      <span>© 2026 AMAN MOTION LAB • MINE PRESETS. All rights reserved.</span>
+      <div class="footer-meta-wrap">
+        <span>Direct Contact: <a href="mailto:amangta599990@gmail.com" style="color:#22d3ee; text-decoration:underline;">amangta599990@gmail.com</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script for Aman Motion Lab -->
+  <script src="motion-lab.js"></script>
+</body>
+</html>

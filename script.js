@@ -207,7 +207,7 @@ soundToggle.addEventListener('click', () => {
 });
 
 /* --------------------------------------------------------------------------
-   2. ULTRA-SMOOTH GREEN SNOW & GOLDEN RAIN CANVAS WEATHER ENGINE
+   2. APPLE TITANIUM AMBIENT PARTICLE ENGINE (MONOCHROMATIC STARDUST)
    -------------------------------------------------------------------------- */
 (function() {
   const canvas = document.getElementById('weatherCanvas');
@@ -216,18 +216,16 @@ soundToggle.addEventListener('click', () => {
   let W = window.innerWidth;
   let H = window.innerHeight;
   let dpr = Math.min(window.devicePixelRatio || 1, 2);
-  let snowFlakes = [];
-  let rainDrops = [];
+  let particles = [];
   let lastTime = performance.now();
   let rafId = 0;
   
-  // Mouse position for interactive particle physics
+  // Subtle mouse tracking for gentle inertial particle dispersion
   let mouse = { x: -9999, y: -9999, vx: 0, vy: 0, lastX: 0, lastY: 0 };
-  let lastSparkleSound = 0;
   
   window.addEventListener('mousemove', e => {
-    mouse.vx = (e.clientX - mouse.lastX) * 0.25;
-    mouse.vy = (e.clientY - mouse.lastY) * 0.25;
+    mouse.vx = (e.clientX - mouse.lastX) * 0.2;
+    mouse.vy = (e.clientY - mouse.lastY) * 0.2;
     mouse.lastX = e.clientX;
     mouse.lastY = e.clientY;
     mouse.x = e.clientX;
@@ -249,40 +247,21 @@ soundToggle.addEventListener('click', () => {
     canvas.style.height = H + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     
-    // Scale count with screen area
-    const totalFlakes = Math.min(180, Math.max(70, Math.floor(W / 9)));
-    const totalRain = Math.min(75, Math.max(30, Math.floor(W / 24)));
-    
-    snowFlakes = Array.from({ length: totalFlakes }, () => makeSnow(true));
-    rainDrops = Array.from({ length: totalRain }, () => makeRain(true));
+    const count = Math.min(120, Math.max(50, Math.floor(W / 14)));
+    particles = Array.from({ length: count }, () => makeParticle(true));
   }
 
-  function makeSnow(initial) {
-    const isGold = Math.random() < 0.28;
+  function makeParticle(initial) {
     return {
       x: Math.random() * W,
-      y: initial ? Math.random() * H : -15 - Math.random() * 60,
-      r: 1.1 + Math.random() * 2.8,
-      baseSpeed: 0.35 + Math.random() * 0.85,
-      drift: 0.4 + Math.random() * 0.7,
+      y: initial ? Math.random() * H : -10 - Math.random() * 40,
+      r: 0.8 + Math.random() * 1.8,
+      baseSpeedY: 0.15 + Math.random() * 0.35,
+      drift: 0.2 + Math.random() * 0.5,
       phase: Math.random() * Math.PI * 2,
-      alpha: 0.35 + Math.random() * 0.55,
-      isGold: isGold,
-      color: isGold ? 'rgba(255, 246, 204, ' : (Math.random() < 0.4 ? 'rgba(16, 255, 158, ' : 'rgba(110, 231, 183, '),
+      alpha: 0.2 + Math.random() * 0.5,
       vx: 0,
       vy: 0
-    };
-  }
-
-  function makeRain(initial) {
-    return {
-      x: Math.random() * (W + 150) - 75,
-      y: initial ? Math.random() * H : -30 - Math.random() * 120,
-      len: 12 + Math.random() * 22,
-      speed: 5.5 + Math.random() * 6.5,
-      wind: 0.9 + Math.random() * 1.1,
-      alpha: 0.12 + Math.random() * 0.22,
-      color: Math.random() < 0.4 ? 'rgba(247, 231, 178, ' : 'rgba(0, 245, 155, '
     };
   }
 
@@ -292,76 +271,37 @@ soundToggle.addEventListener('click', () => {
     const t = now * 0.001;
     ctx.clearRect(0, 0, W, H);
 
-    /* --- SILKY GREEN & GOLD RAIN --- */
-    ctx.lineCap = 'round';
-    for (let i = 0; i < rainDrops.length; i++) {
-      const d = rainDrops[i];
-      d.y += d.speed * dt * 0.06;
-      d.x += d.wind * dt * 0.06;
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
 
-      if (d.y > H + 40 || d.x > W + 80) {
-        Object.assign(d, makeRain(false));
-      }
+      p.y += (p.baseSpeedY + p.vy) * dt * 0.06;
+      p.x += (Math.sin(t * 0.5 + p.phase) * p.drift + p.vx) * dt * 0.06;
 
-      const grad = ctx.createLinearGradient(d.x, d.y, d.x + d.wind * 2, d.y + d.len);
-      grad.addColorStop(0, d.color + '0)');
-      grad.addColorStop(0.5, d.color + d.alpha + ')');
-      grad.addColorStop(1, d.color + '0)');
-      
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(d.x, d.y);
-      ctx.lineTo(d.x + d.wind * 1.5, d.y + d.len);
-      ctx.stroke();
-    }
-
-    /* --- SMOOTH GLOWING GREEN & GOLD SNOW WITH MOUSE DRIFT --- */
-    for (let i = 0; i < snowFlakes.length; i++) {
-      const f = snowFlakes[i];
-
-      // Natural harmonic float
-      f.y += (f.baseSpeed + f.vy) * dt * 0.055;
-      f.x += (Math.sin(t * 0.6 + f.phase) * f.drift + f.vx) * dt * 0.045;
-
-      // Mouse interactive fluid repulsion
-      const dx = f.x - mouse.x;
-      const dy = f.y - mouse.y;
+      // Smooth subtle mouse interaction
+      const dx = p.x - mouse.x;
+      const dy = p.y - mouse.y;
       const distSq = dx * dx + dy * dy;
-      const repelDist = 120;
+      const repelDist = 130;
       if (distSq < repelDist * repelDist && distSq > 0) {
         const dist = Math.sqrt(distSq);
-        const force = (1 - dist / repelDist) * 1.8;
-        f.vx += (dx / dist) * force;
-        f.vy += (dy / dist) * force;
-
-        const spdSq = mouse.vx * mouse.vx + mouse.vy * mouse.vy;
-        if (spdSq > 35 && now - lastSparkleSound > 280) {
-          lastSparkleSound = now;
-          playSound('sparkle');
-        }
+        const force = (1 - dist / repelDist) * 1.5;
+        p.vx += (dx / dist) * force;
+        p.vy += (dy / dist) * force;
       }
-      f.vx *= 0.94;
-      f.vy *= 0.94;
+      p.vx *= 0.94;
+      p.vy *= 0.94;
 
-      if (f.y > H + 15) {
-        Object.assign(f, makeSnow(false));
+      if (p.y > H + 15) {
+        Object.assign(p, makeParticle(false));
       }
-      if (f.x < -20) f.x = W + 15;
-      if (f.x > W + 20) f.x = -15;
+      if (p.x < -20) p.x = W + 15;
+      if (p.x > W + 20) p.x = -15;
 
       ctx.beginPath();
-      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-      ctx.fillStyle = f.color + f.alpha + ')';
-      
-      // Soft glow
-      if (f.r > 2.0) {
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = f.isGold ? 'rgba(255, 230, 150, 0.9)' : 'rgba(0, 245, 155, 0.9)';
-      } else {
-        ctx.shadowBlur = 6;
-        ctx.shadowColor = f.isGold ? 'rgba(247, 231, 178, 0.6)' : 'rgba(0, 245, 155, 0.6)';
-      }
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+      ctx.shadowBlur = p.r > 1.8 ? 10 : 4;
+      ctx.shadowColor = 'rgba(255, 255, 255, 0.5)';
       ctx.fill();
     }
     ctx.shadowBlur = 0;
@@ -380,84 +320,6 @@ soundToggle.addEventListener('click', () => {
     }
   });
   rafId = requestAnimationFrame(animate);
-})();
-
-/* --------------------------------------------------------------------------
-   3. DUAL-ELEMENT MAGNETIC CURSOR & PARTICLE SPARK TRAILS
-   -------------------------------------------------------------------------- */
-(function() {
-  const dot = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  if (!dot || !ring) return;
-  
-  let targetX = window.innerWidth / 2;
-  let targetY = window.innerHeight / 2;
-  let ringX = targetX;
-  let ringY = targetY;
-  let lastSpark = 0;
-
-  window.addEventListener('mousemove', e => {
-    targetX = e.clientX;
-    targetY = e.clientY;
-    dot.style.left = targetX + 'px';
-    dot.style.top = targetY + 'px';
-
-    // Spawn tiny emerald/gold trailing sparks on move
-    const now = performance.now();
-    if (now - lastSpark > 45) {
-      lastSpark = now;
-      createSpark(targetX, targetY);
-    }
-  }, { passive: true });
-
-  function createSpark(x, y) {
-    const spark = document.createElement('div');
-    spark.className = 'cursor-spark';
-    const isGold = Math.random() < 0.4;
-    const size = 3 + Math.random() * 4;
-    const color = isGold ? '#fff6d1' : '#00f59b';
-    const shadow = isGold ? 'rgba(247, 231, 178, 0.8)' : 'rgba(0, 245, 155, 0.8)';
-    
-    spark.style.width = size + 'px';
-    spark.style.height = size + 'px';
-    spark.style.background = color;
-    spark.style.boxShadow = `0 0 10px ${shadow}`;
-    spark.style.left = x + 'px';
-    spark.style.top = y + 'px';
-    
-    const angle = Math.random() * Math.PI * 2;
-    const dist = 10 + Math.random() * 20;
-    spark.style.setProperty('--dx', `${Math.cos(angle) * dist}px`);
-    spark.style.setProperty('--dy', `${Math.sin(angle) * dist}px`);
-    
-    document.body.appendChild(spark);
-    setTimeout(() => spark.remove(), 750);
-  }
-
-  function loop() {
-    ringX += (targetX - ringX) * 0.18;
-    ringY += (targetY - ringY) * 0.18;
-    ring.style.left = ringX + 'px';
-    ring.style.top = ringY + 'px';
-    requestAnimationFrame(loop);
-  }
-  loop();
-
-  // Hover triggers (all buttons, links, cards, modals, inputs & auth triggers)
-  const hoverables = 'a, button, .card, .filter, .social-btn, input, .cc-thumb, .btn-auth-nav, .user-pill, .user-dropdown-item, .auth-tab, .auth-switch-link, .modal-close, .copy-btn, .btn-upi-app, .btn-paid, .btn';
-  document.addEventListener('mouseover', e => {
-    if (e.target.closest(hoverables)) {
-      ring.classList.add('hover');
-      dot.classList.add('hover');
-      playSound('hover');
-    }
-  });
-  document.addEventListener('mouseout', e => {
-    if (e.target.closest(hoverables)) {
-      ring.classList.remove('hover');
-      dot.classList.remove('hover');
-    }
-  });
 })();
 
 /* --------------------------------------------------------------------------
@@ -812,7 +674,7 @@ const DEFAULT_PRESETS = [
     price: 500,
     cat: 'cc',
     tag: '4K CC',
-    desc: 'Your Footage Deserves This 4K Look. High-dynamic-range emerald balance and filmic punch.',
+    desc: 'Your Footage Deserves This 4K Look. High-dynamic-range curve balance and filmic punch.',
     img: 'images/Mine-cc3_.png'
   },
   {
@@ -843,6 +705,24 @@ const DEFAULT_PRESETS = [
     artSvg: 'transition'
   },
   {
+    id: 'sys-cleaner',
+    name: 'Mine Pc Cleaner',
+    price: 200,
+    cat: 'system',
+    tag: 'FAST BOOST',
+    desc: 'You can boost it faster this way. Cleans cache, frees memory, and eliminates timeline lag.',
+    artSvg: 'cleaner'
+  },
+  {
+    id: 'sys-megasuite',
+    name: 'MINE MEGASUITE',
+    price: 2000,
+    cat: 'system',
+    tag: 'EXTENSIONS (Short cuts)',
+    desc: 'Fast & powerful After Effects tools for creators. One-click animations, markers, and workflow macros.',
+    artSvg: 'megasuite'
+  },
+  {
     id: 'sys-1',
     name: 'System Preset 01',
     price: 299,
@@ -856,7 +736,7 @@ const DEFAULT_PRESETS = [
 const DEFAULT_SETTINGS = {
   discordUrl: 'https://discord.gg/aunjV6zMj',
   email: 'minegta611@gmail.com',
-  badge: 'Emerald & Imperial Gold 4K Edition'
+  badge: 'TITANIUM 4K MASTER COLLECTION'
 };
 
 // Cryptographic SHA-256 via Web Crypto API
@@ -1213,19 +1093,32 @@ function applySiteSettings(settings) {
   }
 }
 
-// Render Products in Live Store (Always Vertical 4K Showcase)
+// Render Products in Live Store (Cleanly Segregated into CC, System, and Transition sections)
 function renderStoreProducts() {
-  const container = document.querySelector('.products');
-  if (!container) return;
+  const containerCC = document.getElementById('productsCC');
+  const containerSys = document.getElementById('productsSystem');
+  const containerTrans = document.getElementById('productsTransition');
+  if (!containerCC && !containerSys && !containerTrans) return;
+
   const catalog = getCatalog();
   const settings = getSiteSettings();
-  const currentFilter = document.querySelector('.filter.active')?.dataset.filter || 'all';
 
-  let ccCount = 0;
-  container.innerHTML = catalog.map((p) => {
-    const isVisible = currentFilter === 'all' || p.cat === currentFilter;
+  const ccItems = catalog.filter(p => p.cat === 'cc');
+  const sysItems = catalog.filter(p => p.cat === 'system');
+  const transItems = catalog.filter(p => p.cat === 'transition');
+
+  // Update category navigation pill counters
+  const countCCEl = document.getElementById('countCCNav');
+  const countSysEl = document.getElementById('countSysNav');
+  const countTransEl = document.getElementById('countTransNav');
+  if (countCCEl) countCCEl.textContent = ccItems.length;
+  if (countSysEl) countSysEl.textContent = sysItems.length;
+  if (countTransEl) countTransEl.textContent = transItems.length;
+
+  let globalCCIndex = 0;
+  function renderCard(p) {
     const isCC = p.cat === 'cc';
-    const ccIndex = isCC ? ccCount++ : null;
+    const ccIndex = isCC ? globalCCIndex++ : null;
     
     let thumbHtml = '';
     if (p.img) {
@@ -1241,25 +1134,63 @@ function renderStoreProducts() {
         <div class="thumb">
           <svg class="upcoming-art" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Upcoming transition system">
             <defs>
-              <linearGradient id="bgG1_${p.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#020704"/><stop offset="0.5" stop-color="#071b10"/><stop offset="1" stop-color="#020704"/></linearGradient>
-              <linearGradient id="emeraldGold_${p.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00f59b"/><stop offset="50%" stop-color="#f7e7b2"/><stop offset="100%" stop-color="#10b981"/></linearGradient>
-              <filter id="glowG1_${p.id}"><feGaussianBlur stdDeviation="15"/></filter>
+              <linearGradient id="bgG1_${p.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#050507"/><stop offset="0.5" stop-color="#121216"/><stop offset="1" stop-color="#050507"/></linearGradient>
+              <linearGradient id="titaniumGrad_${p.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#a1a1a6"/><stop offset="100%" stop-color="#55555a"/></linearGradient>
+              <filter id="glowG1_${p.id}"><feGaussianBlur stdDeviation="20"/></filter>
             </defs>
             <rect width="900" height="520" fill="url(#bgG1_${p.id})"/>
-            <circle cx="700" cy="120" r="140" fill="#00f59b" opacity="0.16" filter="url(#glowG1_${p.id})"/>
-            <circle cx="180" cy="400" r="130" fill="#f7e7b2" opacity="0.12" filter="url(#glowG1_${p.id})"/>
-            <g opacity="0.15" stroke="#00f59b">
+            <circle cx="700" cy="120" r="140" fill="#ffffff" opacity="0.04" filter="url(#glowG1_${p.id})"/>
+            <circle cx="180" cy="400" r="130" fill="#a1a1a6" opacity="0.03" filter="url(#glowG1_${p.id})"/>
+            <g opacity="0.08" stroke="#ffffff">
               <path d="M0 90H900M0 180H900M0 270H900M0 360H900M0 450H900"/>
               <path d="M90 0V520M180 0V520M270 0V520M360 0V520M450 0V520M540 0V520M630 0V520M720 0V520M810 0V520"/>
             </g>
             <g transform="translate(450 255)">
-              <rect x="-280" y="-90" width="560" height="180" rx="22" fill="#041209" stroke="url(#emeraldGold_${p.id})" stroke-width="2"/>
-              <text x="0" y="-14" text-anchor="middle" fill="#f7e7b2" font-family="Cinzel, serif" font-size="56" font-weight="800" letter-spacing="8">TRANSITIONS</text>
-              <text x="0" y="32" text-anchor="middle" fill="#00f59b" font-family="Inter, sans-serif" font-size="16" letter-spacing="5">PACK 01 — LOADING DROP</text>
-              <line x1="-140" y1="56" x2="140" y2="56" stroke="url(#emeraldGold_${p.id})" stroke-width="2"/>
+              <rect x="-280" y="-90" width="560" height="180" rx="22" fill="#0d0d11" stroke="url(#titaniumGrad_${p.id})" stroke-width="1.5"/>
+              <text x="0" y="-12" text-anchor="middle" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="44" font-weight="800" letter-spacing="8">TRANSITIONS</text>
+              <text x="0" y="34" text-anchor="middle" fill="#86868b" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="600" letter-spacing="4">SEAMLESS CAMERA MOVES</text>
+              <line x1="-120" y1="56" x2="120" y2="56" stroke="url(#titaniumGrad_${p.id})" stroke-width="1.5"/>
             </g>
           </svg>
           <span class="tag">${p.tag || 'Transitions'}</span>
+        </div>
+      `;
+    } else if (p.artSvg === 'cleaner') {
+      thumbHtml = `
+        <div class="thumb">
+          <svg class="upcoming-art" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PC Cleaner & Fast Booster">
+            <defs>
+              <linearGradient id="bgCl_${p.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#050507"/><stop offset="0.5" stop-color="#14141e"/><stop offset="1" stop-color="#050507"/></linearGradient>
+              <linearGradient id="cleanerGrad_${p.id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#80d0ff"/><stop offset="50%" stop-color="#ffffff"/><stop offset="100%" stop-color="#3a80df"/></linearGradient>
+            </defs>
+            <rect width="900" height="520" fill="url(#bgCl_${p.id})"/>
+            <g transform="translate(450 240)">
+              <rect x="-280" y="-100" width="560" height="200" rx="22" fill="#0a0d14" stroke="url(#cleanerGrad_${p.id})" stroke-width="1.5"/>
+              <text x="0" y="-20" text-anchor="middle" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="44" font-weight="800" letter-spacing="4">PC CLEANER</text>
+              <text x="0" y="24" text-anchor="middle" fill="#70a0d0" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" letter-spacing="3">FAST CACHE PURGE • RAM BOOST</text>
+              <text x="0" y="60" text-anchor="middle" fill="#86868b" font-family="monospace" font-size="12">1-CLICK OPTIMIZER</text>
+            </g>
+          </svg>
+          <span class="tag">${p.tag || 'FAST BOOST'}</span>
+        </div>
+      `;
+    } else if (p.artSvg === 'megasuite') {
+      thumbHtml = `
+        <div class="thumb">
+          <svg class="upcoming-art" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MINE MEGASUITE AE Tools">
+            <defs>
+              <linearGradient id="bgMs_${p.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#080507"/><stop offset="0.5" stop-color="#180c10"/><stop offset="1" stop-color="#050507"/></linearGradient>
+              <linearGradient id="msGrad_${p.id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ff4466"/><stop offset="50%" stop-color="#ffffff"/><stop offset="100%" stop-color="#ff7788"/></linearGradient>
+            </defs>
+            <rect width="900" height="520" fill="url(#bgMs_${p.id})"/>
+            <g transform="translate(450 240)">
+              <rect x="-280" y="-100" width="560" height="200" rx="22" fill="#12090c" stroke="url(#msGrad_${p.id})" stroke-width="1.5"/>
+              <text x="0" y="-20" text-anchor="middle" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="44" font-weight="800" letter-spacing="4">MINE MEGASUITE</text>
+              <text x="0" y="24" text-anchor="middle" fill="#ff7088" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="700" letter-spacing="3">AE SHORTCUTS &amp; EXTENSIONS</text>
+              <text x="0" y="60" text-anchor="middle" fill="#86868b" font-family="monospace" font-size="12">WORKFLOW ACCELERATOR</text>
+            </g>
+          </svg>
+          <span class="tag">${p.tag || 'EXTENSIONS'}</span>
         </div>
       `;
     } else {
@@ -1267,15 +1198,15 @@ function renderStoreProducts() {
         <div class="thumb">
           <svg class="upcoming-art" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Upcoming system preset">
             <defs>
-              <linearGradient id="bgS1_${p.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#020704"/><stop offset="0.5" stop-color="#0a2214"/><stop offset="1" stop-color="#020704"/></linearGradient>
-              <linearGradient id="goldGreen_${p.id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#f7e7b2"/><stop offset="50%" stop-color="#00f59b"/><stop offset="100%" stop-color="#ffd700"/></linearGradient>
+              <linearGradient id="bgS1_${p.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#050507"/><stop offset="0.5" stop-color="#14141a"/><stop offset="1" stop-color="#050507"/></linearGradient>
+              <linearGradient id="silverGrad_${p.id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#a1a1a6"/><stop offset="50%" stop-color="#ffffff"/><stop offset="100%" stop-color="#6e6e73"/></linearGradient>
             </defs>
             <rect width="900" height="520" fill="url(#bgS1_${p.id})"/>
             <g transform="translate(450 255)">
-              <rect x="-280" y="-90" width="560" height="180" rx="22" fill="#030d07" stroke="url(#goldGreen_${p.id})" stroke-width="2"/>
-              <text x="0" y="-14" text-anchor="middle" fill="#00f59b" font-family="Cinzel, serif" font-size="56" font-weight="800" letter-spacing="8">SYSTEM 01</text>
-              <text x="0" y="32" text-anchor="middle" fill="#f7e7b2" font-family="Inter, sans-serif" font-size="16" letter-spacing="5">FULL WORKFLOW ENGINE</text>
-              <line x1="-140" y1="56" x2="140" y2="56" stroke="url(#goldGreen_${p.id})" stroke-width="2"/>
+              <rect x="-280" y="-90" width="560" height="180" rx="22" fill="#0c0c10" stroke="url(#silverGrad_${p.id})" stroke-width="1.5"/>
+              <text x="0" y="-12" text-anchor="middle" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="44" font-weight="800" letter-spacing="8">SYSTEM 01</text>
+              <text x="0" y="34" text-anchor="middle" fill="#86868b" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="600" letter-spacing="4">FULL WORKFLOW ENGINE</text>
+              <line x1="-120" y1="56" x2="120" y2="56" stroke="url(#silverGrad_${p.id})" stroke-width="1.5"/>
             </g>
           </svg>
           <span class="tag">${p.tag || 'System'}</span>
@@ -1284,7 +1215,7 @@ function renderStoreProducts() {
     }
 
     return `
-      <article class="card product ${isCC ? 'cc-card' : ''}" data-cat="${p.cat}" data-id="${p.id}" ${isCC ? `data-index="${ccIndex}"` : ''} style="display: ${isVisible ? 'flex' : 'none'}; flex-direction: column;">
+      <article class="card product ${isCC ? 'cc-card' : ''}" data-cat="${p.cat}" data-id="${p.id}" ${isCC ? `data-index="${ccIndex}"` : ''} style="display: flex; flex-direction: column;">
         <div class="card-shine"></div>
         ${thumbHtml}
         <div class="card-body">
@@ -1297,7 +1228,11 @@ function renderStoreProducts() {
         </div>
       </article>
     `;
-  }).join('');
+  }
+
+  if (containerCC) containerCC.innerHTML = ccItems.map(renderCard).join('');
+  if (containerSys) containerSys.innerHTML = sysItems.map(renderCard).join('');
+  if (containerTrans) containerTrans.innerHTML = transItems.map(renderCard).join('');
 
   setupLightboxCards();
   setupCardTilt();
@@ -1553,6 +1488,7 @@ function renderAdminDashboard() {
   renderAdminSettings();
   renderAdminSecurity();
   renderAdminCloudSync();
+  renderAdminGtaApplications();
 }
 
 // Analytics Rendering
@@ -1635,7 +1571,7 @@ function renderAdminCatalog() {
   listEl.innerHTML = catalog.map(p => `
     <div class="catalog-item-card" data-id="${p.id}">
       <div class="catalog-item-left">
-        ${p.img ? `<img src="${p.img}" alt="${p.name}" class="catalog-item-img">` : `<div class="catalog-item-img" style="background:#041209; display:flex; align-items:center; justify-content:center; color:var(--emerald-neon); font-size:11px; font-weight:800;">${p.tag || 'SYS'}</div>`}
+        ${p.img ? `<img src="${p.img}" alt="${p.name}" class="catalog-item-img">` : `<div class="catalog-item-img" style="background:#121216; display:flex; align-items:center; justify-content:center; color:#ffffff; font-size:11px; font-weight:800;">${p.tag || 'SYS'}</div>`}
         <div class="catalog-item-info">
           <h5>${p.name}</h5>
           <span class="catalog-item-badge">${p.tag || p.cat.toUpperCase()}</span>
@@ -1706,7 +1642,7 @@ function renderAdminSettings() {
 
   if (disc) disc.value = settings.discordUrl || 'https://discord.gg/aunjV6zMj';
   if (email) email.value = settings.email || 'minegta611@gmail.com';
-  if (badge) badge.value = settings.badge || 'Emerald & Imperial Gold 4K Edition';
+  if (badge) badge.value = settings.badge || 'TITANIUM 4K MASTER COLLECTION';
 }
 
 // Security in Admin
@@ -1751,6 +1687,7 @@ document.querySelectorAll('.admin-tab').forEach(tabBtn => {
     if (tabName === 'analytics') renderAdminAnalytics();
     if (tabName === 'catalog') renderAdminCatalog();
     if (tabName === 'cloud') renderAdminCloudSync();
+    if (tabName === 'applications') renderAdminGtaApplications();
   });
 });
 
@@ -2233,6 +2170,11 @@ initAnalytics();
 initCloudSync();
 applySiteSettings(getSiteSettings());
 renderStoreProducts();
+setupMotionLab();
+setupMineGtaSection();
+setupBenchmarkSimulator();
+setupCinemaWaveform();
+setupHeroStageTilt();
 
 /* --------------------------------------------------------------------------
    10. INTERSECTION OBSERVER SCROLL REVEALS & TACTILE NAV
@@ -2253,7 +2195,7 @@ const observer = new IntersectionObserver((entries, obs) => {
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 // Tactile sound on all navigation, action, and social links
-document.querySelectorAll('.links a, .nav-cta, .actions a, .social-btn').forEach(link => {
+document.querySelectorAll('.links a, .nav-cta, .actions a, .social-btn, .store-nav-pill').forEach(link => {
   link.addEventListener('click', () => {
     playSound('click');
   });
@@ -2261,3 +2203,1187 @@ document.querySelectorAll('.links a, .nav-cta, .actions a, .social-btn').forEach
     playSound('hover');
   });
 });
+
+/* --------------------------------------------------------------------------
+   12. KINETIC MOTION GRAPHICS & DYNAMIC COLOR SCIENCE SUITE
+   -------------------------------------------------------------------------- */
+
+// A. Kinetic Motion Graphics & Waveform Oscilloscope Suite (Interactive S-Curve & Radar)
+function setupMotionLab() {
+  const canvas = document.getElementById('motionLabCanvas');
+  const wrap = document.getElementById('motionCanvasWrap');
+  if (!canvas || !wrap) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const modeChips = document.querySelectorAll('.scope-mode-chip');
+  const telLuma = document.getElementById('telLuma');
+  const telDelta = document.getElementById('telDelta');
+  const telFreq = document.getElementById('telFreq');
+
+  let activeMode = 'scurve'; // 'scurve' | 'parade' | 'beatsync' | 'vector'
+  let animId = null;
+  let isVisible = true;
+  let time = 0;
+  let lastBeatTime = 0;
+  let beatPulse = 0;
+
+  // Pointer tracking & smooth lerp
+  let pointerActive = false;
+  let rawPointerX = 0.5;
+  let rawPointerY = 0.5;
+  let smoothPointerX = 0.5;
+  let smoothPointerY = 0.5;
+
+  // Vector mode phosphor particles
+  const vectorParticles = [];
+  for (let i = 0; i < 90; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const dist = Math.pow(Math.random(), 0.7) * 0.75;
+    vectorParticles.push({
+      angle,
+      dist,
+      baseDist: dist,
+      speed: (Math.random() - 0.5) * 0.02,
+      jitter: Math.random() * Math.PI * 2,
+      size: Math.random() < 0.2 ? 2.5 : 1.5
+    });
+  }
+
+  // Audio spectrum bins
+  const SPECTRUM_BINS = 48;
+  const binHeights = new Float32Array(SPECTRUM_BINS);
+  const binTargets = new Float32Array(SPECTRUM_BINS);
+
+  function resizeCanvas() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width > 0 && rect.height > 0) {
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Pointer interactions on canvas wrapper
+  function updatePointerPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    rawPointerX = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    rawPointerY = Math.max(0, Math.min(1, (clientY - rect.top) / rect.height));
+    pointerActive = true;
+  }
+
+  wrap.addEventListener('pointerenter', () => { pointerActive = true; });
+  wrap.addEventListener('pointerdown', (e) => {
+    updatePointerPos(e);
+    playSound('click');
+  });
+  wrap.addEventListener('pointermove', updatePointerPos);
+  wrap.addEventListener('pointerleave', () => {
+    pointerActive = false;
+    rawPointerX = 0.5;
+    rawPointerY = 0.5;
+  });
+
+  // Mode switcher chips
+  modeChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const mode = chip.dataset.mode;
+      if (!mode || mode === activeMode) return;
+      activeMode = mode;
+      modeChips.forEach(c => c.classList.toggle('active', c === chip));
+      playSound('click');
+      playSound('zoom');
+
+      // Update telemetry readouts instantly
+      if (telFreq) {
+        if (mode === 'scurve') telFreq.innerHTML = '24Hz — 48kHz <small>[BEAT-SYNCED]</small>';
+        else if (mode === 'parade') telFreq.innerHTML = '3-CH MONOCHROME <small>[ACEScg REC.709]</small>';
+        else if (mode === 'beatsync') telFreq.innerHTML = '128.0 BPM <small>[TRANSIENT LOCK]</small>';
+        else if (mode === 'vector') telFreq.innerHTML = '360° POLAR GAMUT <small>[LEGAL BOUNDS]</small>';
+      }
+    });
+  });
+
+  // Intersection observer for zero CPU overhead offscreen
+  const observer = new IntersectionObserver((entries) => {
+    isVisible = entries[0].isIntersecting;
+    if (isVisible && !animId) {
+      animId = requestAnimationFrame(renderLoop);
+    }
+  }, { threshold: 0.05 });
+  observer.observe(canvas);
+
+  // Main Render Loop (120 FPS capable)
+  function renderLoop(timestamp) {
+    if (!isVisible) {
+      animId = null;
+      return;
+    }
+
+    const rect = canvas.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+
+    if (w <= 0 || h <= 0) {
+      animId = requestAnimationFrame(renderLoop);
+      return;
+    }
+
+    time += 0.024;
+    smoothPointerX += (rawPointerX - smoothPointerX) * 0.08;
+    smoothPointerY += (rawPointerY - smoothPointerY) * 0.08;
+
+    // Simulate rhythmic beat kick
+    if (timestamp - lastBeatTime > 468) { // ~128 BPM
+      lastBeatTime = timestamp;
+      beatPulse = 1.0;
+    }
+    beatPulse *= 0.92;
+
+    // Clear background
+    ctx.clearRect(0, 0, w, h);
+
+    // Draw Graticule Lines
+    drawGraticuleGrid(w, h);
+
+    // Render active mode
+    if (activeMode === 'scurve') {
+      renderCinemaSCurve(w, h);
+    } else if (activeMode === 'parade') {
+      renderRgbParade(w, h);
+    } else if (activeMode === 'beatsync') {
+      renderBeatSyncAudio(w, h);
+    } else if (activeMode === 'vector') {
+      renderVectorscopeRadar(w, h);
+    }
+
+    // Interactive pointer HUD crosshair & readout
+    if (pointerActive) {
+      drawInteractiveReticle(w, h);
+    }
+
+    // Dynamic Telemetry updates (every ~10 frames)
+    if (Math.floor(time * 30) % 10 === 0) {
+      updateTelemetryValues();
+    }
+
+    animId = requestAnimationFrame(renderLoop);
+  }
+
+  // --- Sub-renderer: Graticule Grid ---
+  function drawGraticuleGrid(w, h) {
+    ctx.save();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+    ctx.setLineDash([4, 6]);
+
+    // Horizontal IRE steps (1000, 800, 600, 400, 200, 0)
+    const steps = [0.12, 0.28, 0.44, 0.60, 0.76, 0.92];
+    const labels = ['1023 IRE', '800 IRE', '600 IRE', '400 IRE', '200 IRE', '0 IRE'];
+
+    steps.forEach((ratio, idx) => {
+      const y = h * ratio;
+      ctx.beginPath();
+      ctx.moveTo(48, y);
+      ctx.lineTo(w - 24, y);
+      ctx.stroke();
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.22)';
+      ctx.font = '9px "JetBrains Mono", monospace';
+      ctx.fillText(labels[idx], 8, y + 3);
+    });
+
+    // Vertical dividing sections
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.035)';
+    ctx.setLineDash([2, 8]);
+    for (let x = 120; x < w - 40; x += (w - 160) / 4) {
+      ctx.beginPath();
+      ctx.moveTo(x, h * 0.1);
+      ctx.lineTo(x, h * 0.94);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // --- Mode 1: Cinema S-Curve (Direct homage to Image 2) ---
+  function renderCinemaSCurve(w, h) {
+    const leftPad = 64;
+    const rightPad = 32;
+    const usableW = w - leftPad - rightPad;
+
+    // 1. Far-Left Vertical Luma Exposure Density Bar (matching Image 2)
+    ctx.save();
+    const barX = 46;
+    const barW = 12;
+    const barYTop = h * 0.12;
+    const barH = h * 0.8;
+
+    // Outer subtle boundary
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(barX, barYTop, barW, barH);
+
+    // Gradient density
+    const grad = ctx.createLinearGradient(0, barYTop + barH, 0, barYTop);
+    grad.addColorStop(0, 'rgba(255, 255, 255, 0.05)');
+    grad.addColorStop(0.3, 'rgba(255, 255, 255, 0.18)');
+    grad.addColorStop(0.7, 'rgba(255, 255, 255, 0.45)');
+    grad.addColorStop(1, 'rgba(255, 255, 255, 0.95)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(barX + 1, barYTop + 1, barW - 2, barH - 2);
+
+    // Active exposure marker tick
+    const activeIreRatio = 0.82 - (smoothPointerY - 0.5) * 0.2;
+    const markerY = barYTop + barH * (1 - Math.max(0.05, Math.min(0.95, activeIreRatio)));
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = '#ffffff';
+    ctx.shadowBlur = 8;
+    ctx.fillRect(barX - 2, markerY - 1.5, barW + 4, 3);
+    ctx.restore();
+
+    // 2. Secondary Harmonic Wave (Thinner, woven wave)
+    ctx.save();
+    ctx.lineWidth = 1.6;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+    ctx.beginPath();
+    for (let i = 0; i <= usableW; i += 3) {
+      const x = leftPad + i;
+      const nx = i / usableW;
+      const k = 6.0 + (smoothPointerY - 0.5) * 2.5;
+      const x0 = 0.5 + (smoothPointerX - 0.5) * 0.2;
+      const s = 1 / (1 + Math.exp(-k * (nx - x0)));
+      const harmonic = Math.sin(nx * 14 + time * 1.5) * 0.05 + Math.cos(nx * 26 - time * 0.9) * 0.025;
+      const y = h * (0.88 - s * 0.72 + harmonic);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // 3. Primary Glowing White S-Curve (The Hero Beam)
+    ctx.save();
+    ctx.lineWidth = 3.6;
+    ctx.strokeStyle = '#ffffff';
+    ctx.shadowColor = 'rgba(255, 255, 255, 0.9)';
+    ctx.shadowBlur = 18;
+    ctx.beginPath();
+    for (let i = 0; i <= usableW; i += 2) {
+      const x = leftPad + i;
+      const nx = i / usableW;
+      const k = 6.8 + (smoothPointerY - 0.5) * 3.2;
+      const x0 = 0.48 + (smoothPointerX - 0.5) * 0.25;
+      const s = 1 / (1 + Math.exp(-k * (nx - x0)));
+      const ripple = Math.sin(nx * 18 + time * 1.8) * 0.028 + Math.sin(nx * 36 - time * 2.2) * 0.012;
+      const y = h * (0.86 - s * 0.72 + ripple);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // 4. Stippled Phosphor Sparkle Points (exact match to Image 2 dots!)
+    ctx.save();
+    for (let j = 0; j < 56; j++) {
+      const pxRatio = ((j * 0.018 + (time * 0.045)) % 1);
+      const px = leftPad + pxRatio * usableW;
+      const k = 6.8 + (smoothPointerY - 0.5) * 3.2;
+      const x0 = 0.48 + (smoothPointerX - 0.5) * 0.25;
+      const s = 1 / (1 + Math.exp(-k * (pxRatio - x0)));
+      const jitterY = (Math.sin(j * 4.2 + time * 3) * 16) + (Math.cos(j * 7.1) * 8);
+      const py = h * (0.86 - s * 0.72) + jitterY;
+
+      const alpha = 0.45 + Math.sin(j + time * 4) * 0.4;
+      ctx.fillStyle = `rgba(255, 255, 255, ${alpha.toFixed(2)})`;
+      const sz = (j % 4 === 0) ? 2.4 : 1.4;
+      ctx.fillRect(px, py, sz, sz);
+    }
+    ctx.restore();
+
+    // 5. Cathode Ray Tube Scan Line Sweep
+    ctx.save();
+    const sweepProgress = (time * 0.28) % 1.2 - 0.1;
+    const sweepX = leftPad + sweepProgress * usableW;
+    if (sweepX >= leftPad && sweepX <= leftPad + usableW) {
+      const sweepGrad = ctx.createLinearGradient(sweepX - 28, 0, sweepX + 28, 0);
+      sweepGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+      sweepGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.28)');
+      sweepGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      ctx.fillStyle = sweepGrad;
+      ctx.fillRect(sweepX - 28, h * 0.08, 56, h * 0.84);
+    }
+    ctx.restore();
+  }
+
+  // --- Mode 2: RGB Parade Monochrome ---
+  function renderRgbParade(w, h) {
+    const startX = 64;
+    const usableW = w - startX - 32;
+    const channelW = usableW / 3;
+    const channels = [
+      { name: 'R - RED LUMA', offset: 0, phase: 0 },
+      { name: 'G - GREEN LUMA', offset: 1, phase: 2.1 },
+      { name: 'B - BLUE LUMA', offset: 2, phase: 4.2 }
+    ];
+
+    channels.forEach(ch => {
+      const cx = startX + ch.offset * channelW;
+
+      // Channel header
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+      ctx.font = '10px "JetBrains Mono", monospace';
+      ctx.fillText(ch.name, cx + 12, h * 0.12);
+
+      // Channel partition border
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.beginPath();
+      ctx.moveTo(cx + channelW - 8, h * 0.1);
+      ctx.lineTo(cx + channelW - 8, h * 0.92);
+      ctx.stroke();
+
+      // Density Waveform Envelope (Multi-harmonic high frequency trace)
+      ctx.save();
+      for (let layer = 0; layer < 3; layer++) {
+        ctx.beginPath();
+        ctx.lineWidth = layer === 1 ? 2.2 : 1.2;
+        ctx.strokeStyle = layer === 1 ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.35)';
+        if (layer === 1) {
+          ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+          ctx.shadowBlur = 10;
+        }
+
+        for (let ix = 8; ix < channelW - 20; ix += 3) {
+          const nx = ix / (channelW - 28);
+          const t = time * 2.2 + ch.phase + layer * 1.4;
+          const noise1 = Math.sin(nx * 12 + t) * 0.18;
+          const noise2 = Math.sin(nx * 28 - t * 1.5) * 0.08;
+          const noise3 = Math.cos(nx * 44 + t * 0.8) * 0.04;
+          const mouseLift = (0.5 - smoothPointerY) * 0.2 * (layer === 1 ? 1 : 0.6);
+          const baseLevel = 0.55 + (ch.offset - 1) * 0.06;
+          const y = h * (baseLevel - (noise1 + noise2 + noise3 + mouseLift));
+
+          if (ix === 8) ctx.moveTo(cx + ix, y);
+          else ctx.lineTo(cx + ix, y);
+        }
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // Phosphor noise grains within the channel
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+      for (let g = 0; g < 24; g++) {
+        const gx = cx + 10 + (Math.sin(g * 3.7 + time * 2) * 0.5 + 0.5) * (channelW - 32);
+        const gy = h * (0.35 + (Math.cos(g * 5.1 + time * 1.8) * 0.5 + 0.5) * 0.48);
+        ctx.fillRect(gx, gy, 1.4, 1.4);
+      }
+    });
+  }
+
+  // --- Mode 3: Beat-Sync Audio Equalizer Spectrum ---
+  function renderBeatSyncAudio(w, h) {
+    const startX = 64;
+    const usableW = w - startX - 32;
+    const barW = usableW / SPECTRUM_BINS;
+
+    // Simulate transient bounce and beat energy
+    for (let i = 0; i < SPECTRUM_BINS; i++) {
+      const freqRatio = i / SPECTRUM_BINS;
+      const bassInfluence = Math.exp(-freqRatio * 3.5) * beatPulse * 0.55;
+      const noise = (Math.sin(i * 0.45 + time * 4.5) * 0.5 + 0.5) * 0.35;
+      const mouseBoost = (1 - Math.abs(freqRatio - smoothPointerX)) * (1 - smoothPointerY) * 0.4;
+      binTargets[i] = Math.max(0.08, Math.min(0.92, bassInfluence + noise + mouseBoost));
+      binHeights[i] += (binTargets[i] - binHeights[i]) * 0.24;
+    }
+
+    // Draw Spectrum Bars
+    ctx.save();
+    for (let i = 0; i < SPECTRUM_BINS; i++) {
+      const bh = binHeights[i] * h * 0.68;
+      const bx = startX + i * barW + barW * 0.15;
+      const bw = barW * 0.7;
+      const by = h * 0.86 - bh;
+
+      // Bar Body Gradient
+      const grad = ctx.createLinearGradient(0, h * 0.86, 0, by);
+      grad.addColorStop(0, 'rgba(255, 255, 255, 0.1)');
+      grad.addColorStop(0.7, 'rgba(255, 255, 255, 0.45)');
+      grad.addColorStop(1, 'rgba(255, 255, 255, 0.95)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(bx, by, bw, bh);
+
+      // Glowing Cap
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = '#ffffff';
+      ctx.shadowBlur = 8;
+      ctx.fillRect(bx, by - 2, bw, 2);
+    }
+    ctx.restore();
+
+    // Continuous Harmonic Spline on top
+    ctx.save();
+    ctx.lineWidth = 2.4;
+    ctx.strokeStyle = '#ffffff';
+    ctx.shadowColor = 'rgba(255, 255, 255, 0.9)';
+    ctx.shadowBlur = 12;
+    ctx.beginPath();
+    for (let i = 0; i < SPECTRUM_BINS; i++) {
+      const bx = startX + i * barW + barW * 0.5;
+      const by = h * 0.86 - binHeights[i] * h * 0.68 - 4;
+      if (i === 0) ctx.moveTo(bx, by);
+      else {
+        const prevBx = startX + (i - 1) * barW + barW * 0.5;
+        const prevBy = h * 0.86 - binHeights[i - 1] * h * 0.68 - 4;
+        const cx = (prevBx + bx) / 2;
+        const cy = (prevBy + by) / 2;
+        ctx.quadraticCurveTo(prevBx, prevBy, cx, cy);
+      }
+    }
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // --- Mode 4: Vectorscope Radar Reticle ---
+  function renderVectorscopeRadar(w, h) {
+    const cx = w / 2;
+    const cy = h / 2;
+    const radius = Math.min(w * 0.38, h * 0.42);
+
+    ctx.save();
+    // Concentric Saturation Circles (20%, 40%, 60%, 80%, 100%)
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+    ctx.lineWidth = 1;
+    [0.25, 0.5, 0.75, 1.0].forEach(factor => {
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius * factor, 0, Math.PI * 2);
+      ctx.stroke();
+    });
+
+    // Crosshairs (I & Q axes)
+    ctx.setLineDash([3, 5]);
+    ctx.beginPath();
+    ctx.moveTo(cx - radius * 1.1, cy);
+    ctx.lineTo(cx + radius * 1.1, cy);
+    ctx.moveTo(cx, cy - radius * 1.1);
+    ctx.lineTo(cx, cy + radius * 1.1);
+    ctx.stroke();
+
+    // Skin Tone Reference Line (135° angle, cinema standard)
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.28)';
+    ctx.setLineDash([]);
+    ctx.beginPath();
+    const skinAngle = -Math.PI * 0.72; // ~130°
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(skinAngle) * radius * 1.05, cy + Math.sin(skinAngle) * radius * 1.05);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.font = '9px "JetBrains Mono", monospace';
+    ctx.fillText('SKIN TONE I-AXIS', cx + Math.cos(skinAngle) * radius * 1.08 - 20, cy + Math.sin(skinAngle) * radius * 1.08 - 6);
+
+    // Six Legal Color Gamut Target Boxes (R, Mg, B, Cy, G, Yl)
+    const targets = [
+      { name: 'R', angle: 0.18 * Math.PI },
+      { name: 'Mg', angle: 0.48 * Math.PI },
+      { name: 'B', angle: 0.85 * Math.PI },
+      { name: 'Cy', angle: 1.18 * Math.PI },
+      { name: 'G', angle: 1.48 * Math.PI },
+      { name: 'Yl', angle: 1.85 * Math.PI }
+    ];
+    targets.forEach(tgt => {
+      const tx = cx + Math.cos(tgt.angle) * radius * 0.75;
+      const ty = cy + Math.sin(tgt.angle) * radius * 0.75;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.strokeRect(tx - 6, ty - 6, 12, 12);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+      ctx.fillText(tgt.name, tx - 3, ty + 18);
+    });
+
+    // Rotating Radar Sweep Beam
+    const sweepAngle = time * 1.8;
+    const sweepGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+    sweepGrad.addColorStop(0, 'rgba(255, 255, 255, 0.25)');
+    sweepGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, radius, sweepAngle - 0.4, sweepAngle, false);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+    ctx.fill();
+    ctx.restore();
+
+    // Radar Lead Line
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+    ctx.lineWidth = 1.6;
+    ctx.shadowColor = '#ffffff';
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(sweepAngle) * radius, cy + Math.sin(sweepAngle) * radius);
+    ctx.stroke();
+
+    // Chroma Vector Particle Cluster (Dancing inside the legal gamut)
+    const mouseOffX = (smoothPointerX - 0.5) * 50;
+    const mouseOffY = (smoothPointerY - 0.5) * 50;
+    vectorParticles.forEach(p => {
+      p.angle += p.speed;
+      p.dist = p.baseDist + Math.sin(time * 3 + p.jitter) * 0.05;
+      const px = cx + Math.cos(p.angle) * radius * p.dist + mouseOffX;
+      const py = cy + Math.sin(p.angle) * radius * p.dist + mouseOffY;
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+      ctx.shadowColor = '#ffffff';
+      ctx.shadowBlur = 6;
+      ctx.fillRect(px, py, p.size, p.size);
+    });
+    ctx.restore();
+  }
+
+  // --- Pointer HUD Reticle & Tooltip ---
+  function drawInteractiveReticle(w, h) {
+    const px = w * smoothPointerX;
+    const py = h * smoothPointerY;
+
+    ctx.save();
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+    ctx.setLineDash([2, 4]);
+    ctx.lineWidth = 1;
+
+    // Crosshair lines
+    ctx.beginPath();
+    ctx.moveTo(px, 0);
+    ctx.lineTo(px, h);
+    ctx.moveTo(0, py);
+    ctx.lineTo(w, py);
+    ctx.stroke();
+
+    // Target box
+    ctx.setLineDash([]);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1.5;
+    ctx.shadowColor = '#ffffff';
+    ctx.shadowBlur = 8;
+    ctx.strokeRect(px - 7, py - 7, 14, 14);
+
+    // Reticle Tooltip Pill
+    const ireVal = Math.round((1 - smoothPointerY) * 1023);
+    const text = `IRE: ${ireVal} • SIG: ${(smoothPointerX * 100).toFixed(0)}%`;
+    ctx.font = '10px "JetBrains Mono", monospace';
+    const tw = ctx.measureText(text).width + 16;
+    const boxX = Math.min(w - tw - 10, Math.max(10, px + 12));
+    const boxY = Math.min(h - 26, Math.max(10, py - 18));
+
+    ctx.fillStyle = 'rgba(10, 10, 14, 0.88)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.lineWidth = 1;
+    ctx.fillRect(boxX, boxY, tw, 20);
+    ctx.strokeRect(boxX, boxY, tw, 20);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowBlur = 0;
+    ctx.fillText(text, boxX + 8, boxY + 14);
+    ctx.restore();
+  }
+
+  // --- Dynamic Telemetry Strip Text Update ---
+  function updateTelemetryValues() {
+    if (telLuma) {
+      const activeIre = Math.round(820 + Math.sin(time * 3) * 28 + (1 - smoothPointerY) * 120);
+      telLuma.innerHTML = `0 — 1023 <small>[ACTIVE: ${Math.min(1023, Math.max(0, activeIre))}]</small>`;
+    }
+    if (telDelta) {
+      const delta = (0.04 + Math.sin(time * 2) * 0.02).toFixed(3);
+      telDelta.innerHTML = `DELTA &lt; ${delta}% <small>[ZERO BANDING]</small>`;
+    }
+  }
+
+  animId = requestAnimationFrame(renderLoop);
+}
+
+// B. Interactive 1-Click System Performance Simulator (Master Systems Vault)
+function setupBenchmarkSimulator() {
+  const btn = document.getElementById('btnRunBenchmark');
+  const meterNum = document.getElementById('meterNum');
+  const meterFill = document.getElementById('meterFill');
+  const meterStatus = document.getElementById('meterStatus');
+  const fpsVal = document.getElementById('bmFpsVal');
+  const cacheVal = document.getElementById('bmCacheVal');
+  const lagVal = document.getElementById('bmLagVal');
+
+  if (!btn || !meterNum) return;
+
+  let isRunning = false;
+  btn.addEventListener('click', () => {
+    if (isRunning) return;
+    isRunning = true;
+    btn.disabled = true;
+
+    playSound('click');
+    if (meterStatus) meterStatus.textContent = '⚡ PURGING DISK CACHE & OVERCLOCKING AE...';
+    if (meterFill) meterFill.style.strokeDashoffset = '340';
+
+    let currentFps = 28;
+    meterNum.textContent = currentFps;
+    if (fpsVal) fpsVal.textContent = '28 FPS (LAGGING)';
+    if (cacheVal) cacheVal.textContent = 'SCANNING...';
+    if (lagVal) lagVal.textContent = '48.5 ms';
+
+    const interval = setInterval(() => {
+      currentFps += Math.floor(Math.random() * 12) + 8;
+      if (currentFps >= 120) {
+        currentFps = 120;
+        clearInterval(interval);
+
+        meterNum.textContent = '120+';
+        if (meterFill) meterFill.style.strokeDashoffset = '70';
+        if (meterStatus) meterStatus.textContent = '✓ 4.2 GB FREED • 120 FPS LOCKED!';
+        if (fpsVal) fpsVal.textContent = '120+ FPS (MAX)';
+        if (cacheVal) cacheVal.textContent = '4.2 GB FREED';
+        if (lagVal) lagVal.textContent = '0.0 ms';
+
+        playSound('pay');
+        showToast('🚀 System Cleared! Timeline playback accelerated to 120 FPS with zero lag.', 'success');
+        isRunning = false;
+        btn.disabled = false;
+      } else {
+        meterNum.textContent = currentFps;
+      }
+    }, 60);
+  });
+}
+
+// B. Apple Cinema Waveform / Oscilloscope Engine (Bento Grid)
+function setupCinemaWaveform() {
+  const canvas = document.getElementById('waveformCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  let animFrameId = null;
+  let isVisible = true;
+  let time = 0;
+
+  function resizeCanvas() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width > 0 && rect.height > 0) {
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+    }
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Pause rendering when canvas is outside viewport to maximize performance
+  const obs = new IntersectionObserver((entries) => {
+    isVisible = entries[0].isIntersecting;
+    if (isVisible && !animFrameId) {
+      renderWaveform();
+    }
+  }, { threshold: 0.05 });
+  obs.observe(canvas);
+
+  function renderWaveform() {
+    if (!isVisible) {
+      animFrameId = null;
+      return;
+    }
+
+    const rect = canvas.getBoundingClientRect();
+    const w = rect.width || 520;
+    const h = rect.height || 160;
+
+    ctx.clearRect(0, 0, w, h);
+
+    // 1. Graticule Scale Lines (Luma IRE levels)
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.07)';
+    ctx.setLineDash([4, 4]);
+
+    const ireSteps = [0.15, 0.35, 0.55, 0.75, 0.9];
+    ireSteps.forEach(ratio => {
+      const y = h * ratio;
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(w, y);
+      ctx.stroke();
+    });
+    ctx.setLineDash([]);
+
+    // 2. Dynamic Waveform S-Curves (Cinema Optics Simulation)
+    time += 0.035;
+
+    // Harmonic Envelope
+    ctx.lineWidth = 1.2;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+    ctx.beginPath();
+    for (let x = 0; x < w; x += 3) {
+      const nx = x / w;
+      const baseS = 1 / (1 + Math.exp(-6 * (nx - 0.5)));
+      const ripple = Math.sin(nx * 12 + time) * 0.06 + Math.cos(nx * 22 - time * 0.8) * 0.03;
+      const y = h * (0.88 - baseS * 0.72 + ripple);
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Core Phosphor Luminous Beam
+    ctx.lineWidth = 2.4;
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.shadowColor = 'rgba(255, 255, 255, 0.75)';
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    for (let x = 0; x < w; x += 2) {
+      const nx = x / w;
+      const baseS = 1 / (1 + Math.exp(-6.8 * (nx - 0.48)));
+      const noise = Math.sin(nx * 16 + time * 1.4) * 0.04 + Math.sin(nx * 32 - time * 1.8) * 0.02;
+      const y = h * (0.86 - baseS * 0.72 + noise);
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // High-Density Phosphor Grain
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+    for (let i = 0; i < 42; i++) {
+      const px = ((i * 13 + (time * 45)) % w);
+      const nx = px / w;
+      const baseS = 1 / (1 + Math.exp(-6.8 * (nx - 0.48)));
+      const jitter = (Math.sin(i * 3.7 + time * 2) * 12);
+      const py = h * (0.86 - baseS * 0.72) + jitter;
+      const sz = (i % 3 === 0) ? 2 : 1.2;
+      ctx.fillRect(px, py, sz, sz);
+    }
+
+    // Modern Scan Line Sweep
+    const sweepX = (time * 70) % (w + 40) - 20;
+    if (sweepX >= 0 && sweepX <= w) {
+      const grad = ctx.createLinearGradient(sweepX - 20, 0, sweepX + 20, 0);
+      grad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+      grad.addColorStop(0.5, 'rgba(255, 255, 255, 0.25)');
+      grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(sweepX - 20, 0, 40, h);
+    }
+
+    animFrameId = requestAnimationFrame(renderWaveform);
+  }
+
+  renderWaveform();
+}
+
+// C. Hero 3D Kinetic Stage Gyroscope Tilt & Specular Shine
+function setupHeroStageTilt() {
+  const stage = document.getElementById('heroStage');
+  const card = document.getElementById('heroKineticCard');
+  if (!stage || !card) return;
+
+  let bounds = null;
+  let rafId = null;
+  let targetRotateX = 0;
+  let targetRotateY = 0;
+  let currentRotateX = 0;
+  let currentRotateY = 0;
+
+  function updateTilt() {
+    currentRotateX += (targetRotateX - currentRotateX) * 0.08;
+    currentRotateY += (targetRotateY - currentRotateY) * 0.08;
+
+    card.style.transform = `perspective(1000px) rotateX(${currentRotateX.toFixed(2)}deg) rotateY(${currentRotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+
+    if (Math.abs(targetRotateX - currentRotateX) > 0.01 || Math.abs(targetRotateY - currentRotateY) > 0.01) {
+      rafId = requestAnimationFrame(updateTilt);
+    } else {
+      rafId = null;
+    }
+  }
+
+  function onPointerMove(e) {
+    if (!bounds) bounds = stage.getBoundingClientRect();
+    const mouseX = e.clientX - bounds.left;
+    const mouseY = e.clientY - bounds.top;
+
+    const xRatio = Math.max(0, Math.min(1, mouseX / bounds.width));
+    const yRatio = Math.max(0, Math.min(1, mouseY / bounds.height));
+
+    card.style.setProperty('--stage-x', `${(xRatio * 100).toFixed(1)}%`);
+    card.style.setProperty('--stage-y', `${(yRatio * 100).toFixed(1)}%`);
+
+    targetRotateX = ((0.5 - yRatio) * 16);
+    targetRotateY = ((xRatio - 0.5) * 16);
+
+    if (!rafId) {
+      rafId = requestAnimationFrame(updateTilt);
+    }
+  }
+
+  function onPointerLeave() {
+    targetRotateX = 0;
+    targetRotateY = 0;
+    card.style.setProperty('--stage-x', '50%');
+    card.style.setProperty('--stage-y', '50%');
+    if (!rafId) {
+      rafId = requestAnimationFrame(updateTilt);
+    }
+  }
+
+  stage.addEventListener('pointerenter', () => {
+    bounds = stage.getBoundingClientRect();
+  });
+  stage.addEventListener('pointermove', onPointerMove);
+  stage.addEventListener('pointerleave', onPointerLeave);
+}
+
+/* --------------------------------------------------------------------------
+   13. MINE GTA — AFTER EFFECTS PROFESSIONAL COURSE & ADMISSIONS CONTROLLER
+   Direct Application Delivery to: amangta599990@gmail.com
+   -------------------------------------------------------------------------- */
+const GTA_APPLICATIONS_KEY = 'mine_gta_applications_v1';
+
+function getGtaApplications() {
+  try {
+    return JSON.parse(localStorage.getItem(GTA_APPLICATIONS_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveGtaApplication(record) {
+  try {
+    const list = getGtaApplications();
+    list.unshift(record);
+    localStorage.setItem(GTA_APPLICATIONS_KEY, JSON.stringify(list));
+  } catch (e) {}
+}
+
+// Global Course Month Selector (Invoked by Month Cards)
+window.selectCourseMonth = function(monthString) {
+  const selectEl = document.getElementById('gtaCourse');
+  if (selectEl) {
+    selectEl.value = monthString;
+  }
+  const applySection = document.getElementById('apply');
+  if (applySection) {
+    applySection.scrollIntoView({ behavior: 'smooth' });
+  }
+  playSound('click');
+  showToast(`Selected: ${monthString}`, 'info');
+
+  const nameInput = document.getElementById('gtaName');
+  if (nameInput) {
+    setTimeout(() => nameInput.focus(), 600);
+  }
+};
+
+function setupMineGtaSection() {
+  const container = document.getElementById('course') || document.getElementById('mine-gta');
+  if (!container) return;
+
+  const tabBtns = container.querySelectorAll('.gta-tab-btn');
+  const panels = container.querySelectorAll('.gta-month-panel');
+  const roadmapContainer = container.querySelector('.gta-roadmap-container');
+  const applyForm = document.getElementById('gtaApplyForm');
+  const submitBtn = document.getElementById('gtaSubmitBtn');
+  const btnSpinner = document.getElementById('gtaBtnSpinner');
+  const statusBox = document.getElementById('gtaFormStatus');
+  const whatsappLink = document.getElementById('gtaWhatsappLink');
+  const gmailDirectBtn = document.getElementById('btnSendFromMyGmail');
+
+  // Real-time Gmail compose link updater as student types
+  function updateDirectGmailLink() {
+    const name = (document.getElementById('gtaName')?.value || '').trim();
+    const city = (document.getElementById('gtaAddress')?.value || '').trim();
+    const email = (document.getElementById('gtaEmail')?.value || '').trim();
+    const phone = (document.getElementById('gtaPhone')?.value || '').trim();
+    const course = document.getElementById('gtaCourse')?.value || 'Complete 4-Month Masterclass';
+    const notes = (document.getElementById('gtaNotes')?.value || '').trim();
+
+    const subject = `MINE GTA Course Application - ${name || 'New Student'}`;
+    const body = 
+`Hello Aman Sir,
+
+I want to enroll in the MINE GTA After Effects Professional Course.
+
+• Student Name: ${name || '[Your Name]'}
+• Address / City: ${city || '[Your City]'}
+• Student Personal Gmail: ${email || '[Your Gmail]'}
+• Phone / WhatsApp: ${phone || '[Your Phone]'}
+• Selected Program: ${course}
+• Goals / Message: ${notes || 'Ready to learn!'}
+
+Please review my application and share the enrollment & payment details.
+
+Thank you,
+${name || 'Student'}`;
+
+    const gmailWebUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=amangta599990@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (gmailDirectBtn) {
+      gmailDirectBtn.href = gmailWebUrl;
+      gmailDirectBtn.title = `Send directly from your logged-in Gmail to amangta599990@gmail.com`;
+    }
+  }
+
+  ['gtaName', 'gtaAddress', 'gtaEmail', 'gtaPhone', 'gtaCourse', 'gtaNotes'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', updateDirectGmailLink);
+      el.addEventListener('change', updateDirectGmailLink);
+    }
+  });
+  updateDirectGmailLink();
+
+  // 1. Month Tab Navigation (if present)
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetMonth = btn.dataset.month;
+      if (!targetMonth) return;
+
+      tabBtns.forEach(b => b.classList.toggle('active', b === btn));
+      playSound('click');
+      playSound('reveal');
+
+      if (targetMonth === 'all') {
+        if (roadmapContainer) roadmapContainer.classList.add('show-all');
+        panels.forEach(p => p.classList.add('active'));
+      } else {
+        if (roadmapContainer) roadmapContainer.classList.remove('show-all');
+        panels.forEach(p => {
+          p.classList.toggle('active', p.dataset.panel === targetMonth);
+        });
+      }
+    });
+  });
+
+  // 2. Application Form Submission (Locked to amangta599990@gmail.com)
+  if (applyForm) {
+    applyForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nameInput = document.getElementById('gtaName');
+      const addrInput = document.getElementById('gtaAddress');
+      const emailInput = document.getElementById('gtaEmail');
+      const phoneInput = document.getElementById('gtaPhone');
+      const courseInput = document.getElementById('gtaCourse');
+      const levelInput = document.getElementById('gtaLevel');
+      const notesInput = document.getElementById('gtaNotes');
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const address = addrInput ? addrInput.value.trim() : '';
+      const email = emailInput ? emailInput.value.trim() : '';
+      const phone = phoneInput ? phoneInput.value.trim() : '';
+      const course = courseInput ? courseInput.value : 'Complete 4-Month Masterclass';
+      const level = levelInput ? levelInput.value : 'Intermediate';
+      const notes = notesInput ? notesInput.value.trim() : '';
+
+      // Validation
+      if (!name || name.length < 2) {
+        showStatus('Please enter your full student name.', 'error');
+        if (nameInput) nameInput.focus();
+        playSound('warning');
+        return;
+      }
+      if (!address || address.length < 3) {
+        showStatus('Please enter your address or city.', 'error');
+        if (addrInput) addrInput.focus();
+        playSound('warning');
+        return;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email || !emailRegex.test(email)) {
+        showStatus('Please enter a valid Gmail / Email address.', 'error');
+        if (emailInput) emailInput.focus();
+        playSound('warning');
+        return;
+      }
+      const phoneClean = phone.replace(/[^0-9+]/g, '');
+      if (!phoneClean || phoneClean.length < 8) {
+        showStatus('Please enter a valid WhatsApp / Phone number with country code.', 'error');
+        if (phoneInput) phoneInput.focus();
+        playSound('warning');
+        return;
+      }
+
+      // UI Loading state
+      if (submitBtn) submitBtn.disabled = true;
+      if (btnSpinner) btnSpinner.style.display = 'inline-block';
+      const btnText = submitBtn ? submitBtn.querySelector('.btn-text') : null;
+      if (btnText) btnText.textContent = 'Dispatching to amangta599990@gmail.com...';
+
+      const applicationId = 'GTA-' + Math.floor(100000 + Math.random() * 900000);
+      const appRecord = {
+        id: applicationId,
+        name,
+        address,
+        email,
+        phone,
+        course,
+        level,
+        notes: notes || 'None',
+        timestamp: new Date().toISOString(),
+        formattedDate: new Date().toLocaleString()
+      };
+
+      // FormSubmit payload (Direct to amangta599990@gmail.com with _replyto: student's Gmail)
+      const payload = {
+        _subject: `🔥 [MINE GTA COURSE APPLICATION] ${name} - ${course} (${applicationId})`,
+        _template: 'table',
+        _captcha: 'false',
+        _replyto: email,
+        "Application ID": applicationId,
+        "Student Full Name": name,
+        "Address / City": address,
+        "Student Gmail": email,
+        "WhatsApp / Phone": phone,
+        "Selected Course Program": course,
+        "Current Experience Level": level,
+        "Student Goals & Notes": notes || 'Not provided',
+        "Application Date": appRecord.formattedDate
+      };
+
+      try {
+        await fetch('https://formsubmit.co/ajax/amangta599990@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        // Always save locally so owner never loses applications even offline
+        saveGtaApplication(appRecord);
+
+        playSound('pay');
+        showToast('✓ Application Dispatched to amangta599990@gmail.com! 🚀', 'success');
+
+        const composeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=amangta599990@gmail.com&su=${encodeURIComponent(`MINE GTA Application Confirmation (${applicationId}) - ${name}`)}&body=${encodeURIComponent(`Hello Aman Sir, I just submitted my application for ${course}.\nMy Phone: ${phone}\nMy Gmail: ${email}`)}`;
+
+        showStatus(
+          `<strong>✓ Application Dispatched to amangta599990@gmail.com!</strong><br>` +
+          `Thank you, <strong>${name}</strong> (Enrollment ID: <code>${applicationId}</code>). ` +
+          `Selected Course: <strong>${course}</strong>.<br>` +
+          `Aman Sir will contact you directly at your Gmail (<strong>${email}</strong>) and WhatsApp within 24 hours.<br><br>` +
+          `<a href="${composeUrl}" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 18px; border-radius:999px; background:#ffffff; color:#000000; font-weight:700; text-decoration:none;">✉️ Open My Gmail to Send Direct Copy &rarr;</a>`,
+          'success'
+        );
+
+        applyForm.reset();
+        updateDirectGmailLink();
+      } catch (err) {
+        // Fallback save and notice
+        saveGtaApplication(appRecord);
+        playSound('pay');
+
+        showStatus(
+          `<strong>✓ Application Recorded (ID: ${applicationId})!</strong><br>` +
+          `Details captured for <strong>${name}</strong>. Selected Program: <strong>${course}</strong>.<br>` +
+          `Click below to send directly from your personal Gmail app to <strong>amangta599990@gmail.com</strong>.`,
+          'success'
+        );
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        if (btnSpinner) btnSpinner.style.display = 'none';
+        if (btnText) btnText.textContent = 'Submit Application To Aman Sir ↗';
+      }
+    });
+  }
+
+  function showStatus(html, type) {
+    if (!statusBox) return;
+    statusBox.className = `gta-form-status ${type}`;
+    statusBox.innerHTML = html;
+    statusBox.style.display = 'block';
+  }
+}
+
+// Admin Panel GTA Admissions Renderer
+function sanitizeGta(str) {
+  const d = document.createElement('div');
+  d.textContent = String(str || '');
+  return d.innerHTML;
+}
+
+function renderAdminGtaApplications() {
+  const apps = getGtaApplications();
+  const countEl = document.getElementById('gtaAppsCount');
+  if (countEl) countEl.textContent = apps.length;
+
+  const listEl = document.getElementById('gtaAppsList');
+  if (!listEl) return;
+
+  if (apps.length === 0) {
+    listEl.innerHTML = `
+      <div style="padding:40px 20px; text-align:center; color:var(--text-muted); background:rgba(255,255,255,0.02); border-radius:12px; border:1px dashed rgba(255,255,255,0.1);">
+        <p style="font-size:15px; margin-bottom:6px; color:#ffffff;">No student applications received yet.</p>
+        <span style="font-size:12px; color:var(--text-dim);">When students submit the MINE GTA form on the site, their profile will be delivered directly to <strong>amangta599990@gmail.com</strong> and also appear here.</span>
+      </div>
+    `;
+    return;
+  }
+
+  listEl.innerHTML = apps.map(app => {
+    const waText = encodeURIComponent(`Hello ${app.name}, this is Aman from MINE GTA regarding your course application (${app.id}).`);
+    const cleanPhone = (app.phone || '').replace(/[^0-9]/g, '');
+    const waUrl = `https://wa.me/${cleanPhone}?text=${waText}`;
+    const mailUrl = `mailto:${app.email}?subject=MINE%20GTA%20Course%20Admission%20-%20Confirmation%20for%20${encodeURIComponent(app.name)}`;
+
+    return `
+      <div class="admin-app-card" style="background:rgba(20,16,30,0.85); border:1px solid rgba(168,85,247,0.3); border-radius:14px; padding:18px 20px; margin-bottom:14px; display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <div>
+            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; background:rgba(147,51,234,0.25); color:#d8b4fe; padding:3px 8px; border-radius:6px; font-weight:700;">${app.id}</span>
+            <strong style="font-size:16px; color:#ffffff; margin-left:8px;">${sanitizeGta(app.name)}</strong>
+          </div>
+          <span style="font-size:11px; color:#a1a1aa; font-family:'JetBrains Mono',monospace;">${app.formattedDate || ''}</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; font-size:13px; color:#d4d4d8; background:rgba(0,0,0,0.3); padding:12px 14px; border-radius:8px;">
+          <div><b>📍 Address:</b> ${sanitizeGta(app.address)}</div>
+          <div><b>✉️ Gmail:</b> <a href="${mailUrl}" style="color:#c084fc; text-decoration:underline;">${sanitizeGta(app.email)}</a></div>
+          <div><b>📱 Phone:</b> <a href="${waUrl}" target="_blank" style="color:#4ade80; text-decoration:underline;">${sanitizeGta(app.phone)}</a></div>
+          <div><b>⚡ Level:</b> <span style="color:#e9d5ff;">${sanitizeGta(app.level || 'Intermediate')}</span></div>
+        </div>
+
+        ${app.notes && app.notes !== 'None' ? `
+          <div style="font-size:12.5px; color:#a1a1aa; font-style:italic; background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:6px;">
+            <b>Goal:</b> "${sanitizeGta(app.notes)}"
+          </div>
+        ` : ''}
+
+        <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; margin-top:4px;">
+          <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-sm-ghost" style="border-color:#22c55e; color:#4ade80;">💬 WhatsApp Student</a>
+          <a href="${mailUrl}" class="btn-sm-ghost" style="border-color:#a855f7; color:#d8b4fe;">✉️ Email Student</a>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// Bind GTA admin toolbar buttons
+const btnRefreshGtaApps = document.getElementById('btnRefreshGtaApps');
+if (btnRefreshGtaApps) {
+  btnRefreshGtaApps.onclick = () => {
+    renderAdminGtaApplications();
+    playSound('hover');
+    showToast('GTA applications list refreshed!', 'info');
+  };
+}
+const btnClearGtaApps = document.getElementById('btnClearGtaApps');
+if (btnClearGtaApps) {
+  btnClearGtaApps.onclick = () => {
+    if (confirm('Clear local application records? (Note: emails already sent to amangta599990@gmail.com will not be affected)')) {
+      localStorage.removeItem(GTA_APPLICATIONS_KEY);
+      renderAdminGtaApplications();
+      playSound('trash');
+      showToast('Local application records cleared.', 'info');
+    }
+  };
+}

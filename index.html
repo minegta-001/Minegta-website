@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MINE PRESETS 🔱 — Imperial Emerald & Gold 4K Editing Store</title>
-<meta name="description" content="Ultra-premium 4K CC presets, transitions, and cinematic editing packs by MINE PRESETS. Emerald & Gold edition.">
+<title>MINE PRESETS — 4K Cinematic Master Editing Suite</title>
+<meta name="description" content="Ultra-premium 4K CC presets, cinematic transitions, and master editing packs by MINE PRESETS. Titanium Monochrome Edition.">
 <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-face-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-face-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 </head>
@@ -19,36 +19,34 @@
 
 <div class="progress" id="progress"></div>
 
-<!-- Ambient background canvas for ultra-smooth Green Snow & Rain physics -->
+<!-- Ambient background canvas for interactive Titanium particle field -->
 <canvas id="weatherCanvas" aria-hidden="true"></canvas>
 
-<!-- Atmospheric Aurora Orbs -->
-<div class="aurora-orb aurora-orb-1"></div>
-<div class="aurora-orb aurora-orb-2"></div>
-<div class="aurora-orb aurora-orb-3"></div>
-
-<!-- Dual-element Emerald & Gold Magnetic Cursor -->
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<!-- Atmospheric Ambient Glow Spheres -->
+<div class="ambient-glow ambient-glow-1"></div>
+<div class="ambient-glow ambient-glow-2"></div>
+<div class="ambient-glow ambient-glow-3"></div>
 
 <!-- Navigation Header -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a class="logo" href="#home" aria-label="MINE PRESETS Homepage">
       <img class="logo-icon-img" src="images/website-icon.png" alt="MINE PRESETS Icon" width="34" height="34">
-      MINE<span>PRESETS</span> <span class="logo-trident">🔱</span>
+      MINE<span class="logo-accent">PRESETS</span>
     </a>
     <div class="links">
-      <a href="#store">Store</a>
-      <a href="#why">Why Us</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#store">STORE</a>
+      <a href="#store-cc">4K CC PRESETS</a>
+      <a href="#store-systems">MASTER SYSTEMS</a>
+      <a href="#course" class="nav-gta-link">AFTER EFFECTS COURSE <span class="nav-hot-badge">PRO</span></a>
+      <a href="#why">WHY US</a>
+      <a href="#contact">CONTACT</a>
     </div>
     <div class="nav-actions">
       <button class="sound-toggle" id="soundToggle" title="Toggle audio effects" aria-label="Toggle Audio">
         <span class="sound-icon-container">
           <svg class="sound-svg sound-svg-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="rgba(0, 245, 155, 0.25)"></polygon>
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="rgba(255, 255, 255, 0.2)"></polygon>
             <path class="sound-wave wave-inner" d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
             <path class="sound-wave wave-outer" d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
           </svg>
@@ -59,56 +57,130 @@
           </svg>
         </span>
       </button>
-      <a class="nav-cta" href="#store">Explore Packs ↗</a>
+      <a class="nav-cta" href="#course">Explore Course ↗</a>
       <button class="menu" id="menu" aria-label="Toggle Navigation Menu">☰</button>
     </div>
   </div>
 </nav>
 
-<!-- Hero Section -->
+<!-- Hero Section (Two-Column Apple Interactive Kinetic Stage) -->
 <header class="hero" id="home">
   <video class="hero-video" autoplay loop muted playsinline>
     <source src="cc_preset_1.mp4" type="video/mp4">
   </video>
   <div class="grid-bg"></div>
-  <div class="hero-content">
-    <img class="hero-brand" src="images/website-icon.png" alt="MINE PRESETS Mascot" width="220" height="220" onerror="this.onerror=null; this.src='images/mine_brand_logo.png';">
-    <div class="lux-divider"></div>
-    <div class="badge"><span class="dot"></span> Emerald & Imperial Gold 4K Edition</div>
-    <h1>MAKE EVERY<br><span class="gradient">FRAME HIT.</span></h1>
-    <p>Premium 4K CC presets, beat-synced transitions, and master editing packs built to elevate your video grading to cinematic perfection.</p>
-    <div class="actions">
-      <a class="btn btn-primary" href="#store">Explore Store ↗</a>
-      <a class="btn btn-ghost" href="#why">Why Creators Choose Us</a>
+  
+  <div class="hero-grid">
+    <!-- Hero Left: Typography & Actions -->
+    <div class="hero-content">
+      <div class="hero-header-brand">
+        <img class="hero-brand-mini" src="images/website-icon.png" alt="MINE PRESETS Mascot" width="56" height="56" onerror="this.onerror=null; this.src='images/mine_brand_logo.png';">
+        <div class="badge"><span class="dot"></span> TITANIUM 4K MASTER COLLECTION</div>
+      </div>
+      <h1>MAKE EVERY<br><span class="gradient">FRAME HIT.</span></h1>
+      <p>Precision 4K CC profiles, beat-synced transitions, and master grading engines engineered to transform flat footage into cinematic perfection.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#store">Explore Store ↓</a>
+        <a class="btn btn-gta" href="#course">✦ After Effects Course ↓</a>
+      </div>
+      <div class="hero-micro-trust">
+        <span class="trust-dot"></span> Engineered for Premiere Pro, After Effects, DaVinci Resolve &amp; Final Cut
+      </div>
     </div>
-    <div class="stats">
-      <div><b>5+</b>4K CC Presets</div>
-      <div><b>4K+</b>Active Creators</div>
-      <div><b>100%</b>Instant Digital Delivery</div>
-      <div><b>UPI</b>Instant Checkout</div>
+
+    <!-- Hero Right: 3D Interactive WebGL Mascot Stage powered by Three.js -->
+    <div class="hero-stage" id="heroStage">
+      <div class="hero-kinetic-card" id="heroKineticCard">
+        <div class="kinetic-card-shine"></div>
+
+        <!-- Clean Top Status Badges (Separated on Left and Right, No overlap!) -->
+        <div class="hero-corner-badge badge-top-left">
+          <span class="pill-dot"></span>
+          <span>4K UHD • 60 FPS • 10-BIT</span>
+        </div>
+        <div class="hero-corner-badge badge-top-right">
+          <span class="badge-dot-live"></span>
+          <span>✦ 3D AE COLLISION LAB</span>
+        </div>
+
+        <!-- 3D Mascot Stage Container (Three.js WebGL Canvas) -->
+        <div class="mascot-stage" id="mascotStage" role="region" aria-label="3D Kinetic After Effects Collision Simulator">
+          <canvas id="hero3DCanvas" class="hero-3d-canvas" aria-label="3D Interactive After Effects Elements"></canvas>
+          <div class="mascot-speech-bubble" id="mascotBubble">
+            <span class="bubble-txt" id="mascotBubbleTxt">✦ KINETIC 3D PHYSICS • HOVER TO REFLECT / DRAG 360°</span>
+          </div>
+        </div>
+
+        <!-- Clean Bottom Action Badges (Separated on Left and Right, No overlap!) -->
+        <div class="hero-corner-badge badge-bottom-left">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg>
+          <span>🖱 DRAG TO ROTATE 360°</span>
+        </div>
+        <div class="hero-corner-badge badge-bottom-right">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>ZERO-BANDING ENGINE</span>
+        </div>
+      </div>
     </div>
   </div>
 </header>
 
+<!-- Full-Width Relocated Metrics Marquee -->
+<section class="metrics-section reveal" aria-label="Key Performance Metrics">
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <span class="metric-val">5+</span>
+      <span class="metric-lbl">Flagship 4K CC Presets</span>
+      <span class="metric-sub">Handcrafted color curves</span>
+    </div>
+    <div class="metric-card">
+      <span class="metric-val">4K+</span>
+      <span class="metric-lbl">Active Video Creators</span>
+      <span class="metric-sub">Trusted by elite editors</span>
+    </div>
+    <div class="metric-card">
+      <span class="metric-val">100%</span>
+      <span class="metric-lbl">Instant Digital Delivery</span>
+      <span class="metric-sub">Direct file delivery via Discord</span>
+    </div>
+    <div class="metric-card">
+      <span class="metric-val">0s</span>
+      <span class="metric-lbl">Verified UPI Checkout</span>
+      <span class="metric-sub">Instant QR payment pipeline</span>
+    </div>
+  </div>
+</section>
+
 <main>
-<!-- Store Section -->
+<!-- Store Section Hub -->
 <section class="section reveal" id="store">
   <div class="section-head">
     <div>
-      <div class="eyebrow">The Imperial Collection</div>
+      <div class="eyebrow">Studio Catalog</div>
       <h2>Engineered For Elite Editors.</h2>
     </div>
-    <p>Select any premium pack below. Click any CC thumbnail to preview in full 4K zoom, or tap Buy Now to join our Discord &amp; purchase directly.</p>
-  </div>
-  
-  <div class="filters">
-    <button class="filter active" data-filter="all">All Packs</button>
-    <button class="filter" data-filter="cc">4K CC Presets</button>
-    <button class="filter" data-filter="transition">Transitions</button>
-    <button class="filter" data-filter="system">Master Systems</button>
+    <p>Browse dedicated vaults for color science, After Effects workflow systems, and kinetic transitions. Click any thumbnail to preview in full 4K zoom.</p>
   </div>
 
-  <div class="products">
+  <!-- Category Quick Jump Navigation -->
+  <div class="store-category-nav">
+    <a href="#store-cc" class="store-nav-pill active">✦ 4K CC Presets (<span id="countCCNav">5</span>)</a>
+    <a href="#store-systems" class="store-nav-pill">⚙️ Master Systems &amp; Tools (<span id="countSysNav">2</span>)</a>
+    <a href="#store-transitions" class="store-nav-pill">⚡ Transitions Vault (<span id="countTransNav">1</span>)</a>
+  </div>
+</section>
+
+<!-- SECTION 1: 4K CC PRESETS VAULT -->
+<section class="section reveal" id="store-cc" style="padding-top: 20px;">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Signature Color Science</div>
+      <h2>4K Color Grading Presets</h2>
+    </div>
+    <p>Exclusive 4K CC profiles crafted for razor-sharp contrast, protected skin tones, and cinematic highlight rolloff. Click any card to preview in 4K zoom.</p>
+  </div>
+
+  <div class="products products-cc" id="productsCC">
     <!-- CC 1 -->
     <article class="card product cc-card" data-cat="cc" data-index="0">
       <div class="card-shine"></div>
@@ -137,7 +209,7 @@
       </div>
       <div class="card-body">
         <h3>CC 2</h3>
-        <p class="cc-cinematic">Exclusive 4K CC — Made Different. Rich golden highlights with moody cinematic depth.</p>
+        <p class="cc-cinematic">Exclusive 4K CC — Made Different. Rich titanium highlights with moody cinematic depth.</p>
         <div class="price-row">
           <div class="price"><span class="price-symbol">₹</span>350</div>
           <a class="buy" href="https://discord.gg/aunjV6zMj" target="_blank" rel="noopener noreferrer" data-name="CC 2" data-price="350">Buy now <span class="buy-arrow">↗</span></a>
@@ -155,7 +227,7 @@
       </div>
       <div class="card-body">
         <h3>CC 3</h3>
-        <p class="cc-cinematic">Your Footage Deserves This 4K Look. High-dynamic-range emerald balance and filmic punch.</p>
+        <p class="cc-cinematic">Your Footage Deserves This 4K Look. High-dynamic-range curve balance and filmic punch.</p>
         <div class="price-row">
           <div class="price"><span class="price-symbol">₹</span>500</div>
           <a class="buy" href="https://discord.gg/aunjV6zMj" target="_blank" rel="noopener noreferrer" data-name="CC 3" data-price="500">Buy now <span class="buy-arrow">↗</span></a>
@@ -198,113 +270,372 @@
         </div>
       </div>
     </article>
-
-    <!-- Upcoming Transition Pack 01 -->
-    <article class="card product" data-cat="transition">
-      <div class="card-shine"></div>
-      <div class="thumb">
-        <svg class="upcoming-art" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Upcoming transition system">
-          <defs>
-            <linearGradient id="bgG1" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#020704"/>
-              <stop offset="0.5" stop-color="#071b10"/>
-              <stop offset="1" stop-color="#020704"/>
-            </linearGradient>
-            <linearGradient id="emeraldGold" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#00f59b"/>
-              <stop offset="50%" stop-color="#f7e7b2"/>
-              <stop offset="100%" stop-color="#10b981"/>
-            </linearGradient>
-            <filter id="glowG1"><feGaussianBlur stdDeviation="15"/></filter>
-          </defs>
-          <rect width="900" height="520" fill="url(#bgG1)"/>
-          <circle cx="700" cy="120" r="140" fill="#00f59b" opacity="0.16" filter="url(#glowG1)"/>
-          <circle cx="180" cy="400" r="130" fill="#f7e7b2" opacity="0.12" filter="url(#glowG1)"/>
-          <g opacity="0.15" stroke="#00f59b">
-            <path d="M0 90H900M0 180H900M0 270H900M0 360H900M0 450H900"/>
-            <path d="M90 0V520M180 0V520M270 0V520M360 0V520M450 0V520M540 0V520M630 0V520M720 0V520M810 0V520"/>
-          </g>
-          <g transform="translate(450 255)">
-            <rect x="-280" y="-90" width="560" height="180" rx="22" fill="#041209" stroke="url(#emeraldGold)" stroke-width="2"/>
-            <text x="0" y="-14" text-anchor="middle" fill="#f7e7b2" font-family="Cinzel, serif" font-size="56" font-weight="800" letter-spacing="8">TRANSITIONS</text>
-            <text x="0" y="32" text-anchor="middle" fill="#00f59b" font-family="Inter, sans-serif" font-size="16" letter-spacing="5">PACK 01 — LOADING DROP</text>
-            <line x1="-140" y1="56" x2="140" y2="56" stroke="url(#emeraldGold)" stroke-width="2"/>
-          </g>
-        </svg>
-        <span class="tag">Transitions</span>
-      </div>
-      <div class="card-body">
-        <h3>Transition Pack 01</h3>
-        <p>Ultra-fast seamless zooms, whip moves, and camera impacts for gaming & reels.</p>
-        <div class="price-row">
-          <div class="price"><span class="price-symbol">₹</span>249</div>
-          <a class="buy" href="https://discord.gg/aunjV6zMj" target="_blank" rel="noopener noreferrer" data-name="Transition Pack 01" data-price="249">Buy now <span class="buy-arrow">↗</span></a>
-        </div>
-      </div>
-    </article>
-
-    <!-- Upcoming System Preset 01 -->
-    <article class="card product" data-cat="system">
-      <div class="card-shine"></div>
-      <div class="thumb">
-        <svg class="upcoming-art" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Upcoming system preset">
-          <defs>
-            <linearGradient id="bgS1" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#020704"/>
-              <stop offset="0.5" stop-color="#0a2214"/>
-              <stop offset="1" stop-color="#020704"/>
-            </linearGradient>
-            <linearGradient id="goldGreen" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#f7e7b2"/>
-              <stop offset="50%" stop-color="#00f59b"/>
-              <stop offset="100%" stop-color="#ffd700"/>
-            </linearGradient>
-          </defs>
-          <rect width="900" height="520" fill="url(#bgS1)"/>
-          <g transform="translate(450 255)">
-            <rect x="-280" y="-90" width="560" height="180" rx="22" fill="#030d07" stroke="url(#goldGreen)" stroke-width="2"/>
-            <text x="0" y="-14" text-anchor="middle" fill="#00f59b" font-family="Cinzel, serif" font-size="56" font-weight="800" letter-spacing="8">SYSTEM 01</text>
-            <text x="0" y="32" text-anchor="middle" fill="#f7e7b2" font-family="Inter, sans-serif" font-size="16" letter-spacing="5">FULL WORKFLOW ENGINE</text>
-            <line x1="-140" y1="56" x2="140" y2="56" stroke="url(#goldGreen)" stroke-width="2"/>
-          </g>
-        </svg>
-        <span class="tag">System</span>
-      </div>
-      <div class="card-body">
-        <h3>System Preset 01</h3>
-        <p>Complete creator workflow setup for consistent Hollywood-grade grading.</p>
-        <div class="price-row">
-          <div class="price"><span class="price-symbol">₹</span>299</div>
-          <a class="buy" href="https://discord.gg/aunjV6zMj" target="_blank" rel="noopener noreferrer" data-name="System Preset 01" data-price="299">Buy now <span class="buy-arrow">↗</span></a>
-        </div>
-      </div>
-    </article>
   </div>
 </section>
 
-<!-- Why Us Section with 3D Gyroscope Motion Graphic -->
+<!-- SECTION 2: MASTER SYSTEMS & WORKFLOW TOOLS -->
+<section class="section reveal" id="store-systems">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Workflow Acceleration</div>
+      <h2>Master Systems &amp; Extensions</h2>
+    </div>
+    <p>Dedicated PC cleaners, performance boosters, and After Effects extension suites engineered to eliminate timeline lag and supercharge your editing pipeline.</p>
+  </div>
+
+  <!-- Interactive 1-Click System Performance Simulator Widget -->
+  <div class="benchmark-card reveal" id="benchmarkCard">
+    <div class="benchmark-left">
+      <span class="benchmark-tag">REAL-TIME BENCHMARK ENGINE</span>
+      <h3>1-Click AE &amp; PC Booster Simulator</h3>
+      <p>See the immediate impact of Mine PC Cleaner &amp; Megasuite on timeline rendering speed.</p>
+      <div class="benchmark-stats-row">
+        <div class="b-stat">
+          <span class="b-lbl">TIMELINE FPS</span>
+          <span class="b-val" id="bmFpsVal">120+ FPS</span>
+        </div>
+        <div class="b-stat">
+          <span class="b-lbl">RAM / DISK CACHE</span>
+          <span class="b-val" id="bmCacheVal">4.2 GB FREED</span>
+        </div>
+        <div class="b-stat">
+          <span class="b-lbl">PLAYBACK LAG</span>
+          <span class="b-val" id="bmLagVal">0.0 ms</span>
+        </div>
+      </div>
+      <button type="button" class="btn-run-benchmark" id="btnRunBenchmark">
+        <span>⚡ Test Instant Boost</span>
+      </button>
+    </div>
+    <div class="benchmark-meter-wrap">
+      <div class="meter-dial">
+        <svg class="meter-svg" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="80" class="meter-bg" />
+          <circle cx="100" cy="100" r="80" class="meter-fill" id="meterFill" />
+        </svg>
+        <div class="meter-inner">
+          <span class="meter-num" id="meterNum">120</span>
+          <span class="meter-unit">FPS ULTRA</span>
+        </div>
+      </div>
+      <span class="meter-status" id="meterStatus">✓ MAXIMUM HARDWARE EFFICIENCY</span>
+    </div>
+  </div>
+
+  <div class="products products-system" id="productsSystem">
+    <!-- Fallback / Rendered cards for Mine PC Cleaner, Megasuite, System Preset 01 -->
+  </div>
+</section>
+
+<!-- SECTION 3: KINETIC TRANSITIONS VAULT -->
+<section class="section reveal" id="store-transitions">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Kinetic Impact</div>
+      <h2>Transitions Vault</h2>
+    </div>
+    <p>Seamless zooms, whip moves, and camera impacts designed for beat-sync edits, gaming montages, and high-retention viral reels.</p>
+  </div>
+
+  <div class="products products-transition" id="productsTransition">
+    <!-- Fallback / Rendered cards for Transition Pack 01 -->
+  </div>
+</section>
+
+<!-- Why Us Section (Apple Pro Bento Grid) -->
 <section class="section reveal" id="why">
-  <div class="feature">
-    <div class="feature-box">
+  <div class="section-head">
+    <div>
       <div class="eyebrow">The Creator Advantage</div>
-      <h3>Less Tweaking.<br>More Creating.</h3>
-      <p>Stop rebuilding the same look from scratch. MINE PRESETS gives you studio-grade assets engineered for maximum rendering speed and a prestigious finish.</p>
-      <div class="checks">
-        <div class="check"><span class="check-icon">✓</span> 4K Ultra-Sharp Grading with zero banding</div>
-        <div class="check"><span class="check-icon">✓</span> Drag-and-drop After Effects & Premiere compatibility</div>
-        <div class="check"><span class="check-icon">✓</span> Direct Discord creator support & instant delivery</div>
-        <div class="check"><span class="check-icon">✓</span> Lifetime creator access with free revisions</div>
+      <h2>Precision Engineering. Zero Compromise.</h2>
+    </div>
+    <p>Every preset curve is mathematically tuned to protect natural skin tones while maximizing dynamic range on modern screens.</p>
+  </div>
+
+  <div class="bento-grid">
+    <!-- Bento 1: Cinema Waveform & Oscilloscope Motion Graphic -->
+    <div class="bento-card bento-waveform">
+      <div class="bento-header">
+        <span class="bento-tag">DYNAMIC COLOR SCIENCE</span>
+        <h3>Cinema S-Curve Optics</h3>
+        <p>Engineered with zero color banding across deep shadows and highlight rolloff.</p>
+      </div>
+      <div class="waveform-box">
+        <canvas id="waveformCanvas" width="520" height="160"></canvas>
+        <div class="waveform-footer">
+          <span>LUMA 0-1023</span>
+          <span>RGB PARADE MONOCHROME</span>
+          <span>DELTA &lt; 0.1%</span>
+        </div>
       </div>
     </div>
-    
-    <div class="feature-box preview">
-      <div class="gyro-container">
-        <div class="gyro-ring gyro-ring-1"></div>
-        <div class="gyro-ring gyro-ring-2"></div>
-        <div class="gyro-ring gyro-ring-3"></div>
-        <div class="gyro-core">🔱</div>
+
+    <!-- Bento 2: Universal NLE Drag & Drop -->
+    <div class="bento-card bento-compat">
+      <span class="bento-tag">WORKFLOW INTEGRATION</span>
+      <h3>Universal Drag &amp; Drop</h3>
+      <p>Seamlessly import into your timeline with native profile support.</p>
+      <div class="software-chips">
+        <div class="soft-chip"><span>Premiere Pro</span><b>.prfpset</b></div>
+        <div class="soft-chip"><span>After Effects</span><b>.ffx</b></div>
+        <div class="soft-chip"><span>DaVinci Resolve</span><b>.cube</b></div>
+        <div class="soft-chip"><span>Final Cut Pro</span><b>.cube</b></div>
       </div>
     </div>
+
+    <!-- Bento 3: Instant Digital Pipeline -->
+    <div class="bento-card bento-speed">
+      <span class="bento-tag">DIGITAL PIPELINE</span>
+      <h3>Zero-Second Delivery</h3>
+      <div class="bento-stat">0.0<span class="stat-unit">s</span></div>
+      <p>Instant digital file access immediately upon checkout verification.</p>
+    </div>
+
+    <!-- Bento 4: VIP Support -->
+    <div class="bento-card bento-support">
+      <span class="bento-tag">CREATOR COMMUNITY</span>
+      <h3>VIP Discord Access</h3>
+      <p>Need custom grading advice? Our creator squad assists you directly.</p>
+      <a class="bento-link" href="https://discord.gg/aunjV6zMj" target="_blank" rel="noopener noreferrer">Join VIP Discord ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     AFTER EFFECTS PROFESSIONAL COURSE SECTION (#course)
+     Ultra-Luxury Liquid Silver & Titanium Edition | 4-Month Mentorship by Aman
+     Direct Admissions: amangta599990@gmail.com
+     ========================================================================== -->
+<section class="section reveal gta-master-section" id="course">
+  <div class="gta-ambient-glow"></div>
+  
+  <div class="section-head gta-section-head">
+    <div class="gta-hero-badge-wrap">
+      <span class="gta-hero-badge">✦ OFFICIAL MENTORSHIP PROGRAM</span>
+      <span class="gta-duration-badge">4 MONTHS ROADMAP • MONTH-BY-MONTH MASTERY</span>
+      <span class="gta-pill gta-pill-pro">STUDIO CERTIFIED</span>
+    </div>
+    <div class="gta-brand-row">
+      <h2 class="gta-title">MINE GTA<br><span class="gta-title-gradient">AFTER EFFECTS PROFESSIONAL COURSE</span></h2>
+    </div>
+    <p class="gta-lead-desc">
+      India’s most comprehensive After Effects &amp; Motion Design masterclass by Aman. Engineered to take you from absolute scratch to high-paying client work, 3D camera tracking, Hollywood VFX plugins, and international freelancing mastery. <strong>Pehle mahine se hi commercial-grade skills build karenge.</strong>
+    </p>
+  </div>
+
+  <!-- 4 MONTH-BY-MONTH CARDS (NO WEEKS!) -->
+  <div class="course-month-grid">
+    <!-- Month 01 Card -->
+    <div class="course-month-card" id="monthCard1">
+      <div>
+        <span class="month-badge">MONTH 01</span>
+        <h3 class="month-title">Foundation → Intermediate</h3>
+        <p class="month-tagline">Interface mastery, keyframe math, parenting &amp; introductory animation deliverables.</p>
+        <div class="month-price-tag">
+          <span class="month-amount">₹10,000</span>
+          <span class="month-term">/ Month</span>
+        </div>
+        <ul class="month-topics-list">
+          <li>Complete After Effects UI, Workspace &amp; 60 FPS Setup</li>
+          <li>Graph Editor Mechanics &amp; Bezier Spatial Interpolation</li>
+          <li>Parenting, Null Controllers &amp; Layer Stacking Systems</li>
+          <li>Precision Masking, Track Mattes &amp; AI Rotoscoping</li>
+          <li>Optical Effects, Chromatic Aberration &amp; Intro Assembly</li>
+          <li><strong>Live Project:</strong> High-Energy YouTube / Gaming Motion Intro + 1-on-1 Feedback</li>
+        </ul>
+      </div>
+      <button type="button" class="btn-select-month-silver" onclick="selectCourseMonth('Month 01: Foundation → Intermediate (₹10,000)')">Enroll in Month 01 (₹10,000) ↓</button>
+    </div>
+
+    <!-- Month 02 Card -->
+    <div class="course-month-card" id="monthCard2">
+      <div>
+        <span class="month-badge">MONTH 02</span>
+        <h3 class="month-title">Advanced Animation + Kinetic Motion</h3>
+        <p class="month-tagline">Speed graph secrets, kinetic typography, Mocha 3D tracking &amp; impact effects.</p>
+        <div class="month-price-tag">
+          <span class="month-amount">₹10,000</span>
+          <span class="month-term">/ Month</span>
+        </div>
+        <ul class="month-topics-list">
+          <li>Speed Graph Secrets for Snappy, Buttery Organic Motion</li>
+          <li>Kinetic Typography, Range Selectors &amp; Expressions</li>
+          <li>3D Camera Tracker &amp; Mocha AE Planar Tracking</li>
+          <li>Impact SFX Beat-Syncing &amp; Cinematic RGB Glitch</li>
+          <li>Multi-Layer Compositions with Synchronized Motion Blur</li>
+          <li><strong>Live Project:</strong> Fluid 60 FPS Kinetic Typography Showcase + 3D Tracked Sequence</li>
+        </ul>
+      </div>
+      <button type="button" class="btn-select-month-silver" onclick="selectCourseMonth('Month 02: Advanced Animation + Kinetic Motion (₹10,000)')">Enroll in Month 02 (₹10,000) ↓</button>
+    </div>
+
+    <!-- Month 03 Card -->
+    <div class="course-month-card featured" id="monthCard3">
+      <div>
+        <span class="month-badge" style="background:#ffffff; color:#000000; border-color:#ffffff;">MONTH 03 • PRO VFX</span>
+        <h3 class="month-title">Professional VFX + 3D Motion Design</h3>
+        <p class="month-tagline">Master Sapphire, Deep Glow, Universe, Element 3D &amp; complete commercial showreels.</p>
+        <div class="month-price-tag">
+          <span class="month-amount">₹12,000</span>
+          <span class="month-term">/ Month</span>
+        </div>
+        <ul class="month-topics-list">
+          <li>3D Spatial Systems, Camera Rigs &amp; Studio Lighting</li>
+          <li>Boris FX Sapphire (S_Glow, S_Distort, S_Shake) &amp; Deep Glow</li>
+          <li>Element 3D: OBJ Model Imports &amp; Texture Mapping</li>
+          <li>Commercial Brand Packages &amp; Music Video VFX</li>
+          <li>10-Bit Color Science &amp; Studio Render Presets</li>
+          <li><strong>Live Project:</strong> Studio-Grade Commercial Showreel Sequence Ready for Agency Pitching</li>
+        </ul>
+      </div>
+      <button type="button" class="btn-select-month-silver" onclick="selectCourseMonth('Month 03: Professional VFX + 3D Motion Design (₹12,000)')">Enroll in Month 03 (₹12,000) ↓</button>
+    </div>
+
+    <!-- Month 04 Card -->
+    <div class="course-month-card featured" id="monthCard4">
+      <div>
+        <span class="month-badge" style="background:#ffffff; color:#000000; border-color:#ffffff;">MONTH 04 • FREELANCE</span>
+        <h3 class="month-title">Client Work, High-Ticket Freelancing &amp; Mastery</h3>
+        <p class="month-tagline">Land international freelance clients, master pricing psychology &amp; graduate certified.</p>
+        <div class="month-price-tag">
+          <span class="month-amount">₹12,000</span>
+          <span class="month-term">/ Month</span>
+        </div>
+        <ul class="month-topics-list">
+          <li>Agency Production Pipeline: Moodboards &amp; Deadlines</li>
+          <li>High-Retention Formats: 9:16 Viral Reels &amp; Motion Posters</li>
+          <li>International Client Outreach: Cold Pitching &amp; Pricing ($$)</li>
+          <li>Professional Invoicing, Client Contracts &amp; Delivery</li>
+          <li>Final Capstone Master Project under Aman's 1-on-1 supervision</li>
+          <li><strong>Graduation:</strong> Official MINE GTA Course Certification + Showreel Showcase</li>
+        </ul>
+      </div>
+      <button type="button" class="btn-select-month-silver" onclick="selectCourseMonth('Month 04: Client Work + High-Ticket Freelancing (₹12,000)')">Enroll in Month 04 (₹12,000) ↓</button>
+    </div>
+  </div>
+
+  <!-- Master Bundle Banner (All 4 Months) -->
+  <div class="course-bundle-silver-card">
+    <div class="bundle-left">
+      <h4>✦ Complete 4-Month Masterclass Mentorship</h4>
+      <p>Enroll in all 4 months together for end-to-end guidance from Aman Sir. Includes all MINE Preset Packs for free, VIP Discord feedback sessions, and private client leads.</p>
+    </div>
+    <div class="bundle-right">
+      <div>
+        <div style="font-size:11px; font-weight:800; letter-spacing:1px; color:#94a3b8; text-transform:uppercase;">FULL 4-MONTH BUNDLE</div>
+        <div class="bundle-price-val">₹44,000</div>
+      </div>
+      <button type="button" class="btn-select-bundle-silver" onclick="selectCourseMonth('Complete 4-Month Masterclass (₹44,000)')">Enroll Complete Batch (₹44,000) ↓</button>
+    </div>
+  </div>
+
+  <!-- APPLICATION FORM -->
+  <div class="gta-apply-box" id="apply">
+    <div class="gta-apply-header">
+      <span class="apply-eyebrow">LIMITED BATCH ADMISSIONS</span>
+      <h3 class="apply-heading">Apply For MINE GTA Mentorship</h3>
+      <p class="apply-sub">
+        Fill out your details below. Your personal Gmail and application will be delivered directly to Aman Sir at 
+        <strong style="color:#ffffff;">amangta599990@gmail.com</strong>. We review every profile and respond within 24 hours.
+      </p>
+      <div class="locked-inbox-badge">
+        <span>🔒 Direct Admission Inbox:</span>
+        <code>amangta599990@gmail.com</code>
+        <span style="font-size:10px; color:#a1a1aa;">(Locked &amp; Verified)</span>
+      </div>
+    </div>
+
+    <form class="gta-apply-form" id="gtaApplyForm" novalidate>
+      <div class="gta-form-grid">
+        <!-- 1. Full Name -->
+        <div class="gta-form-group">
+          <label for="gtaName" class="gta-label">Student Full Name <span class="req">*</span></label>
+          <div class="gta-input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <input type="text" id="gtaName" name="name" class="gta-input" placeholder="e.g. Aman Sharma" required autocomplete="name">
+          </div>
+        </div>
+
+        <!-- 2. Address / City -->
+        <div class="gta-form-group">
+          <label for="gtaAddress" class="gta-label">Full Address / City &amp; State <span class="req">*</span></label>
+          <div class="gta-input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <input type="text" id="gtaAddress" name="address" class="gta-input" placeholder="e.g. Delhi / Mumbai, Maharashtra" required autocomplete="street-address">
+          </div>
+        </div>
+
+        <!-- 3. Personal Gmail -->
+        <div class="gta-form-group">
+          <label for="gtaEmail" class="gta-label">Your Personal Gmail Address <span class="req">*</span></label>
+          <div class="gta-input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <input type="email" id="gtaEmail" name="email" class="gta-input" placeholder="yourname@gmail.com" required autocomplete="email">
+          </div>
+          <span class="field-hint">★ Sent directly from your email to amangta599990@gmail.com</span>
+        </div>
+
+        <!-- 4. Phone / WhatsApp -->
+        <div class="gta-form-group">
+          <label for="gtaPhone" class="gta-label">Phone / WhatsApp Number <span class="req">*</span></label>
+          <div class="gta-input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <input type="tel" id="gtaPhone" name="phone" class="gta-input" placeholder="+91 98765 43210" required autocomplete="tel">
+          </div>
+        </div>
+
+        <!-- 5. Course Month Selection -->
+        <div class="gta-form-group">
+          <label for="gtaCourse" class="gta-label">Select Course Program / Month <span class="req">*</span></label>
+          <div class="gta-input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <select id="gtaCourse" name="course" class="gta-select">
+              <option value="Month 01: Foundation → Intermediate (₹10,000)">Month 01: Foundation → Intermediate (₹10,000)</option>
+              <option value="Month 02: Advanced Animation + Kinetic Motion (₹10,000)">Month 02: Advanced Animation + Kinetic Motion (₹10,000)</option>
+              <option value="Month 03: Professional VFX + 3D Motion Design (₹12,000)">Month 03: Professional VFX + 3D Motion Design (₹12,000)</option>
+              <option value="Month 04: Client Work + High-Ticket Freelancing (₹12,000)">Month 04: Client Work + High-Ticket Freelancing (₹12,000)</option>
+              <option value="Complete 4-Month Masterclass (₹44,000)" selected>Complete 4-Month Masterclass (₹44,000)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 6. Experience Level -->
+        <div class="gta-form-group">
+          <label for="gtaLevel" class="gta-label">Current Experience Level</label>
+          <div class="gta-input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <select id="gtaLevel" name="level" class="gta-select">
+              <option value="Beginner (Starting fresh)">Beginner (Starting fresh)</option>
+              <option value="Intermediate (Know basics, want pro motion graphics)" selected>Intermediate (Know basics, want pro motion graphics)</option>
+              <option value="Advanced (Ready for high-paying client work)">Advanced (Ready for high-paying client work)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 7. Motivation & Goals -->
+        <div class="gta-form-group full-width">
+          <label for="gtaNotes" class="gta-label">What is your primary goal from this course? (Optional)</label>
+          <textarea id="gtaNotes" name="notes" class="gta-textarea" rows="3" placeholder="e.g. Master speed curves, 3D tracking, Sapphire VFX, and land international freelance clients..."></textarea>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="gta-form-actions">
+        <button type="submit" class="gta-submit-btn animated-submit-btn" id="gtaSubmitBtn">
+          <span class="btn-shimmer-sweep"></span>
+          <span class="btn-glow-pulse"></span>
+          <span class="btn-content-wrap">
+            <span class="btn-dot-live"></span>
+            <span class="btn-text">✦ Submit Application to Aman Sir</span>
+            <span class="btn-arrow-anim">↗</span>
+          </span>
+          <span class="btn-spinner" id="gtaBtnSpinner" style="display:none;"></span>
+        </button>
+      </div>
+
+      <!-- Live Status Banner -->
+      <div class="gta-form-status" id="gtaFormStatus" style="display:none;"></div>
+    </form>
   </div>
 </section>
 
@@ -322,10 +653,10 @@
 <!-- Contact & Socials -->
 <section class="section reveal" id="contact">
   <div class="feature-box">
-    <div class="eyebrow">Direct Contact & Community</div>
+    <div class="eyebrow">Direct Contact &amp; Community</div>
     <h3>Need Help Or Custom Presets?</h3>
     <p>Reach out directly for bundle inquiries, creator sponsorships, or instant editing support.</p>
-    <p style="margin-top:14px; font-weight:700;">Official Support: <a href="mailto:minegta611@gmail.com" style="color:var(--emerald-neon); text-decoration:underline;">minegta611@gmail.com</a></p>
+    <p style="margin-top:14px; font-weight:600; color:#ffffff;">Official Support: <a href="mailto:minegta611@gmail.com" style="color:#ffffff; text-decoration:underline;">minegta611@gmail.com</a></p>
     
     <div class="socials-grid">
       <!-- Instagram -->
@@ -371,7 +702,7 @@
 <!-- Footer -->
 <footer>
   <div class="footer-in">
-    <span>© 2026 MINE PRESETS 🔱 — Imperial Emerald & Gold Edition.</span>
+    <span>© 2026 MINE PRESETS — Titanium Studio Edition.</span>
     <div class="footer-meta-wrap">
       <span>Designed for Elite Video Editors. All rights reserved.</span>
       <button class="btn-admin-portal-link" id="openAdminBtn" type="button" title="Owner Admin Portal (Shortcut: Ctrl + Shift + A)">
@@ -385,9 +716,7 @@
   </div>
 </footer>
 
-<!-- ==========================================================================
-   ENHANCED CC ZOOM LIGHTBOX (NEXT / PREV / KEYBOARD / ZOOM)
-   ========================================================================== -->
+<!-- 4K CC ZOOM LIGHTBOX -->
 <div class="cc-lightbox" id="ccLightbox" aria-hidden="true" role="dialog" aria-label="CC Image Preview Lightbox">
   <div class="cc-lightbox-frame">
     <button class="cc-lightbox-close" id="ccLightboxClose" aria-label="Close Preview">×</button>
@@ -399,9 +728,7 @@
   </div>
 </div>
 
-<!-- ==========================================================================
-   LUXURY UPI CHECKOUT MODAL
-   ========================================================================== */ -->
+<!-- SECURE UPI CHECKOUT MODAL -->
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Secure UPI Checkout">
   <div class="modal-box">
     <button class="modal-close" id="close" aria-label="Close Checkout Modal">×</button>
@@ -432,7 +759,7 @@
     </div>
     
     <div id="downloadArea">
-      <div style="color:var(--emerald-neon); font-weight:800; margin-bottom:8px;">✓ Payment Recorded — File Ready</div>
+      <div style="color:#ffffff; font-weight:700; margin-bottom:8px;">✓ Payment Recorded — File Ready</div>
       <a id="downloadBtn" class="btn btn-primary" href="#" download style="padding:10px 20px; font-size:13px; display:inline-flex;">Download Preset Pack ↓</a>
     </div>
     
@@ -440,18 +767,16 @@
   </div>
 </div>
 
-<!-- ==========================================================================
-   IMPERIAL ADMIN COMMAND CENTER (HIGH SECURITY & FULL SITE CONTROL)
-   ========================================================================== -->
-<div class="modal admin-modal" id="adminPortalModal" role="dialog" aria-modal="true" aria-label="Imperial Admin Portal">
+<!-- MASTER ADMIN COMMAND CENTER -->
+<div class="modal admin-modal" id="adminPortalModal" role="dialog" aria-modal="true" aria-label="Master Admin Portal">
   <div class="modal-box admin-box">
     <button class="modal-close" id="adminPortalClose" aria-label="Close Admin Portal">×</button>
     
-    <!-- STATE 1: HIGH SECURITY LOGIN SCREEN -->
+    <!-- STATE 1: SECURITY LOGIN SCREEN -->
     <div class="admin-login-view" id="adminLoginView">
       <div class="admin-shield-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(0, 245, 155, 0.2)"></path>
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(255, 255, 255, 0.1)"></path>
           <path d="m9 12 2 2 4-4"></path>
         </svg>
       </div>
@@ -495,8 +820,8 @@
       <div class="admin-dash-header">
         <div class="admin-brand-block">
           <div class="admin-badge-live"><span class="dot-pulse"></span> SYSTEM ONLINE</div>
-          <h2>Imperial Command Center</h2>
-          <span class="admin-subtext">Owner Control Panel — MINE PRESETS 🔱</span>
+          <h2>Master Command Center</h2>
+          <span class="admin-subtext">Owner Control Panel — MINE PRESETS</span>
         </div>
         <div class="admin-top-actions">
           <div class="cloud-status-pill" id="adminCloudStatusPill" title="Cloud Database Sync Status">
@@ -517,7 +842,7 @@
           Analytics &amp; Traffic
         </button>
         <button class="admin-tab" data-tab="catalog" type="button">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 17 22 12"></polyline></svg>
           CC Presets &amp; Catalog
         </button>
         <button class="admin-tab" data-tab="settings" type="button">
@@ -532,6 +857,10 @@
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
           ☁️ Cloud Live Sync
         </button>
+        <button class="admin-tab" data-tab="applications" type="button" id="adminAppsTabBtn">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          🎓 GTA Admissions (<span id="gtaAppsCount">0</span>)
+        </button>
       </div>
 
       <!-- TAB 1: ANALYTICS -->
@@ -540,7 +869,7 @@
           <div class="admin-stat-card">
             <div class="stat-card-top">
               <span class="stat-card-title">Total Website Visits</span>
-              <span class="stat-card-badge neon">Page Views</span>
+              <span class="stat-card-badge">Page Views</span>
             </div>
             <div class="stat-card-val" id="statTotalViews">0</div>
             <div class="stat-card-sub" id="statTodayViews">+0 today</div>
@@ -548,7 +877,7 @@
           <div class="admin-stat-card">
             <div class="stat-card-top">
               <span class="stat-card-title">Unique Creators</span>
-              <span class="stat-card-badge gold">Audience</span>
+              <span class="stat-card-badge">Audience</span>
             </div>
             <div class="stat-card-val" id="statUniqueVisitors">0</div>
             <div class="stat-card-sub">Individual Devices Tracked</div>
@@ -556,7 +885,7 @@
           <div class="admin-stat-card">
             <div class="stat-card-top">
               <span class="stat-card-title">Discord Buy Clicks</span>
-              <span class="stat-card-badge neon">Inquiries</span>
+              <span class="stat-card-badge">Inquiries</span>
             </div>
             <div class="stat-card-val" id="statDiscordClicks">0</div>
             <div class="stat-card-sub">Direct purchase intent clicks</div>
@@ -564,7 +893,7 @@
           <div class="admin-stat-card">
             <div class="stat-card-top">
               <span class="stat-card-title">4K Zoom Previews</span>
-              <span class="stat-card-badge gold">Engagement</span>
+              <span class="stat-card-badge">Engagement</span>
             </div>
             <div class="stat-card-val" id="statLightboxViews">0</div>
             <div class="stat-card-sub">High-res lightbox zooms</div>
@@ -619,7 +948,7 @@
             <div class="form-col">
               <div class="auth-field">
                 <label for="newPresetName">Preset Name / Title *</label>
-                <input type="text" id="newPresetName" placeholder="e.g. CC 6 — Neon Cyber" required>
+                <input type="text" id="newPresetName" placeholder="e.g. CC 6 — Titanium Pro" required>
               </div>
               <div class="auth-row-2">
                 <div class="auth-field">
@@ -718,7 +1047,7 @@
             <div class="auth-field">
               <label for="settingHeroBadge">Hero Edition Badge Text</label>
               <div class="input-wrap">
-                <input type="text" id="settingHeroBadge" value="Emerald &amp; Imperial Gold 4K Edition">
+                <input type="text" id="settingHeroBadge" value="TITANIUM 4K MASTER COLLECTION">
               </div>
             </div>
 
@@ -767,7 +1096,7 @@
         <div class="admin-card-section">
           <div class="section-title-row">
             <h4>☁️ Global Cloud Live Sync Engine</h4>
-            <span class="tag-status neon" id="cloudLiveSyncBadge">Ready</span>
+            <span class="tag-status" id="cloudLiveSyncBadge">Ready</span>
           </div>
           <p class="admin-help-text">
             Jab aap website publish karte hain, local browser data dusre devices/visitors ko nahi dikhta. 
@@ -778,7 +1107,7 @@
           <div class="cloud-overview-card">
             <div class="cloud-overview-left">
               <div class="cloud-icon-circle" id="cloudIconCircle">
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
               </div>
               <div>
                 <h5 id="cloudConnStatusTitle">Cloud Sync: Local Mode Only</h5>
@@ -825,7 +1154,7 @@
             <h5>📖 2-Minute Free Cloud Setup Guide (Step-by-Step):</h5>
             <ol class="cloud-guide-steps">
               <li>
-                <strong>Step 1:</strong> Open <a href="https://console.firebase.google.com" target="_blank" rel="noopener noreferrer" style="color:var(--emerald-neon); text-decoration:underline;">Firebase Console (console.firebase.google.com)</a> with your Google account.
+                <strong>Step 1:</strong> Open <a href="https://console.firebase.google.com" target="_blank" rel="noopener noreferrer" style="color:#ffffff; text-decoration:underline;">Firebase Console (console.firebase.google.com)</a> with your Google account.
               </li>
               <li>
                 <strong>Step 2:</strong> Click <strong>"Add project"</strong> &rarr; enter name <code>mine-presets</code> &rarr; click Continue &rarr; Create Project.
@@ -852,6 +1181,27 @@
               <button type="button" class="btn-sm-ghost" id="btnExportJson">📥 Download JSON Backup</button>
               <button type="button" class="btn-sm-ghost" id="btnCopyPresetCode">📋 Copy script.js Code</button>
             </div>
+        </div>
+      </div>
+
+      <!-- TAB: GTA COURSE APPLICATIONS (ADMISSIONS) -->
+      <div class="admin-tab-pane" id="tabPane-applications">
+        <div class="admin-card-section">
+          <div class="section-title-row">
+            <h4>🎓 MINE GTA Student Applications (Delivered to amangta599990@gmail.com)</h4>
+            <div style="display:flex; gap:8px;">
+              <button class="btn-tool-outline" id="btnRefreshGtaApps" type="button">🔄 Refresh List</button>
+              <button class="btn-tool-outline" id="btnClearGtaApps" type="button" style="color:#f87171;">🗑️ Clear Records</button>
+            </div>
+          </div>
+          <p class="admin-help-text">
+            All applications are automatically dispatched directly to <strong>amangta599990@gmail.com</strong>. A persistent copy is also stored here with direct 1-click WhatsApp &amp; Gmail follow-up buttons.
+          </p>
+
+          <div class="gta-apps-table-wrap" id="gtaAppsTableWrap">
+            <div id="gtaAppsList" class="gta-apps-cards-list">
+              <!-- Dynamically populated -->
+            </div>
           </div>
         </div>
       </div>
@@ -862,11 +1212,12 @@
 <!-- Floating Toast Container -->
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- ==========================================================================
-   FIREBASE REALTIME CLOUD SYNCHRONIZATION ENGINE & JAVASCRIPT APP
-   ========================================================================== -->
+<!-- FIREBASE CLOUD REALTIME DATABASE & APP SCRIPT -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<!-- THREE.JS 3D ENGINE & MASCOT RUNTIME -->
+<script src="assets/three.min.js"></script>
+<script src="assets/hero-3d-stage.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
