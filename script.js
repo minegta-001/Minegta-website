@@ -421,6 +421,14 @@ function openLightbox(index) {
     if (ccLightboxVideo) {
       ccLightboxVideo.style.display = 'block';
       ccLightboxVideo.src = videoSrc;
+      ccLightboxVideo.muted = true;
+      ccLightboxVideo.defaultMuted = true;
+      ccLightboxVideo.loop = true;
+      ccLightboxVideo.playsInline = true;
+      ccLightboxVideo.onended = () => {
+        ccLightboxVideo.currentTime = 0;
+        ccLightboxVideo.play().catch(() => {});
+      };
       ccLightboxVideo.play().catch(() => {});
     }
     if (ccLightboxLabel) {
@@ -907,8 +915,8 @@ async function getVideoSource(p) {
     videoObjectUrlCache.set(p.id, url);
     return url;
   }
-  // If direct URL or local path
-  if (p.video) {
+  // If direct URL or local path (and not an internal blob filename)
+  if (p.video && !p.hasVideoBlob) {
     return p.video;
   }
   return '';
@@ -941,8 +949,8 @@ function extractVideoThumbnail(videoSource) {
 
     video.onseeked = () => {
       try {
-        const targetW = Math.min(1280, video.videoWidth || 1280);
-        const targetH = Math.round(targetW * ((video.videoHeight || 720) / (video.videoWidth || 1280)));
+        const targetW = Math.min(1920, video.videoWidth || 1920);
+        const targetH = Math.round(targetW * ((video.videoHeight || 1080) / (video.videoWidth || 1920)));
         const canvas = document.createElement('canvas');
         canvas.width = targetW;
         canvas.height = targetH;
@@ -950,9 +958,9 @@ function extractVideoThumbnail(videoSource) {
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = 'high';
         ctx.drawImage(video, 0, 0, targetW, targetH);
-        let dataUrl = canvas.toDataURL('image/webp', 0.82);
+        let dataUrl = canvas.toDataURL('image/webp', 0.92);
         if (!dataUrl.startsWith('data:image/webp')) {
-          dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          dataUrl = canvas.toDataURL('image/jpeg', 0.92);
         }
         cleanup();
         resolve(dataUrl);
@@ -1310,16 +1318,14 @@ function renderStoreProducts() {
     
     let thumbHtml = '';
     if (hasVideo) {
+      const directSrc = videoObjectUrlCache.get(p.id) || (!p.hasVideoBlob && p.video ? p.video : '');
       thumbHtml = `
         <div class="thumb has-video ${isCC ? 'cc-thumb' : ''}">
           <span class="tag">${p.tag || (isCC ? '4K CC' : (isMotion ? 'MOTION VFX' : 'Pack'))}</span>
-          <span class="video-badge"><svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> 4K VIDEO</span>
-          <video class="card-video-preview" loop muted playsinline preload="metadata" data-id="${p.id}" ${p.video ? `src="${p.video}"` : ''}></video>
+          <span class="video-badge"><span class="video-live-dot"></span> 4K AUTO LOOP</span>
+          <video class="card-video-preview" autoplay loop muted playsinline webkit-playsinline preload="auto" data-id="${p.id}" ${directSrc ? `src="${directSrc}"` : ''}></video>
           ${p.img ? `<img src="${p.img}" alt="${p.name}" class="card-poster-img" loading="lazy" decoding="async">` : '<div style="height:220px; background:#000;"></div>'}
-          <div class="card-video-play-btn" title="Watch 4K Video Preview">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-          </div>
-          <span class="zoom-hint">🎬 Click for 4K Video</span>
+          <span class="zoom-hint">🔍 Click for Fullscreen 4K</span>
         </div>
       `;
     } else if (p.img) {
@@ -1460,26 +1466,85 @@ function renderStoreProducts() {
         document.querySelectorAll(`.card[data-id="${p.id}"]`).forEach(card => {
           card.dataset.videoSrc = src;
           const vidEl = card.querySelector('video.card-video-preview');
-          if (vidEl && !vidEl.src) {
-            vidEl.src = src;
+          if (vidEl) {
+            if (!vidEl.src || (vidEl.src !== src && !vidEl.src.endsWith(src))) {
+              vidEl.src = src;
+            }
+            vidEl.muted = true;
+            vidEl.defaultMuted = true;
+            vidEl.loop = true;
+            vidEl.playsInline = true;
+            vidEl.setAttribute('playsinline', '');
+            vidEl.setAttribute('webkit-playsinline', '');
+            const playPromise = vidEl.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {});
+            }
           }
         });
       }
     }
   });
 
-  // Setup video hover playback on desktop
+  // Ensure all card videos play automatically and loop continuously without pausing
   document.querySelectorAll('.card.has-video').forEach(card => {
     const video = card.querySelector('video.card-video-preview');
     if (!video) return;
-    card.addEventListener('mouseenter', () => {
-      video.play().catch(() => {});
-    });
-    card.addEventListener('mouseleave', () => {
-      video.pause();
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+
+    // Seamless loop restart fallback for mobile/Safari
+    video.onended = () => {
       video.currentTime = 0;
-    });
+      video.play().catch(() => {});
+    };
+
+    if (video.src && video.paused) {
+      video.play().catch(() => {});
+    }
   });
+
+  // Viewport IntersectionObserver to guarantee active playback as user scrolls
+  if ('IntersectionObserver' in window && !window.__cardVideoObserverInit) {
+    window.__cardVideoObserverInit = true;
+    window.__cardVideoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const vid = entry.target;
+        if (entry.isIntersecting && vid.src && vid.paused) {
+          vid.muted = true;
+          vid.play().catch(() => {});
+        }
+      });
+    }, { threshold: 0.05 });
+  }
+  if (window.__cardVideoObserver) {
+    document.querySelectorAll('video.card-video-preview').forEach(vid => {
+      window.__cardVideoObserver.observe(vid);
+    });
+  }
+
+  // Global user gesture trigger for strict browser autoplay policies
+  if (!window.__cardVideoGesturesInit) {
+    window.__cardVideoGesturesInit = true;
+    const kickAllVideos = () => {
+      document.querySelectorAll('video.card-video-preview').forEach(v => {
+        if (v.src && v.paused) {
+          v.muted = true;
+          v.play().catch(() => {});
+        }
+      });
+    };
+    ['scroll', 'touchstart', 'pointerdown', 'keydown'].forEach(evt => {
+      window.addEventListener(evt, kickAllVideos, { once: true, passive: true });
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) kickAllVideos();
+    });
+  }
 
   setupLightboxCards();
   setupCardTilt();
@@ -1919,6 +1984,8 @@ window.openAttachVideoModal = function(id) {
   const statusEl = document.getElementById('editVideoUploadStatus');
   const removeBtn = document.getElementById('removeItemVideoBtn');
   const fileInput = document.getElementById('editItemVideoFile');
+  const previewWrap = document.getElementById('editVideoPreviewWrap');
+  const previewVid = document.getElementById('editItemVideoPreview');
 
   if (fileInput) fileInput.value = '';
   if (title) title.textContent = `Video Preview: ${item.name}`;
@@ -1937,6 +2004,25 @@ window.openAttachVideoModal = function(id) {
     }
   }
 
+  // Live video preview for currently attached video
+  if (hasVid && previewWrap && previewVid) {
+    getVideoSource(item).then(src => {
+      if (src && previewVid && currentEditingVideoItemId === id) {
+        previewVid.src = src;
+        previewVid.muted = true;
+        previewVid.defaultMuted = true;
+        previewVid.loop = true;
+        previewVid.playsInline = true;
+        previewWrap.style.display = 'block';
+        previewVid.play().catch(() => {});
+      }
+    });
+  } else if (previewWrap && previewVid) {
+    previewVid.pause();
+    previewVid.src = '';
+    previewWrap.style.display = 'none';
+  }
+
   if (modal) modal.classList.add('show');
   playSound('modal-open');
 };
@@ -1944,6 +2030,13 @@ window.openAttachVideoModal = function(id) {
 window.closeAttachVideoModal = function() {
   const modal = document.getElementById('attachVideoModal');
   if (modal) modal.classList.remove('show');
+  const previewWrap = document.getElementById('editVideoPreviewWrap');
+  const previewVid = document.getElementById('editItemVideoPreview');
+  if (previewVid) {
+    previewVid.pause();
+    previewVid.src = '';
+  }
+  if (previewWrap) previewWrap.style.display = 'none';
   currentEditingVideoItemId = null;
   currentEditingVideoFile = null;
   playSound('modal-close');
@@ -1972,7 +2065,43 @@ if (editItemVideoFile) {
         statusEl.style.display = 'flex';
         statusEl.innerHTML = `<span>✓ Selected: <b>${file.name}</b> (${mb} MB)</span>`;
       }
+
+      // Live preview selected video file
+      const previewWrap = document.getElementById('editVideoPreviewWrap');
+      const previewVid = document.getElementById('editItemVideoPreview');
+      if (previewWrap && previewVid) {
+        const objUrl = URL.createObjectURL(file);
+        previewVid.src = objUrl;
+        previewVid.muted = true;
+        previewVid.defaultMuted = true;
+        previewVid.loop = true;
+        previewVid.playsInline = true;
+        previewWrap.style.display = 'block';
+        previewVid.play().catch(() => {});
+      }
       playSound('toggle');
+    }
+  };
+}
+
+const editItemVideoUrl = document.getElementById('editItemVideoUrl');
+if (editItemVideoUrl) {
+  editItemVideoUrl.oninput = (e) => {
+    const url = e.target.value.trim();
+    const previewWrap = document.getElementById('editVideoPreviewWrap');
+    const previewVid = document.getElementById('editItemVideoPreview');
+    if (url && previewWrap && previewVid) {
+      previewVid.src = url;
+      previewVid.muted = true;
+      previewVid.defaultMuted = true;
+      previewVid.loop = true;
+      previewVid.playsInline = true;
+      previewWrap.style.display = 'block';
+      previewVid.play().catch(() => {});
+    } else if (previewWrap && previewVid && !currentEditingVideoFile) {
+      previewVid.pause();
+      previewVid.src = '';
+      previewWrap.style.display = 'none';
     }
   };
 }
@@ -2243,6 +2372,10 @@ if (newPresetVideoFile) {
       const vidObjUrl = URL.createObjectURL(file);
       if (previewVideo) {
         previewVideo.src = vidObjUrl;
+        previewVideo.muted = true;
+        previewVideo.defaultMuted = true;
+        previewVideo.loop = true;
+        previewVideo.playsInline = true;
         previewVideo.style.display = 'block';
         previewVideo.play().catch(() => {});
       }
@@ -2288,6 +2421,10 @@ if (newPresetVideoUrl) {
       }
       if (previewVideo) {
         previewVideo.src = url;
+        previewVideo.muted = true;
+        previewVideo.defaultMuted = true;
+        previewVideo.loop = true;
+        previewVideo.playsInline = true;
         previewVideo.style.display = 'block';
         previewVideo.play().catch(() => {});
       }

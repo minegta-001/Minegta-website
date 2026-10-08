@@ -4094,6 +4094,7 @@ footer {
   position: relative;
   cursor: pointer;
   background: #000000;
+  overflow: hidden;
 }
 .card-video-preview {
   position: absolute;
@@ -4101,22 +4102,27 @@ footer {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.35s ease;
+  opacity: 1; /* Always visible and active */
   z-index: 2;
   pointer-events: none;
+  background: transparent;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  image-rendering: -webkit-optimize-contrast;
 }
 .card.has-video:hover .card-video-preview {
   opacity: 1;
 }
 .card.has-video:hover .card-poster-img {
-  opacity: 0.15;
+  opacity: 1;
 }
 .card-poster-img {
   transition: opacity 0.35s ease;
   display: block;
   width: 100%;
   height: auto;
+  position: relative;
+  z-index: 1;
 }
 .video-badge {
   position: absolute;
@@ -4125,7 +4131,7 @@ footer {
   padding: 5px 12px;
   background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(56, 189, 248, 0.4);
+  border: 1px solid rgba(56, 189, 248, 0.45);
   border-radius: var(--radius-pill);
   font-size: 10px;
   font-weight: 700;
@@ -4133,40 +4139,27 @@ footer {
   letter-spacing: 0.8px;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   z-index: 4;
   pointer-events: none;
   text-transform: uppercase;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+}
+.video-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+  animation: liveVideoLoopPulse 1.6s infinite ease-in-out;
+  display: inline-block;
+}
+@keyframes liveVideoLoopPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.7); }
 }
 .card-video-play-btn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.95);
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: rgba(8, 9, 14, 0.82);
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(12px);
-  display: grid;
-  place-items: center;
-  color: #ffffff;
-  z-index: 3;
-  transition: all 0.3s var(--ease-spring);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(56, 189, 248, 0.2);
-  pointer-events: none;
-}
-.card.has-video:hover .card-video-play-btn {
-  transform: translate(-50%, -50%) scale(1.08);
-  background: #ffffff;
-  color: #000000;
-  border-color: #ffffff;
-  opacity: 0.95;
-}
-.card.has-video:hover .card-video-play-btn svg {
-  fill: #000000;
+  display: none !important; /* Hidden because videos autoplay and loop automatically */
 }
 .lightbox-video {
   display: block;
