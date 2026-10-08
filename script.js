@@ -393,7 +393,6 @@ menu.onclick = () => {
    -------------------------------------------------------------------------- */
 const ccLightbox = document.getElementById('ccLightbox');
 const ccLightboxImg = document.getElementById('ccLightboxImage');
-const ccLightboxVideo = document.getElementById('ccLightboxVideo');
 const ccLightboxClose = document.getElementById('ccLightboxClose');
 const ccLightboxPrev = document.getElementById('ccLightboxPrev');
 const ccLightboxNext = document.getElementById('ccLightboxNext');
@@ -403,7 +402,7 @@ let ccCards = [];
 let currentCCIndex = 0;
 
 function openLightbox(index) {
-  ccCards = Array.from(document.querySelectorAll('.card.product'));
+  ccCards = Array.from(document.querySelectorAll('.cc-card'));
   if (ccCards.length === 0) return;
   if (index < 0) index = ccCards.length - 1;
   if (index >= ccCards.length) index = 0;
@@ -411,45 +410,12 @@ function openLightbox(index) {
   
   const card = ccCards[currentCCIndex];
   const img = card.querySelector('img');
-  const video = card.querySelector('video.card-video-preview');
-  const title = card.querySelector('h3')?.textContent || 'Preset';
+  const title = card.querySelector('h3')?.textContent || '4K CC';
   
-  const videoSrc = video?.src || card.dataset.videoSrc;
-  
-  if (videoSrc) {
-    if (ccLightboxImg) ccLightboxImg.style.display = 'none';
-    if (ccLightboxVideo) {
-      ccLightboxVideo.style.display = 'block';
-      ccLightboxVideo.src = videoSrc;
-      ccLightboxVideo.muted = true;
-      ccLightboxVideo.defaultMuted = true;
-      ccLightboxVideo.loop = true;
-      ccLightboxVideo.playsInline = true;
-      ccLightboxVideo.onended = () => {
-        ccLightboxVideo.currentTime = 0;
-        ccLightboxVideo.play().catch(() => {});
-      };
-      ccLightboxVideo.play().catch(() => {});
-    }
-    if (ccLightboxLabel) {
-      ccLightboxLabel.textContent = `${title} — 4K CINEMATIC VIDEO PREVIEW (${currentCCIndex + 1} OF ${ccCards.length}) — ESC TO CLOSE`;
-    }
-  } else if (img) {
-    if (ccLightboxVideo) {
-      ccLightboxVideo.pause();
-      ccLightboxVideo.src = '';
-      ccLightboxVideo.style.display = 'none';
-    }
-    if (ccLightboxImg) {
-      ccLightboxImg.style.display = 'block';
-      ccLightboxImg.src = img.currentSrc || img.src;
-      ccLightboxImg.alt = img.alt || title;
-      ccLightboxImg.classList.remove('zoomed');
-    }
-    if (ccLightboxLabel) {
-      ccLightboxLabel.textContent = `${title} — 4K CINEMATIC PREVIEW (${currentCCIndex + 1} OF ${ccCards.length}) — CLICK TO ZOOM`;
-    }
-  }
+  ccLightboxImg.src = img.currentSrc || img.src;
+  ccLightboxImg.alt = img.alt || title;
+  ccLightboxImg.classList.remove('zoomed');
+  ccLightboxLabel.textContent = `${title} — 4K CINEMATIC PREVIEW (${currentCCIndex + 1} OF ${ccCards.length}) — CLICK TO ZOOM`;
   
   ccLightbox.classList.add('show');
   ccLightbox.setAttribute('aria-hidden', 'false');
@@ -459,10 +425,6 @@ function openLightbox(index) {
 }
 
 function closeLightbox() {
-  if (ccLightboxVideo) {
-    ccLightboxVideo.pause();
-    ccLightboxVideo.src = '';
-  }
   ccLightbox.classList.remove('show');
   ccLightbox.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('cc-lightbox-open');
@@ -470,9 +432,9 @@ function closeLightbox() {
 }
 
 function setupLightboxCards() {
-  ccCards = Array.from(document.querySelectorAll('.card.product'));
+  ccCards = Array.from(document.querySelectorAll('.cc-card'));
   ccCards.forEach((card, idx) => {
-    const thumb = card.querySelector('.thumb');
+    const thumb = card.querySelector('.cc-thumb');
     if (thumb) {
       thumb.onclick = e => {
         e.stopPropagation();
@@ -831,158 +793,6 @@ function compressImageFile(file, maxWidth = 1280, maxHeight = 1600, quality = 0.
 }
 
 // ==========================================================================
-// HIGH-CAPACITY LOCAL VIDEO & MEDIA STORAGE ENGINE (INDEXEDDB)
-// Enables storing 4K & HD video previews without localStorage quota errors
-// ==========================================================================
-const MineMediaDB = {
-  db: null,
-  async init() {
-    if (this.db) return this.db;
-    return new Promise((resolve) => {
-      if (typeof indexedDB === 'undefined') return resolve(null);
-      const req = indexedDB.open('mine_media_vault_v1', 1);
-      req.onupgradeneeded = (e) => {
-        const db = e.target.result;
-        if (!db.objectStoreNames.contains('videos')) {
-          db.createObjectStore('videos', { keyPath: 'id' });
-        }
-      };
-      req.onsuccess = (e) => {
-        this.db = e.target.result;
-        resolve(this.db);
-      };
-      req.onerror = () => resolve(null);
-    });
-  },
-  async saveVideo(id, blob, meta = {}) {
-    try {
-      const db = await this.init();
-      if (!db) return false;
-      return new Promise((resolve) => {
-        const tx = db.transaction('videos', 'readwrite');
-        const store = tx.objectStore('videos');
-        store.put({ id, blob, meta, updatedAt: Date.now() });
-        tx.oncomplete = () => resolve(true);
-        tx.onerror = () => resolve(false);
-      });
-    } catch(e) {
-      return false;
-    }
-  },
-  async getVideo(id) {
-    try {
-      const db = await this.init();
-      if (!db) return null;
-      return new Promise((resolve) => {
-        const tx = db.transaction('videos', 'readonly');
-        const store = tx.objectStore('videos');
-        const req = store.get(id);
-        req.onsuccess = () => resolve(req.result ? req.result.blob : null);
-        req.onerror = () => resolve(null);
-      });
-    } catch(e) {
-      return null;
-    }
-  },
-  async deleteVideo(id) {
-    try {
-      const db = await this.init();
-      if (!db) return false;
-      return new Promise((resolve) => {
-        const tx = db.transaction('videos', 'readwrite');
-        const store = tx.objectStore('videos');
-        store.delete(id);
-        tx.oncomplete = () => resolve(true);
-        tx.onerror = () => resolve(false);
-      });
-    } catch(e) {
-      return false;
-    }
-  }
-};
-
-const videoObjectUrlCache = new Map();
-
-async function getVideoSource(p) {
-  if (!p) return '';
-  if (videoObjectUrlCache.has(p.id)) {
-    return videoObjectUrlCache.get(p.id);
-  }
-  // If stored in IndexedDB
-  const blob = await MineMediaDB.getVideo(p.id);
-  if (blob) {
-    const url = URL.createObjectURL(blob);
-    videoObjectUrlCache.set(p.id, url);
-    return url;
-  }
-  // If direct URL or local path (and not an internal blob filename)
-  if (p.video && !p.hasVideoBlob) {
-    return p.video;
-  }
-  return '';
-}
-
-// Automatically captures a crisp 4K/HD thumbnail frame from a video File or URL
-function extractVideoThumbnail(videoSource) {
-  return new Promise((resolve) => {
-    const video = document.createElement('video');
-    video.crossOrigin = 'anonymous';
-    video.muted = true;
-    video.playsInline = true;
-    video.preload = 'metadata';
-
-    let isBlob = false;
-    let srcUrl = videoSource;
-    if (videoSource instanceof File || videoSource instanceof Blob) {
-      srcUrl = URL.createObjectURL(videoSource);
-      isBlob = true;
-    }
-    video.src = srcUrl;
-
-    const cleanup = () => {
-      if (isBlob) URL.revokeObjectURL(srcUrl);
-    };
-
-    video.onloadedmetadata = () => {
-      video.currentTime = Math.min(1.0, (video.duration > 2 ? 1.0 : video.duration * 0.5) || 0.5);
-    };
-
-    video.onseeked = () => {
-      try {
-        const targetW = Math.min(1920, video.videoWidth || 1920);
-        const targetH = Math.round(targetW * ((video.videoHeight || 1080) / (video.videoWidth || 1920)));
-        const canvas = document.createElement('canvas');
-        canvas.width = targetW;
-        canvas.height = targetH;
-        const ctx = canvas.getContext('2d');
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        ctx.drawImage(video, 0, 0, targetW, targetH);
-        let dataUrl = canvas.toDataURL('image/webp', 0.92);
-        if (!dataUrl.startsWith('data:image/webp')) {
-          dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-        }
-        cleanup();
-        resolve(dataUrl);
-      } catch(e) {
-        cleanup();
-        resolve(null);
-      }
-    };
-
-    video.onerror = () => {
-      cleanup();
-      resolve(null);
-    };
-
-    setTimeout(() => {
-      cleanup();
-      resolve(null);
-    }, 4000);
-  });
-}
-
-// ==========================================================================
 // GLOBAL CLOUD DATABASE SYNCHRONIZATION ENGINE (FIREBASE RTDB & REST)
 // ==========================================================================
 const DEFAULT_CLOUD_CONFIG = {
@@ -1283,56 +1093,39 @@ function applySiteSettings(settings) {
   }
 }
 
-// Render Products in Live Store (Cleanly Segregated into CC, Motion, System, and Transition sections)
+// Render Products in Live Store (Cleanly Segregated into CC, System, and Transition sections)
 function renderStoreProducts() {
   const containerCC = document.getElementById('productsCC');
-  const containerMotion = document.getElementById('productsMotion');
   const containerSys = document.getElementById('productsSystem');
   const containerTrans = document.getElementById('productsTransition');
-  if (!containerCC && !containerMotion && !containerSys && !containerTrans) return;
+  if (!containerCC && !containerSys && !containerTrans) return;
 
   const catalog = getCatalog();
   const settings = getSiteSettings();
 
   const ccItems = catalog.filter(p => p.cat === 'cc');
-  const motionItems = catalog.filter(p => p.cat === 'motion');
   const sysItems = catalog.filter(p => p.cat === 'system');
   const transItems = catalog.filter(p => p.cat === 'transition');
 
   // Update category navigation pill counters
   const countCCEl = document.getElementById('countCCNav');
-  const countMotionEl = document.getElementById('countMotionNav');
   const countSysEl = document.getElementById('countSysNav');
   const countTransEl = document.getElementById('countTransNav');
   if (countCCEl) countCCEl.textContent = ccItems.length;
-  if (countMotionEl) countMotionEl.textContent = motionItems.length;
   if (countSysEl) countSysEl.textContent = sysItems.length;
   if (countTransEl) countTransEl.textContent = transItems.length;
 
   let globalCCIndex = 0;
   function renderCard(p) {
     const isCC = p.cat === 'cc';
-    const isMotion = p.cat === 'motion';
-    const hasVideo = Boolean(p.video || p.hasVideoBlob);
     const ccIndex = isCC ? globalCCIndex++ : null;
     
     let thumbHtml = '';
-    if (hasVideo) {
-      const directSrc = videoObjectUrlCache.get(p.id) || (!p.hasVideoBlob && p.video ? p.video : '');
-      thumbHtml = `
-        <div class="thumb has-video ${isCC ? 'cc-thumb' : ''}">
-          <span class="tag">${p.tag || (isCC ? '4K CC' : (isMotion ? 'MOTION VFX' : 'Pack'))}</span>
-          <span class="video-badge"><span class="video-live-dot"></span> 4K AUTO LOOP</span>
-          <video class="card-video-preview" autoplay loop muted playsinline webkit-playsinline preload="auto" data-id="${p.id}" ${directSrc ? `src="${directSrc}"` : ''}></video>
-          ${p.img ? `<img src="${p.img}" alt="${p.name}" class="card-poster-img" loading="lazy" decoding="async">` : '<div style="height:220px; background:#000;"></div>'}
-          <span class="zoom-hint">🔍 Click for Fullscreen 4K</span>
-        </div>
-      `;
-    } else if (p.img) {
+    if (p.img) {
       thumbHtml = `
         <div class="thumb ${isCC ? 'cc-thumb' : ''}">
           <span class="tag">${p.tag || (isCC ? '4K CC' : 'Pack')}</span>
-          <span class="zoom-hint">🔍 Click to Zoom</span>
+          ${isCC ? '<span class="zoom-hint">🔍 Click to Zoom</span>' : ''}
           <img src="${p.img}" alt="${p.name}" loading="lazy" decoding="async">
         </div>
       `;
@@ -1422,7 +1215,7 @@ function renderStoreProducts() {
     }
 
     return `
-      <article class="card product ${isCC ? 'cc-card' : ''} ${hasVideo ? 'has-video' : ''}" data-cat="${p.cat}" data-id="${p.id}" ${p.video ? `data-video-src="${p.video}"` : ''} ${isCC ? `data-index="${ccIndex}"` : ''} style="display: flex; flex-direction: column;">
+      <article class="card product ${isCC ? 'cc-card' : ''}" data-cat="${p.cat}" data-id="${p.id}" ${isCC ? `data-index="${ccIndex}"` : ''} style="display: flex; flex-direction: column;">
         <div class="card-shine"></div>
         ${thumbHtml}
         <div class="card-body">
@@ -1438,113 +1231,8 @@ function renderStoreProducts() {
   }
 
   if (containerCC) containerCC.innerHTML = ccItems.map(renderCard).join('');
-  const secMotion = document.getElementById('store-motion');
-  const pillMotion = document.getElementById('pillMotionLink') || document.querySelector('.store-nav-pill[href="#store-motion"]');
-  const navMotion = document.getElementById('navMotionLink') || document.querySelector('.links a[href="#store-motion"]');
-
-  if (containerMotion) {
-    if (motionItems.length > 0) {
-      if (secMotion) secMotion.style.display = 'block';
-      if (pillMotion) pillMotion.style.display = 'inline-flex';
-      if (navMotion) navMotion.style.display = '';
-      containerMotion.innerHTML = motionItems.map(renderCard).join('');
-    } else {
-      if (secMotion) secMotion.style.display = 'none';
-      if (pillMotion) pillMotion.style.display = 'none';
-      if (navMotion) navMotion.style.display = 'none';
-      containerMotion.innerHTML = '';
-    }
-  }
   if (containerSys) containerSys.innerHTML = sysItems.map(renderCard).join('');
   if (containerTrans) containerTrans.innerHTML = transItems.map(renderCard).join('');
-
-  // Asynchronously resolve and attach video sources for cards with videos
-  catalog.forEach(async (p) => {
-    if (p.video || p.hasVideoBlob) {
-      const src = await getVideoSource(p);
-      if (src) {
-        document.querySelectorAll(`.card[data-id="${p.id}"]`).forEach(card => {
-          card.dataset.videoSrc = src;
-          const vidEl = card.querySelector('video.card-video-preview');
-          if (vidEl) {
-            if (!vidEl.src || (vidEl.src !== src && !vidEl.src.endsWith(src))) {
-              vidEl.src = src;
-            }
-            vidEl.muted = true;
-            vidEl.defaultMuted = true;
-            vidEl.loop = true;
-            vidEl.playsInline = true;
-            vidEl.setAttribute('playsinline', '');
-            vidEl.setAttribute('webkit-playsinline', '');
-            const playPromise = vidEl.play();
-            if (playPromise !== undefined) {
-              playPromise.catch(() => {});
-            }
-          }
-        });
-      }
-    }
-  });
-
-  // Ensure all card videos play automatically and loop continuously without pausing
-  document.querySelectorAll('.card.has-video').forEach(card => {
-    const video = card.querySelector('video.card-video-preview');
-    if (!video) return;
-    video.muted = true;
-    video.defaultMuted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.setAttribute('playsinline', '');
-    video.setAttribute('webkit-playsinline', '');
-
-    // Seamless loop restart fallback for mobile/Safari
-    video.onended = () => {
-      video.currentTime = 0;
-      video.play().catch(() => {});
-    };
-
-    if (video.src && video.paused) {
-      video.play().catch(() => {});
-    }
-  });
-
-  // Viewport IntersectionObserver to guarantee active playback as user scrolls
-  if ('IntersectionObserver' in window && !window.__cardVideoObserverInit) {
-    window.__cardVideoObserverInit = true;
-    window.__cardVideoObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const vid = entry.target;
-        if (entry.isIntersecting && vid.src && vid.paused) {
-          vid.muted = true;
-          vid.play().catch(() => {});
-        }
-      });
-    }, { threshold: 0.05 });
-  }
-  if (window.__cardVideoObserver) {
-    document.querySelectorAll('video.card-video-preview').forEach(vid => {
-      window.__cardVideoObserver.observe(vid);
-    });
-  }
-
-  // Global user gesture trigger for strict browser autoplay policies
-  if (!window.__cardVideoGesturesInit) {
-    window.__cardVideoGesturesInit = true;
-    const kickAllVideos = () => {
-      document.querySelectorAll('video.card-video-preview').forEach(v => {
-        if (v.src && v.paused) {
-          v.muted = true;
-          v.play().catch(() => {});
-        }
-      });
-    };
-    ['scroll', 'touchstart', 'pointerdown', 'keydown'].forEach(evt => {
-      window.addEventListener(evt, kickAllVideos, { once: true, passive: true });
-    });
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) kickAllVideos();
-    });
-  }
 
   setupLightboxCards();
   setupCardTilt();
@@ -1880,17 +1568,12 @@ function renderAdminCatalog() {
   const listEl = document.getElementById('adminCatalogList');
   if (!listEl) return;
 
-  listEl.innerHTML = catalog.map(p => {
-    const hasVid = Boolean(p.video || p.hasVideoBlob);
-    return `
+  listEl.innerHTML = catalog.map(p => `
     <div class="catalog-item-card" data-id="${p.id}">
       <div class="catalog-item-left">
         ${p.img ? `<img src="${p.img}" alt="${p.name}" class="catalog-item-img">` : `<div class="catalog-item-img" style="background:#121216; display:flex; align-items:center; justify-content:center; color:#ffffff; font-size:11px; font-weight:800;">${p.tag || 'SYS'}</div>`}
         <div class="catalog-item-info">
-          <div style="display:flex; align-items:center; gap:6px;">
-            <h5>${p.name}</h5>
-            ${hasVid ? `<span class="badge-has-video" title="Video preview active">🎬 Video</span>` : ''}
-          </div>
+          <h5>${p.name}</h5>
           <span class="catalog-item-badge">${p.tag || p.cat.toUpperCase()}</span>
         </div>
       </div>
@@ -1898,22 +1581,16 @@ function renderAdminCatalog() {
         <span class="price-tag-label">Price ₹:</span>
         <input type="number" class="catalog-price-input" value="${p.price}" min="0">
         <button type="button" class="btn-save-price" onclick="handlePriceUpdate('${p.id}', this)">Save</button>
-        <button type="button" class="btn-item-video-action" onclick="openAttachVideoModal('${p.id}')">${hasVid ? '🎬 Change Video' : '➕ Add Video'}</button>
       </div>
       <div class="catalog-item-right">
         <button type="button" class="btn-del-preset" onclick="handleDeletePreset('${p.id}')">Delete ✕</button>
       </div>
     </div>
-  `;
-  }).join('');
+  `).join('');
 }
 
 // Global window hooks for inline actions
 window.handlePriceUpdate = function(id, btn) {
-  if (!getAdminSession()) {
-    showToast('Unauthorized: Master Admin login required.', 'error');
-    return;
-  }
   const row = btn.closest('.catalog-item-card');
   const input = row?.querySelector('.catalog-price-input');
   if (!input) return;
@@ -1939,10 +1616,6 @@ window.handlePriceUpdate = function(id, btn) {
 };
 
 window.handleDeletePreset = function(id) {
-  if (!getAdminSession()) {
-    showToast('Unauthorized: Master Admin login required.', 'error');
-    return;
-  }
   const catalog = getCatalog();
   const item = catalog.find(x => x.id === id);
   if (!item) return;
@@ -1959,231 +1632,6 @@ window.handleDeletePreset = function(id) {
   logActivity(`Preset deleted: ${item.name}`, '🗑️');
   playSound('hover');
 };
-
-// Modal for attaching or updating video on existing catalog items
-let currentEditingVideoItemId = null;
-let currentEditingVideoFile = null;
-
-window.openAttachVideoModal = function(id) {
-  const session = getAdminSession();
-  if (!session) {
-    showToast('Unauthorized: Master Admin login required.', 'error');
-    return;
-  }
-
-  const catalog = getCatalog();
-  const item = catalog.find(x => x.id === id);
-  if (!item) return;
-
-  currentEditingVideoItemId = id;
-  currentEditingVideoFile = null;
-
-  const modal = document.getElementById('attachVideoModal');
-  const title = document.getElementById('attachVideoItemTitle');
-  const urlInput = document.getElementById('editItemVideoUrl');
-  const statusEl = document.getElementById('editVideoUploadStatus');
-  const removeBtn = document.getElementById('removeItemVideoBtn');
-  const fileInput = document.getElementById('editItemVideoFile');
-  const previewWrap = document.getElementById('editVideoPreviewWrap');
-  const previewVid = document.getElementById('editItemVideoPreview');
-
-  if (fileInput) fileInput.value = '';
-  if (title) title.textContent = `Video Preview: ${item.name}`;
-  if (urlInput) urlInput.value = item.video || '';
-
-  const hasVid = Boolean(item.video || item.hasVideoBlob);
-  if (removeBtn) removeBtn.style.display = hasVid ? 'inline-block' : 'none';
-
-  if (statusEl) {
-    if (hasVid) {
-      statusEl.style.display = 'flex';
-      statusEl.innerHTML = `<span>🎬 Attached Video: <b>${item.video || 'Local Media File in Vault'}</b></span>`;
-    } else {
-      statusEl.style.display = 'none';
-      statusEl.innerHTML = '';
-    }
-  }
-
-  // Live video preview for currently attached video
-  if (hasVid && previewWrap && previewVid) {
-    getVideoSource(item).then(src => {
-      if (src && previewVid && currentEditingVideoItemId === id) {
-        previewVid.src = src;
-        previewVid.muted = true;
-        previewVid.defaultMuted = true;
-        previewVid.loop = true;
-        previewVid.playsInline = true;
-        previewWrap.style.display = 'block';
-        previewVid.play().catch(() => {});
-      }
-    });
-  } else if (previewWrap && previewVid) {
-    previewVid.pause();
-    previewVid.src = '';
-    previewWrap.style.display = 'none';
-  }
-
-  if (modal) modal.classList.add('show');
-  playSound('modal-open');
-};
-
-window.closeAttachVideoModal = function() {
-  const modal = document.getElementById('attachVideoModal');
-  if (modal) modal.classList.remove('show');
-  const previewWrap = document.getElementById('editVideoPreviewWrap');
-  const previewVid = document.getElementById('editItemVideoPreview');
-  if (previewVid) {
-    previewVid.pause();
-    previewVid.src = '';
-  }
-  if (previewWrap) previewWrap.style.display = 'none';
-  currentEditingVideoItemId = null;
-  currentEditingVideoFile = null;
-  playSound('modal-close');
-};
-
-const closeAttachVideoModalBtn = document.getElementById('closeAttachVideoModal');
-if (closeAttachVideoModalBtn) {
-  closeAttachVideoModalBtn.onclick = window.closeAttachVideoModal;
-}
-const attachVideoModalEl = document.getElementById('attachVideoModal');
-if (attachVideoModalEl) {
-  attachVideoModalEl.onclick = (e) => {
-    if (e.target === attachVideoModalEl) window.closeAttachVideoModal();
-  };
-}
-
-const editItemVideoFile = document.getElementById('editItemVideoFile');
-if (editItemVideoFile) {
-  editItemVideoFile.onchange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      currentEditingVideoFile = file;
-      const statusEl = document.getElementById('editVideoUploadStatus');
-      const mb = (file.size / (1024 * 1024)).toFixed(1);
-      if (statusEl) {
-        statusEl.style.display = 'flex';
-        statusEl.innerHTML = `<span>✓ Selected: <b>${file.name}</b> (${mb} MB)</span>`;
-      }
-
-      // Live preview selected video file
-      const previewWrap = document.getElementById('editVideoPreviewWrap');
-      const previewVid = document.getElementById('editItemVideoPreview');
-      if (previewWrap && previewVid) {
-        const objUrl = URL.createObjectURL(file);
-        previewVid.src = objUrl;
-        previewVid.muted = true;
-        previewVid.defaultMuted = true;
-        previewVid.loop = true;
-        previewVid.playsInline = true;
-        previewWrap.style.display = 'block';
-        previewVid.play().catch(() => {});
-      }
-      playSound('toggle');
-    }
-  };
-}
-
-const editItemVideoUrl = document.getElementById('editItemVideoUrl');
-if (editItemVideoUrl) {
-  editItemVideoUrl.oninput = (e) => {
-    const url = e.target.value.trim();
-    const previewWrap = document.getElementById('editVideoPreviewWrap');
-    const previewVid = document.getElementById('editItemVideoPreview');
-    if (url && previewWrap && previewVid) {
-      previewVid.src = url;
-      previewVid.muted = true;
-      previewVid.defaultMuted = true;
-      previewVid.loop = true;
-      previewVid.playsInline = true;
-      previewWrap.style.display = 'block';
-      previewVid.play().catch(() => {});
-    } else if (previewWrap && previewVid && !currentEditingVideoFile) {
-      previewVid.pause();
-      previewVid.src = '';
-      previewWrap.style.display = 'none';
-    }
-  };
-}
-
-const saveItemVideoBtn = document.getElementById('saveItemVideoBtn');
-if (saveItemVideoBtn) {
-  saveItemVideoBtn.onclick = async () => {
-    const session = getAdminSession();
-    if (!session) {
-      showToast('Unauthorized: Master Admin login required.', 'error');
-      return;
-    }
-    if (!currentEditingVideoItemId) return;
-    const catalog = getCatalog();
-    const item = catalog.find(x => x.id === currentEditingVideoItemId);
-    if (!item) return;
-
-    const urlInput = document.getElementById('editItemVideoUrl');
-    const enteredUrl = urlInput ? urlInput.value.trim() : '';
-
-    if (currentEditingVideoFile) {
-      await MineMediaDB.saveVideo(item.id, currentEditingVideoFile, { name: currentEditingVideoFile.name, type: currentEditingVideoFile.type });
-      item.hasVideoBlob = true;
-      item.video = currentEditingVideoFile.name;
-      const thumb = await extractVideoThumbnail(currentEditingVideoFile);
-      if (thumb && (!item.img || item.img.startsWith('data:'))) {
-        item.img = thumb;
-      }
-      videoObjectUrlCache.delete(item.id);
-      showToast(`🎬 Video "${currentEditingVideoFile.name}" attached to ${item.name}!`, 'success');
-      logActivity(`Video attached: ${item.name}`, '🎬');
-    } else if (enteredUrl) {
-      item.video = enteredUrl;
-      item.hasVideoBlob = false;
-      showToast(`🎬 Video link saved for ${item.name}!`, 'success');
-      logActivity(`Video link set: ${item.name}`, '🎬');
-    } else {
-      showToast('Please select a video file or enter video path/URL.', 'error');
-      return;
-    }
-
-    saveCatalog(catalog);
-    if (isCloudConfigured()) {
-      saveCatalogToCloud(catalog);
-    }
-    renderStoreProducts();
-    renderAdminCatalog();
-    window.closeAttachVideoModal();
-    playSound('pay');
-  };
-}
-
-const removeItemVideoBtn = document.getElementById('removeItemVideoBtn');
-if (removeItemVideoBtn) {
-  removeItemVideoBtn.onclick = async () => {
-    const session = getAdminSession();
-    if (!session) {
-      showToast('Unauthorized: Master Admin login required.', 'error');
-      return;
-    }
-    if (!currentEditingVideoItemId) return;
-    const catalog = getCatalog();
-    const item = catalog.find(x => x.id === currentEditingVideoItemId);
-    if (!item) return;
-
-    delete item.video;
-    delete item.hasVideoBlob;
-    await MineMediaDB.deleteVideo(item.id);
-    videoObjectUrlCache.delete(item.id);
-
-    saveCatalog(catalog);
-    if (isCloudConfigured()) {
-      saveCatalogToCloud(catalog);
-    }
-    renderStoreProducts();
-    renderAdminCatalog();
-    window.closeAttachVideoModal();
-    showToast(`Video preview removed from ${item.name}.`, 'info');
-    logActivity(`Video removed: ${item.name}`, '🗑️');
-    playSound('toggle');
-  };
-}
 
 // Settings in Admin
 function renderAdminSettings() {
@@ -2313,16 +1761,7 @@ if (closeAddPresetBtn && adminAddFormWrap) {
   };
 }
 
-// Media Upload & Reader for New Preset (Images & 4K Videos)
-let currentUploadedVideoFile = null;
-let currentUploadedVideoUrl = '';
-
-const newPresetVideoFile = document.getElementById('newPresetVideoFile');
-const newPresetVideoUrl = document.getElementById('newPresetVideoUrl');
-const previewVideo = document.getElementById('previewVideo');
-const previewVideoBadge = document.getElementById('previewVideoBadge');
-const videoUploadStatus = document.getElementById('videoUploadStatus');
-
+// Image File Upload Reader for New Preset
 const newPresetFile = document.getElementById('newPresetFile');
 const newPresetImgUrl = document.getElementById('newPresetImgUrl');
 const previewImg = document.getElementById('previewImg');
@@ -2330,116 +1769,6 @@ const previewTitle = document.getElementById('previewTitle');
 const previewDesc = document.getElementById('previewDesc');
 const previewPrice = document.getElementById('previewPrice');
 const previewTag = document.getElementById('previewTag');
-
-function clearUploadedVideo() {
-  currentUploadedVideoFile = null;
-  currentUploadedVideoUrl = '';
-  if (newPresetVideoFile) newPresetVideoFile.value = '';
-  if (newPresetVideoUrl) newPresetVideoUrl.value = '';
-  if (videoUploadStatus) {
-    videoUploadStatus.style.display = 'none';
-    videoUploadStatus.innerHTML = '';
-  }
-  if (previewVideo) {
-    previewVideo.pause();
-    previewVideo.src = '';
-    previewVideo.style.display = 'none';
-  }
-  if (previewVideoBadge) previewVideoBadge.style.display = 'none';
-  if (previewImg) previewImg.style.display = 'block';
-}
-
-if (newPresetVideoFile) {
-  newPresetVideoFile.onchange = async (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      currentUploadedVideoFile = file;
-      currentUploadedVideoUrl = '';
-      if (newPresetVideoUrl) newPresetVideoUrl.value = '';
-
-      const mb = (file.size / (1024 * 1024)).toFixed(1);
-      if (videoUploadStatus) {
-        videoUploadStatus.style.display = 'flex';
-        videoUploadStatus.innerHTML = `
-          <span>⏳ Video selected: <b>${file.name}</b> (${mb} MB) — auto-capturing 4K thumbnail...</span>
-          <button type="button" class="btn-clear-vid" id="btnClearUploadedVid" title="Remove video">×</button>
-        `;
-        const clrBtn = document.getElementById('btnClearUploadedVid');
-        if (clrBtn) clrBtn.onclick = clearUploadedVideo;
-      }
-
-      // Preview in mini card
-      const vidObjUrl = URL.createObjectURL(file);
-      if (previewVideo) {
-        previewVideo.src = vidObjUrl;
-        previewVideo.muted = true;
-        previewVideo.defaultMuted = true;
-        previewVideo.loop = true;
-        previewVideo.playsInline = true;
-        previewVideo.style.display = 'block';
-        previewVideo.play().catch(() => {});
-      }
-      if (previewVideoBadge) previewVideoBadge.style.display = 'block';
-
-      // Auto capture poster frame
-      const thumb = await extractVideoThumbnail(file);
-      if (thumb) {
-        if (!currentUploadedImage) {
-          currentUploadedImage = thumb;
-          if (previewImg) previewImg.src = thumb;
-        }
-        if (videoUploadStatus) {
-          videoUploadStatus.innerHTML = `
-            <span>✓ Video: <b>${file.name}</b> (${mb} MB) • 4K thumbnail captured ✓</span>
-            <button type="button" class="btn-clear-vid" id="btnClearUploadedVid2" title="Remove video">×</button>
-          `;
-          const clrBtn2 = document.getElementById('btnClearUploadedVid2');
-          if (clrBtn2) clrBtn2.onclick = clearUploadedVideo;
-        }
-      }
-      playSound('toggle');
-      showToast(`🎬 Video "${file.name}" loaded with auto-captured thumbnail!`, 'info');
-    }
-  };
-}
-
-if (newPresetVideoUrl) {
-  newPresetVideoUrl.oninput = async (e) => {
-    const url = e.target.value.trim();
-    currentUploadedVideoUrl = url;
-    if (url) {
-      currentUploadedVideoFile = null;
-      if (newPresetVideoFile) newPresetVideoFile.value = '';
-      if (videoUploadStatus) {
-        videoUploadStatus.style.display = 'flex';
-        videoUploadStatus.innerHTML = `
-          <span>🔗 Video Linked: <b>${url}</b></span>
-          <button type="button" class="btn-clear-vid" id="btnClearUploadedVidUrl" title="Remove video">×</button>
-        `;
-        const clrBtn = document.getElementById('btnClearUploadedVidUrl');
-        if (clrBtn) clrBtn.onclick = clearUploadedVideo;
-      }
-      if (previewVideo) {
-        previewVideo.src = url;
-        previewVideo.muted = true;
-        previewVideo.defaultMuted = true;
-        previewVideo.loop = true;
-        previewVideo.playsInline = true;
-        previewVideo.style.display = 'block';
-        previewVideo.play().catch(() => {});
-      }
-      if (previewVideoBadge) previewVideoBadge.style.display = 'block';
-
-      const thumb = await extractVideoThumbnail(url);
-      if (thumb && !currentUploadedImage) {
-        currentUploadedImage = thumb;
-        if (previewImg) previewImg.src = thumb;
-      }
-    } else {
-      clearUploadedVideo();
-    }
-  };
-}
 
 if (newPresetFile) {
   newPresetFile.onchange = async (e) => {
@@ -2456,10 +1785,10 @@ if (newPresetFile) {
         if (previewImg) previewImg.src = currentUploadedImage;
         if (newPresetImgUrl) newPresetImgUrl.value = '';
         if (statusEl) {
-          statusEl.innerHTML = `<span>✓ Optimized: <b>${comp.origKb} KB</b> → <b>${comp.compKb} KB</b> (4K WebP)</span>`;
+          statusEl.innerHTML = `<span>✓ Optimized: <b>${comp.origKb} KB</b> → <b>${comp.compKb} KB</b> (4K WebP) — ready for fast cloud sync!</span>`;
         }
         playSound('toggle');
-        showToast(`Image "${file.name}" loaded!`, 'info');
+        showToast(`Image "${file.name}" optimized & loaded (${comp.compKb} KB)!`, 'info');
       } catch(err) {
         const reader = new FileReader();
         reader.onload = (ev) => {
@@ -2487,44 +1816,29 @@ if (newPresetImgUrl) {
 }
 
 // Real-Time Live Preview Updates
-['newPresetName', 'newPresetPrice', 'newPresetDesc', 'newPresetTag', 'newPresetCategory'].forEach(id => {
+['newPresetName', 'newPresetPrice', 'newPresetDesc', 'newPresetTag'].forEach(id => {
   const el = document.getElementById(id);
   if (el) {
     el.oninput = () => {
-      const cat = document.getElementById('newPresetCategory')?.value || 'cc';
       if (id === 'newPresetName' && previewTitle) previewTitle.textContent = el.value || 'Preset Title';
       if (id === 'newPresetPrice' && previewPrice) previewPrice.textContent = '₹' + (el.value || '0');
       if (id === 'newPresetDesc' && previewDesc) previewDesc.textContent = el.value || 'Description will appear here...';
-      if (id === 'newPresetTag' && previewTag) {
-        previewTag.textContent = el.value || (cat === 'cc' ? '4K CC' : (cat === 'motion' ? 'MOTION VFX' : 'Pack'));
-      }
-      if (id === 'newPresetCategory') {
-        const tagInput = document.getElementById('newPresetTag');
-        if (tagInput && !tagInput.value) {
-          if (previewTag) previewTag.textContent = cat === 'cc' ? '4K CC' : (cat === 'motion' ? 'MOTION VFX' : 'Pack');
-        }
-      }
+      if (id === 'newPresetTag' && previewTag) previewTag.textContent = el.value || '4K CC';
     };
   }
 });
 
-// Submit New Preset / Asset (Published Locally AND Pushed to Cloud)
+// Submit New Preset (Published Locally AND Pushed to Cloud)
 const newPresetForm = document.getElementById('newPresetForm');
 if (newPresetForm) {
   newPresetForm.onsubmit = async (e) => {
     e.preventDefault();
-    if (!getAdminSession()) {
-      showToast('Unauthorized: Master Admin login required. Please login first.', 'error');
-      openAdminPortal();
-      return;
-    }
     const name = document.getElementById('newPresetName').value.trim();
     const price = parseInt(document.getElementById('newPresetPrice').value, 10);
     const cat = document.getElementById('newPresetCategory').value;
-    const tag = document.getElementById('newPresetTag').value.trim() || (cat === 'cc' ? '4K CC' : (cat === 'motion' ? 'MOTION VFX' : 'Pack'));
+    const tag = document.getElementById('newPresetTag').value.trim() || (cat === 'cc' ? '4K CC' : 'Pack');
     const desc = document.getElementById('newPresetDesc').value.trim();
     const img = currentUploadedImage || newPresetImgUrl.value.trim() || 'images/Mine-cc1_.png';
-    const video = currentUploadedVideoUrl || (currentUploadedVideoFile ? currentUploadedVideoFile.name : '');
 
     if (!name || isNaN(price) || !desc) {
       showToast('Please fill all required fields.', 'error');
@@ -2547,14 +1861,6 @@ if (newPresetForm) {
       img
     };
 
-    if (currentUploadedVideoFile) {
-      await MineMediaDB.saveVideo(newPreset.id, currentUploadedVideoFile, { name: currentUploadedVideoFile.name, type: currentUploadedVideoFile.type });
-      newPreset.hasVideoBlob = true;
-      newPreset.video = currentUploadedVideoFile.name;
-    } else if (currentUploadedVideoUrl) {
-      newPreset.video = currentUploadedVideoUrl;
-    }
-
     const catalog = getCatalog();
     catalog.unshift(newPreset);
     saveCatalog(catalog);
@@ -2569,28 +1875,26 @@ if (newPresetForm) {
 
     if (publishBtn) {
       publishBtn.disabled = false;
-      publishBtn.textContent = 'Publish Preset / Asset to Live Website 🚀';
+      publishBtn.textContent = 'Publish Preset to Live Website 🚀';
     }
 
-    const hasVid = Boolean(newPreset.video || newPreset.hasVideoBlob);
     if (cloudSynced) {
-      showToast(`🚀 "${name}" ${hasVid ? '(with 4K video preview)' : ''} published to LIVE WEBSITE!`, 'success');
+      showToast(`🚀 "${name}" successfully published to LIVE WEBSITE! Visible to all visitors!`, 'success');
       logActivity(`Published & Cloud-synced: ${name} (₹${price})`, '🎉');
       playSound('pay');
     } else if (isCloudConfigured()) {
       showToast(`✓ "${name}" saved locally, but cloud sync failed. Check ☁️ Cloud Live Sync tab.`, 'warn');
-      logActivity(`Published locally: ${name}`, '⚠️');
+      logActivity(`Published locally (cloud sync failed): ${name}`, '⚠️');
       playSound('warning');
     } else {
-      showToast(`✓ "${name}" ${hasVid ? '(with video preview)' : ''} published to store!`, 'success');
-      logActivity(`Published: ${name} (₹${price})`, '🎉');
+      showToast(`✓ "${name}" saved in browser! To show to all visitors, connect your free Cloud in ☁️ Cloud Live Sync tab.`, 'info');
+      logActivity(`Published new preset (Local): ${name} (₹${price})`, '🎉');
       playSound('pay');
     }
 
     // Reset Form
     newPresetForm.reset();
     currentUploadedImage = null;
-    clearUploadedVideo();
     const statusEl = document.getElementById('uploadCompressionStatus');
     if (statusEl) statusEl.style.display = 'none';
     if (adminAddFormWrap) adminAddFormWrap.style.display = 'none';
@@ -2601,10 +1905,6 @@ if (newPresetForm) {
 const resetCatalogBtn = document.getElementById('resetCatalogBtn');
 if (resetCatalogBtn) {
   resetCatalogBtn.onclick = () => {
-    if (!getAdminSession()) {
-      showToast('Unauthorized: Master Admin login required.', 'error');
-      return;
-    }
     if (confirm('Are you sure you want to reset the store catalog back to the original default presets?')) {
       saveCatalog(DEFAULT_PRESETS);
       renderStoreProducts();
@@ -2620,10 +1920,6 @@ if (resetCatalogBtn) {
 const adminClearActivityBtn = document.getElementById('adminClearActivityBtn');
 if (adminClearActivityBtn) {
   adminClearActivityBtn.onclick = () => {
-    if (!getAdminSession()) {
-      showToast('Unauthorized: Master Admin login required.', 'error');
-      return;
-    }
     localStorage.removeItem(ANALYTICS_ACTIVITY_KEY);
     renderAdminAnalytics();
     showToast('Activity log cleared.', 'info');
@@ -2636,10 +1932,6 @@ const adminSettingsForm = document.getElementById('adminSettingsForm');
 if (adminSettingsForm) {
   adminSettingsForm.onsubmit = (e) => {
     e.preventDefault();
-    if (!getAdminSession()) {
-      showToast('Unauthorized: Master Admin login required.', 'error');
-      return;
-    }
     const discordUrl = document.getElementById('settingDiscordUrl').value.trim();
     const email = document.getElementById('settingContactEmail').value.trim();
     const badge = document.getElementById('settingHeroBadge').value.trim();
