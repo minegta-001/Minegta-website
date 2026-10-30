@@ -179,6 +179,29 @@ function playSound(type) {
         makeTone(660, 990, 0.035, 0.14, 'sine', 2800);
         break;
 
+      case 'discord':
+      case 'discord-blast':
+        // Tagda futuristic cyber bass drop + dual harmonic chime
+        makeTone(110, 45, 0.08, 0.35, 'sine');
+        [0, 0.05, 0.10].forEach((delay, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime([523.25, 659.25, 1046.50][i], now + delay);
+          gain.gain.setValueAtTime(0.065, now + delay);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + delay + 0.32);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + delay);
+          osc.stop(now + delay + 0.35);
+        });
+        break;
+
+      case 'hover-shine':
+        // High-tech laser shimmer on button hover
+        makeTone(880, 1760, 0.022, 0.09, 'sine', 3400);
+        break;
+
       case 'warning':
         // Deep velvet warning tone
         makeTone(220, 140, 0.06, 0.22, 'sawtooth', 600);
@@ -505,20 +528,14 @@ filterBtns.forEach(btn => {
 });
 
 /* --------------------------------------------------------------------------
-   8. UPI CHECKOUT MODAL & PAYMENT QR
+   8. VIP PURCHASE MODAL & CREATOR CONCIERGE (DISCORD & GMAIL)
    -------------------------------------------------------------------------- */
 const modal = document.getElementById('modal');
 const modalClose = document.getElementById('close');
 const productName = document.getElementById('productName');
-const paymentQR = document.getElementById('paymentQR');
 const payAmount = document.getElementById('payAmount');
 const copyBtn = document.getElementById('copyBtn');
-const upiPay = document.getElementById('upiPay');
-const paidBtn = document.getElementById('paidBtn');
-const downloadArea = document.getElementById('downloadArea');
-const downloadBtn = document.getElementById('downloadBtn');
 
-const UPI_ID = 'ankitgirirg@okicici';
 let selectedProduct = null;
 
 // Download mappings (if you have file links, you can paste them here)
@@ -529,77 +546,110 @@ const DOWNLOAD_URLS = {
   'CC 4': '',
   'CC 5': '',
   'Transition Pack 01': '',
-  'System Preset 01': ''
+  'System Preset 01': '',
+  'Mine Pc Cleaner': '',
+  'MINE MEGASUITE': ''
 };
 
-function buildUPI(amount, name) {
-  return 'upi://pay?pa=' + encodeURIComponent(UPI_ID) +
-         '&pn=' + encodeURIComponent('MINE PRESETS') +
-         '&am=' + encodeURIComponent(Number(amount).toFixed(2)) +
-         '&cu=INR&tn=' + encodeURIComponent(name + ' - MINE PRESETS');
+function getCoursePrice(courseString) {
+  if (!courseString) return 65000;
+  if (courseString.includes('Month 01') || courseString.includes('Month 1')) return 10000;
+  if (courseString.includes('Month 02') || courseString.includes('Month 2')) return 10000;
+  if (courseString.includes('Month 03') || courseString.includes('Month 3')) return 20000;
+  if (courseString.includes('Month 04') || courseString.includes('Month 4')) return 25000;
+  if (courseString.includes('Complete') || courseString.includes('4-Month') || courseString.includes('Bundle')) return 65000;
+  const match = courseString.match(/[₹\s]*([0-9,]+)/);
+  if (match) {
+    const num = parseInt(match[1].replace(/,/g, ''), 10);
+    if (!isNaN(num) && num > 0) return num;
+  }
+  return 65000;
 }
 
-function renderPaymentQR() {
-  if (!selectedProduct) return;
-  const upiUrl = buildUPI(selectedProduct.price, selectedProduct.name);
-  new QRious({
-    element: paymentQR,
-    value: upiUrl,
-    size: 360,
-    level: 'H',
-    foreground: '#030805',
-    background: '#ffffff'
-  });
-  payAmount.textContent = '₹' + selectedProduct.price;
-  downloadArea.style.display = 'none';
-  playSound('qr');
-}
+window.openPaymentModal = function(item) {
+  if (!item) return;
+  if (typeof item === 'string') {
+    const p = getCoursePrice(item);
+    item = { name: item, price: p };
+  }
+  selectedProduct = item;
 
-// Auth & Buy integration defined below
+  const productName = document.getElementById('productName');
+  const payAmount = document.getElementById('payAmount');
+  const conciergeItemCode = document.getElementById('conciergeItemCode');
+  const btnModalDiscord = document.getElementById('btnModalDiscord');
+  const btnModalGmail = document.getElementById('btnModalGmail');
 
-function closeModal() {
-  modal.classList.remove('show');
-  playSound('modal-close');
-}
-modalClose.onclick = closeModal;
-modal.onclick = e => { if (e.target === modal) closeModal(); };
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
-});
+  if (productName) {
+    productName.textContent = item.name;
+  }
+  if (payAmount) {
+    payAmount.textContent = '₹' + Number(item.price).toLocaleString('en-IN');
+  }
+  if (conciergeItemCode) {
+    conciergeItemCode.textContent = `${item.name} (₹${Number(item.price).toLocaleString('en-IN')})`;
+  }
 
-copyBtn.onclick = async () => {
-  try {
-    await navigator.clipboard.writeText(UPI_ID);
-    copyBtn.textContent = '✓ Copied to Clipboard';
-    copyBtn.classList.add('copied');
-    playSound('copy');
-    setTimeout(() => {
-      copyBtn.textContent = '📋 Copy UPI ID';
-      copyBtn.classList.remove('copied');
-    }, 2000);
-  } catch(e) {}
-};
+  // Pre-fill Direct Gmail link
+  if (btnModalGmail) {
+    const mailSub = encodeURIComponent(`[PURCHASE ORDER] ${item.name} (₹${Number(item.price).toLocaleString('en-IN')})`);
+    const mailBody = encodeURIComponent(`Hello Aman Sir,\n\nI want to purchase / enroll in:\n• Item: ${item.name}\n• Price: ₹${Number(item.price).toLocaleString('en-IN')}\n• Date: ${new Date().toLocaleString()}\n\nPlease share your payment confirmation details and direct download/enrollment credentials.\n\nThank you!`);
+    btnModalGmail.href = `mailto:minegta611@gmail.com?subject=${mailSub}&body=${mailBody}`;
+  }
 
-upiPay.onclick = () => {
-  if (!selectedProduct) return;
-  playSound('click');
-  window.location.href = buildUPI(selectedProduct.price, selectedProduct.name);
-};
-
-paidBtn.onclick = () => {
-  if (!selectedProduct) return;
-  playSound('success');
-  const url = DOWNLOAD_URLS[selectedProduct.name];
-  if (url) {
-    downloadBtn.href = url;
-    downloadArea.style.display = 'block';
-  } else {
-    downloadArea.style.display = 'block';
-    downloadBtn.href = "mailto:minegta611@gmail.com?subject=Payment%20Confirmation%20for%20" + encodeURIComponent(selectedProduct.name);
-    downloadBtn.textContent = "Email Screenshot for Instant Delivery ↗";
-    downloadBtn.removeAttribute('download');
+  if (modal) {
+    modal.classList.add('show');
+    playSound('discord');
   }
 };
+
+function closeModal() {
+  if (modal) modal.classList.remove('show');
+  playSound('modal-close');
+}
+if (modalClose) modalClose.onclick = closeModal;
+if (modal) modal.onclick = e => { if (e.target === modal) closeModal(); };
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && modal && modal.classList.contains('show')) closeModal();
+});
+
+// Interactive Discord & Gmail modal action buttons with tagda sound feedback
+const btnModalDiscord = document.getElementById('btnModalDiscord');
+if (btnModalDiscord) {
+  btnModalDiscord.onmouseenter = () => playSound('hover-shine');
+  btnModalDiscord.onclick = () => {
+    playSound('discord-blast');
+    showToast('🎮 Opening Official Discord (discord.gg/Sgf5aqqRVy)...', 'info');
+  };
+}
+
+const btnModalGmail = document.getElementById('btnModalGmail');
+if (btnModalGmail) {
+  btnModalGmail.onmouseenter = () => playSound('hover-shine');
+  btnModalGmail.onclick = () => {
+    playSound('pay');
+    showToast('✉️ Opening Gmail to message Aman Sir directly...', 'info');
+  };
+}
+
+// Quick Copy Email Button
+if (copyBtn) {
+  copyBtn.onclick = async () => {
+    try {
+      await navigator.clipboard.writeText('minegta611@gmail.com');
+      copyBtn.innerHTML = '<span>✓</span> Copied minegta611@gmail.com!';
+      copyBtn.classList.add('copied');
+      playSound('copy');
+      showToast('✓ Copied minegta611@gmail.com to clipboard!', 'success');
+      setTimeout(() => {
+        copyBtn.innerHTML = '<span>📋</span> Copy Gmail Address (minegta611@gmail.com)';
+        copyBtn.classList.remove('copied');
+      }, 2400);
+    } catch(e) {
+      showToast('minegta611@gmail.com', 'info');
+    }
+  };
+}
 
 /* --------------------------------------------------------------------------
    9. DIRECT INSTANT BUY SYSTEM & NOTIFICATIONS
@@ -636,6 +686,7 @@ const ANALYTICS_DISCORD_KEY = 'mine_stat_discord_clicks_v2';
 const ANALYTICS_ZOOM_KEY = 'mine_stat_zoom_views_v2';
 const ANALYTICS_DAILY_KEY = 'mine_stat_daily_traffic_v2';
 const ANALYTICS_ACTIVITY_KEY = 'mine_stat_activity_v2';
+const ORDERS_STORAGE_KEY = 'mine_orders_v2';
 const PWD_SALT = 'MINE_IMPERIAL_EMERALD_SALT_2026_99x8a';
 
 // Real-Time Cloud Engine State
@@ -644,9 +695,44 @@ let firebaseDb = null;
 let isCloudLive = false;
 let cloudPresetsCount = 0;
 
-// Default Master Credentials:
-// ID: mineadmin
-// Password: Mine@Imperial2026!
+// Order Storage Engine
+function getOrders() {
+  try {
+    return JSON.parse(localStorage.getItem(ORDERS_STORAGE_KEY)) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveOrder(record) {
+  try {
+    const list = getOrders();
+    list.unshift(record);
+    localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(list));
+    if (firebaseDb) {
+      try {
+        firebaseDb.ref(`orders/${record.id}`).set(record);
+      } catch(e) {}
+    }
+  } catch (e) {}
+}
+
+window.updateOrderStatus = function(orderId, newStatus) {
+  const list = getOrders();
+  const order = list.find(o => o.id === orderId);
+  if (order) {
+    order.status = newStatus;
+    localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(list));
+    if (firebaseDb) {
+      try {
+        firebaseDb.ref(`orders/${orderId}/status`).set(newStatus);
+      } catch(e) {}
+    }
+    renderAdminGtaApplications();
+    showToast(`Order ${orderId} marked as ${newStatus}!`, 'success');
+    playSound('pay');
+  }
+};
 
 // Default Catalog Configuration
 const DEFAULT_PRESETS = [
@@ -734,7 +820,7 @@ const DEFAULT_PRESETS = [
 ];
 
 const DEFAULT_SETTINGS = {
-  discordUrl: 'https://discord.gg/aunjV6zMj',
+  discordUrl: 'https://discord.gg/Sgf5aqqRVy',
   email: 'minegta611@gmail.com',
   badge: 'TITANIUM 4K MASTER COLLECTION'
 };
@@ -1083,7 +1169,7 @@ function saveSiteSettings(settings) {
 }
 
 function applySiteSettings(settings) {
-  const discordUrl = settings.discordUrl || 'https://discord.gg/aunjV6zMj';
+  const discordUrl = settings.discordUrl || 'https://discord.gg/Sgf5aqqRVy';
   document.querySelectorAll('a.buy, a.social-discord').forEach(el => {
     el.href = discordUrl;
   });
@@ -1223,7 +1309,10 @@ function renderStoreProducts() {
           <p class="${isCC ? 'cc-cinematic' : ''}">${p.desc}</p>
           <div class="price-row">
             <div class="price"><span class="price-symbol">₹</span>${p.price}</div>
-            <a class="buy" href="${settings.discordUrl}" target="_blank" rel="noopener noreferrer" data-name="${p.name}" data-price="${p.price}">Buy now <span class="buy-arrow">↗</span></a>
+            <div class="card-price-actions">
+              <button type="button" class="btn-card-buy-modal" onclick="openPaymentModal({ id: '${p.id}', name: '${p.name.replace(/'/g, "\\'")}', price: ${p.price}, cat: '${p.cat}' })" title="Buy via Discord or Gmail">⚡ Buy Now</button>
+              <a class="buy btn-card-dc" href="${settings.discordUrl || 'https://discord.gg/Sgf5aqqRVy'}" target="_blank" rel="noopener noreferrer" data-name="${p.name}" data-price="${p.price}" title="Instant Buy on Discord">🎮 Discord ↗</a>
+            </div>
           </div>
         </div>
       </article>
@@ -1241,11 +1330,12 @@ function renderStoreProducts() {
 
 function setupBuyButtons() {
   document.querySelectorAll('.buy').forEach(btn => {
+    btn.onmouseenter = () => playSound('hover-shine');
     btn.onclick = () => {
-      playSound('click');
+      playSound('discord');
       const name = btn.dataset.name || 'Preset';
       recordDiscordClick(name);
-      showToast(`🎮 Opening Discord for ${name} — DM us to complete your purchase!`, 'info');
+      showToast(`🎮 Opening Official Discord to purchase ${name}...`, 'info');
     };
   });
 }
@@ -1341,15 +1431,17 @@ const adminLogoutBtn = document.getElementById('adminLogoutBtn');
 let adminLockTimer = null;
 let currentUploadedImage = null;
 
+// Precomputed Salted SHA-256 Hash for Default Admin Credential (Zero Plaintext Exposure)
+const DEFAULT_ADMIN_HASH = 'c4e2c2a18b1fe1c49de7948cb553448cb5ca14091a3b469dc905d8a2b6e32b00';
+
 // Initialize Admin Credentials if not set
 async function initAdminCredentials() {
   try {
     const existing = localStorage.getItem(ADMIN_STORAGE_KEY);
     if (!existing) {
-      const defaultHash = await sha256('Mine@Imperial2026!');
       const defaultCreds = {
         username: 'mineadmin',
-        passwordHash: defaultHash,
+        passwordHash: DEFAULT_ADMIN_HASH,
         updatedAt: Date.now()
       };
       localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(defaultCreds));
@@ -1640,7 +1732,7 @@ function renderAdminSettings() {
   const email = document.getElementById('settingContactEmail');
   const badge = document.getElementById('settingHeroBadge');
 
-  if (disc) disc.value = settings.discordUrl || 'https://discord.gg/aunjV6zMj';
+  if (disc) disc.value = settings.discordUrl || 'https://discord.gg/Sgf5aqqRVy';
   if (email) email.value = settings.email || 'minegta611@gmail.com';
   if (badge) badge.value = settings.badge || 'TITANIUM 4K MASTER COLLECTION';
 }
@@ -1706,8 +1798,8 @@ if (adminLoginForm) {
     }
 
     const credsStr = localStorage.getItem(ADMIN_STORAGE_KEY);
-    let creds = { username: 'mineadmin', passwordHash: '' };
-    try { creds = JSON.parse(credsStr); } catch(e){}
+    let creds = { username: 'mineadmin', passwordHash: DEFAULT_ADMIN_HASH };
+    try { if (credsStr) creds = JSON.parse(credsStr); } catch(e){}
 
     const enteredHash = await sha256(passInput);
     if (userInput.toLowerCase() === creds.username.toLowerCase() && enteredHash === creds.passwordHash) {
@@ -1967,8 +2059,8 @@ if (adminSecurityForm) {
     }
 
     const credsStr = localStorage.getItem(ADMIN_STORAGE_KEY);
-    let creds = { username: 'mineadmin', passwordHash: '' };
-    try { creds = JSON.parse(credsStr); } catch(e){}
+    let creds = { username: 'mineadmin', passwordHash: DEFAULT_ADMIN_HASH };
+    try { if (credsStr) creds = JSON.parse(credsStr); } catch(e){}
 
     creds.username = newUsername;
 
@@ -2163,6 +2255,49 @@ if (btnCopyPresetCode) {
     });
   };
 }
+
+window.copySecurityRules = function() {
+  const rules = JSON.stringify({
+    "rules": {
+      "catalog": {
+        ".read": true,
+        ".write": "auth != null",
+        "$item": {
+          ".validate": "newData.hasChildren(['id', 'name', 'price', 'cat']) && newData.child('price').isNumber() && newData.child('price').val() >= 0"
+        }
+      },
+      "settings": {
+        ".read": true,
+        ".write": "auth != null",
+        ".validate": "newData.hasChildren(['discordUrl', 'email'])"
+      },
+      "orders": {
+        ".read": "auth != null",
+        "$orderId": {
+          ".write": "!data.exists() || auth != null",
+          ".validate": "newData.hasChildren(['id', 'item', 'price', 'timestamp', 'status'])"
+        }
+      },
+      "applications": {
+        ".read": "auth != null",
+        "$appId": {
+          ".write": "!data.exists() || auth != null",
+          ".validate": "newData.hasChildren(['id', 'name', 'email', 'phone', 'course', 'timestamp'])"
+        }
+      },
+      "analytics": {
+        ".read": "auth != null",
+        ".write": true
+      }
+    }
+  }, null, 2);
+  navigator.clipboard.writeText(rules).then(() => {
+    showToast('Secure Firebase Database Rules copied to clipboard! 📋', 'success');
+    playSound('copy');
+  }).catch(() => {
+    showToast('Unable to copy rules to clipboard.', 'error');
+  });
+};
 
 // Initialize on page load
 initAdminCredentials();
@@ -3061,6 +3196,11 @@ function saveGtaApplication(record) {
     const list = getGtaApplications();
     list.unshift(record);
     localStorage.setItem(GTA_APPLICATIONS_KEY, JSON.stringify(list));
+    if (firebaseDb) {
+      try {
+        firebaseDb.ref(`applications/${record.id}`).set(record);
+      } catch(e) {}
+    }
   } catch (e) {}
 }
 
@@ -3218,6 +3358,8 @@ ${name || 'Student'}`;
       if (btnText) btnText.textContent = 'Dispatching to amangta599990@gmail.com...';
 
       const applicationId = 'GTA-' + Math.floor(100000 + Math.random() * 900000);
+      const coursePrice = getCoursePrice(course);
+      const formattedPrice = '₹' + Number(coursePrice).toLocaleString('en-IN');
       const appRecord = {
         id: applicationId,
         name,
@@ -3225,6 +3367,8 @@ ${name || 'Student'}`;
         email,
         phone,
         course,
+        price: coursePrice,
+        formattedPrice,
         level,
         notes: notes || 'None',
         timestamp: new Date().toISOString(),
@@ -3243,6 +3387,7 @@ ${name || 'Student'}`;
         "Student Gmail": email,
         "WhatsApp / Phone": phone,
         "Selected Course Program": course,
+        "Tuition Fee / Pricing": formattedPrice,
         "Current Experience Level": level,
         "Student Goals & Notes": notes || 'Not provided',
         "Application Date": appRecord.formattedDate
@@ -3319,52 +3464,109 @@ function renderAdminGtaApplications() {
   const listEl = document.getElementById('gtaAppsList');
   if (!listEl) return;
 
+  const orders = getOrders();
+
+  let appsHtml = '';
   if (apps.length === 0) {
-    listEl.innerHTML = `
-      <div style="padding:40px 20px; text-align:center; color:var(--text-muted); background:rgba(255,255,255,0.02); border-radius:12px; border:1px dashed rgba(255,255,255,0.1);">
-        <p style="font-size:15px; margin-bottom:6px; color:#ffffff;">No student applications received yet.</p>
+    appsHtml = `
+      <div style="padding:30px 20px; text-align:center; color:var(--text-muted); background:rgba(255,255,255,0.02); border-radius:12px; border:1px dashed rgba(255,255,255,0.1); margin-bottom:20px;">
+        <p style="font-size:14px; margin-bottom:6px; color:#ffffff;">No student applications received yet.</p>
         <span style="font-size:12px; color:var(--text-dim);">When students submit the MINE GTA form on the site, their profile will be delivered directly to <strong>amangta599990@gmail.com</strong> and also appear here.</span>
       </div>
     `;
-    return;
+  } else {
+    appsHtml = apps.map(app => {
+      const waText = encodeURIComponent(`Hello ${app.name}, this is Aman from MINE GTA regarding your course application (${app.id}).`);
+      const cleanPhone = (app.phone || '').replace(/[^0-9]/g, '');
+      const waUrl = `https://wa.me/${cleanPhone}?text=${waText}`;
+      const mailUrl = `mailto:${app.email}?subject=MINE%20GTA%20Course%20Admission%20-%20Confirmation%20for%20${encodeURIComponent(app.name)}`;
+      const priceDisplay = app.formattedPrice || ('₹' + Number(app.price || getCoursePrice(app.course)).toLocaleString('en-IN'));
+
+      return `
+        <div class="admin-app-card" style="background:rgba(20,16,30,0.85); border:1px solid rgba(168,85,247,0.3); border-radius:14px; padding:18px 20px; margin-bottom:14px; display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <div>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11px; background:rgba(147,51,234,0.25); color:#d8b4fe; padding:3px 8px; border-radius:6px; font-weight:700;">${app.id}</span>
+              <strong style="font-size:16px; color:#ffffff; margin-left:8px;">${sanitizeGta(app.name)}</strong>
+            </div>
+            <span style="font-size:11px; color:#a1a1aa; font-family:'JetBrains Mono',monospace;">${app.formattedDate || ''}</span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; font-size:13px; color:#d4d4d8; background:rgba(0,0,0,0.3); padding:12px 14px; border-radius:8px;">
+            <div><b>🎓 Program:</b> <span style="color:#22d3ee; font-weight:700;">${sanitizeGta(app.course || 'Complete 4-Month Masterclass')}</span></div>
+            <div><b>💰 Fee / Price:</b> <span style="color:#4ade80; font-weight:700;">${sanitizeGta(priceDisplay)}</span></div>
+            <div><b>📍 Address:</b> ${sanitizeGta(app.address)}</div>
+            <div><b>✉️ Gmail:</b> <a href="${mailUrl}" style="color:#c084fc; text-decoration:underline;">${sanitizeGta(app.email)}</a></div>
+            <div><b>📱 Phone:</b> <a href="${waUrl}" target="_blank" style="color:#4ade80; text-decoration:underline;">${sanitizeGta(app.phone)}</a></div>
+            <div><b>⚡ Level:</b> <span style="color:#e9d5ff;">${sanitizeGta(app.level || 'Intermediate')}</span></div>
+          </div>
+
+          ${app.notes && app.notes !== 'None' ? `
+            <div style="font-size:12.5px; color:#a1a1aa; font-style:italic; background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:6px;">
+              <b>Goal:</b> "${sanitizeGta(app.notes)}"
+            </div>
+          ` : ''}
+
+          <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; margin-top:4px;">
+            <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-sm-ghost" style="border-color:#22c55e; color:#4ade80;">💬 WhatsApp Student</a>
+            <a href="${mailUrl}" class="btn-sm-ghost" style="border-color:#a855f7; color:#d8b4fe;">✉️ Email Student</a>
+          </div>
+        </div>
+      `;
+    }).join('');
   }
 
-  listEl.innerHTML = apps.map(app => {
-    const waText = encodeURIComponent(`Hello ${app.name}, this is Aman from MINE GTA regarding your course application (${app.id}).`);
-    const cleanPhone = (app.phone || '').replace(/[^0-9]/g, '');
-    const waUrl = `https://wa.me/${cleanPhone}?text=${waText}`;
-    const mailUrl = `mailto:${app.email}?subject=MINE%20GTA%20Course%20Admission%20-%20Confirmation%20for%20${encodeURIComponent(app.name)}`;
+  // Render Orders Panel
+  let ordersHtml = `
+    <div style="margin-top:24px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.1);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+        <h4 style="font-size:15px; color:#ffffff; margin:0;">💳 Discord &amp; Email Orders (${orders.length})</h4>
+        <span class="tag-status">Creator Order Desk</span>
+      </div>
+  `;
 
-    return `
-      <div class="admin-app-card" style="background:rgba(20,16,30,0.85); border:1px solid rgba(168,85,247,0.3); border-radius:14px; padding:18px 20px; margin-bottom:14px; display:flex; flex-direction:column; gap:10px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-          <div>
-            <span style="font-family:'JetBrains Mono',monospace; font-size:11px; background:rgba(147,51,234,0.25); color:#d8b4fe; padding:3px 8px; border-radius:6px; font-weight:700;">${app.id}</span>
-            <strong style="font-size:16px; color:#ffffff; margin-left:8px;">${sanitizeGta(app.name)}</strong>
-          </div>
-          <span style="font-size:11px; color:#a1a1aa; font-family:'JetBrains Mono',monospace;">${app.formattedDate || ''}</span>
-        </div>
-
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; font-size:13px; color:#d4d4d8; background:rgba(0,0,0,0.3); padding:12px 14px; border-radius:8px;">
-          <div><b>📍 Address:</b> ${sanitizeGta(app.address)}</div>
-          <div><b>✉️ Gmail:</b> <a href="${mailUrl}" style="color:#c084fc; text-decoration:underline;">${sanitizeGta(app.email)}</a></div>
-          <div><b>📱 Phone:</b> <a href="${waUrl}" target="_blank" style="color:#4ade80; text-decoration:underline;">${sanitizeGta(app.phone)}</a></div>
-          <div><b>⚡ Level:</b> <span style="color:#e9d5ff;">${sanitizeGta(app.level || 'Intermediate')}</span></div>
-        </div>
-
-        ${app.notes && app.notes !== 'None' ? `
-          <div style="font-size:12.5px; color:#a1a1aa; font-style:italic; background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:6px;">
-            <b>Goal:</b> "${sanitizeGta(app.notes)}"
-          </div>
-        ` : ''}
-
-        <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; margin-top:4px;">
-          <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-sm-ghost" style="border-color:#22c55e; color:#4ade80;">💬 WhatsApp Student</a>
-          <a href="${mailUrl}" class="btn-sm-ghost" style="border-color:#a855f7; color:#d8b4fe;">✉️ Email Student</a>
-        </div>
+  if (orders.length === 0) {
+    ordersHtml += `
+      <div style="padding:24px 20px; text-align:center; color:var(--text-muted); background:rgba(255,255,255,0.02); border-radius:12px; border:1px dashed rgba(255,255,255,0.1);">
+        <p style="font-size:13.5px; margin-bottom:4px; color:#ffffff;">No direct purchase inquiries logged yet.</p>
+        <span style="font-size:12px; color:var(--text-dim);">Customer orders initiated through Discord or Gmail appear here for order fulfillment tracking.</span>
       </div>
     `;
-  }).join('');
+  } else {
+    ordersHtml += orders.map(ord => {
+      const isPaid = ord.status === 'VERIFIED_PAID';
+      const isRejected = ord.status === 'REJECTED';
+      const statusColor = isPaid ? '#4ade80' : (isRejected ? '#f87171' : '#facc15');
+      const statusBg = isPaid ? 'rgba(34,197,94,0.18)' : (isRejected ? 'rgba(239,68,68,0.18)' : 'rgba(234,179,8,0.18)');
+      const statusLabel = isPaid ? '✓ VERIFIED PAID' : (isRejected ? '✕ REJECTED' : '⏳ PENDING UTR VERIFICATION');
+
+      return `
+        <div class="admin-app-card" style="background:rgba(16,20,30,0.85); border:1px solid rgba(34,211,238,0.25); border-radius:12px; padding:16px 18px; margin-bottom:12px; display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+            <div>
+              <span style="font-family:'JetBrains Mono',monospace; font-size:11px; background:rgba(34,211,238,0.2); color:#22d3ee; padding:3px 8px; border-radius:6px; font-weight:700;">${ord.id}</span>
+              <strong style="font-size:15px; color:#ffffff; margin-left:8px;">${sanitizeGta(ord.item)}</strong>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:11px; padding:3px 9px; border-radius:999px; background:${statusBg}; color:${statusColor}; font-weight:700;">${statusLabel}</span>
+              <span style="font-size:11px; color:#a1a1aa; font-family:'JetBrains Mono',monospace;">${ord.formattedDate || ''}</span>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; font-size:13px; color:#d4d4d8; background:rgba(0,0,0,0.25); padding:10px 14px; border-radius:8px;">
+            <div><b>Amount:</b> <span style="color:#ffffff; font-weight:700;">₹${Number(ord.price).toLocaleString('en-IN')}</span></div>
+            <div><b>Channel:</b> <span style="color:#a1a1aa;">Discord &amp; Email Order Desk</span></div>
+            <div style="display:flex; gap:6px;">
+              ${!isPaid ? `<button type="button" class="btn-sm-ghost" style="border-color:#22c55e; color:#4ade80; padding:4px 10px; font-size:11px;" onclick="updateOrderStatus('${ord.id}', 'VERIFIED_PAID')">✓ Mark Paid</button>` : ''}
+              ${!isRejected ? `<button type="button" class="btn-sm-ghost" style="border-color:#ef4444; color:#f87171; padding:4px 10px; font-size:11px;" onclick="updateOrderStatus('${ord.id}', 'REJECTED')">✕ Reject</button>` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+  ordersHtml += `</div>`;
+
+  listEl.innerHTML = appsHtml + ordersHtml;
 }
 
 // Bind GTA admin toolbar buttons

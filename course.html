@@ -122,6 +122,7 @@
         <a href="#months">4-Month Roadmap</a>
         <a href="#apply">Apply Now</a>
         <a href="index.html#store">Explore Store</a>
+        <a href="motion-lab.html">Motion Lab ↗</a>
       </div>
 
       <div style="display:flex; align-items:center; gap:10px;">
@@ -197,7 +198,10 @@
               <li><strong>Live Project:</strong> High-Energy YouTube / Gaming Motion Intro + 1-on-1 Feedback</li>
             </ul>
           </div>
-          <button type="button" class="btn-select-month-silver" onclick="selectCourseMonth('Month 01: Foundation → Intermediate (₹10,000)')">Enroll in Month 01 (₹10,000) ↓</button>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
+            <button type="button" class="btn-select-month-silver" style="flex:1;" onclick="selectCourseMonth('Month 01: Foundation → Intermediate (₹10,000)')">Enroll in Month 01 (₹10,000) ↓</button>
+            <button type="button" class="btn-select-month-dc" onclick="openPaymentModal({ id: 'course-m1', name: 'MINE GTA Course - Month 01: Foundation → Intermediate', price: 10000 })" title="Enroll via Discord or Gmail">🎮 Instant Buy ↗</button>
+          </div>
         </div>
 
         <!-- Month 02 Card -->
@@ -219,7 +223,10 @@
               <li><strong>Live Project:</strong> Fluid 60 FPS Kinetic Typography Showcase + 3D Tracked Sequence</li>
             </ul>
           </div>
-          <button type="button" class="btn-select-month-silver" onclick="selectCourseMonth('Month 02: Advanced Animation + Kinetic Motion (₹10,000)')">Enroll in Month 02 (₹10,000) ↓</button>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
+            <button type="button" class="btn-select-month-silver" style="flex:1;" onclick="selectCourseMonth('Month 02: Advanced Animation + Kinetic Motion (₹10,000)')">Enroll in Month 02 (₹10,000) ↓</button>
+            <button type="button" class="btn-select-month-dc" onclick="openPaymentModal({ id: 'course-m2', name: 'MINE GTA Course - Month 02: Advanced Animation', price: 10000 })" title="Enroll via Discord or Gmail">🎮 Instant Buy ↗</button>
+          </div>
         </div>
 
         <!-- Month 03 Card -->
@@ -229,7 +236,7 @@
             <h3 class="month-title">Professional VFX + 3D Motion Design</h3>
             <p class="month-tagline">Master Sapphire, Deep Glow, Universe, Element 3D &amp; complete commercial showreels.</p>
             <div class="month-price-tag">
-              <span class="month-amount">₹12,000</span>
+              <span class="month-amount">₹20,000</span>
               <span class="month-term">/ Month</span>
             </div>
             <ul class="month-topics-list">
@@ -241,7 +248,10 @@
               <li><strong>Live Project:</strong> Studio-Grade Commercial Showreel Sequence Ready for Agency Pitching</li>
             </ul>
           </div>
-          <button type="button" class="btn-select-month-silver" onclick="selectCourseMonth('Month 03: Professional VFX + 3D Motion Design (₹12,000)')">Enroll in Month 03 (₹12,000) ↓</button>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
+            <button type="button" class="btn-select-month-silver" style="flex:1;" onclick="selectCourseMonth('Month 03: Professional VFX + 3D Motion Design (₹20,000)')">Enroll in Month 03 (₹20,000) ↓</button>
+            <button type="button" class="btn-select-month-dc" onclick="openPaymentModal({ id: 'course-m3', name: 'MINE GTA Course - Month 03: Professional VFX', price: 20000 })" title="Enroll via Discord or Gmail">🎮 Instant Buy ↗</button>
+          </div>
         </div>
 
         <!-- Month 04 Card -->
@@ -251,7 +261,7 @@
             <h3 class="month-title">Client Work, High-Ticket Freelancing &amp; Mastery</h3>
             <p class="month-tagline">Land international freelance clients, master pricing psychology &amp; graduate certified.</p>
             <div class="month-price-tag">
-              <span class="month-amount">₹12,000</span>
+              <span class="month-amount">₹25,000</span>
               <span class="month-term">/ Month</span>
             </div>
             <ul class="month-topics-list">
@@ -263,7 +273,10 @@
               <li><strong>Graduation:</strong> Official MINE GTA Course Certification + Showreel Showcase</li>
             </ul>
           </div>
-          <button type="button" class="btn-select-month-silver" onclick="selectCourseMonth('Month 04: Client Work + High-Ticket Freelancing (₹12,000)')">Enroll in Month 04 (₹12,000) ↓</button>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
+            <button type="button" class="btn-select-month-silver" style="flex:1;" onclick="selectCourseMonth('Month 04: Client Work, High-Ticket Freelancing &amp; Mastery (₹25,000)')">Enroll in Month 04 (₹25,000) ↓</button>
+            <button type="button" class="btn-select-month-dc" onclick="openPaymentModal({ id: 'course-m4', name: 'MINE GTA Course - Month 04: High-Ticket Freelancing', price: 25000 })" title="Enroll via Discord or Gmail">🎮 Instant Buy ↗</button>
+          </div>
         </div>
       </div>
 
@@ -276,9 +289,12 @@
         <div class="bundle-right">
           <div>
             <div style="font-size:11px; font-weight:800; letter-spacing:1px; color:#94a3b8; text-transform:uppercase;">FULL 4-MONTH BUNDLE</div>
-            <div class="bundle-price-val">₹44,000</div>
+            <div class="bundle-price-val">₹65,000</div>
           </div>
-          <button type="button" class="btn-select-bundle-silver" onclick="selectCourseMonth('Complete 4-Month Masterclass (₹44,000)')">Enroll Complete Batch (₹44,000) ↓</button>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="btn-select-bundle-silver" onclick="selectCourseMonth('Complete 4-Month Masterclass (₹65,000)')">Enroll Complete Batch (₹65,000) ↓</button>
+            <button type="button" class="btn-select-month-dc btn-bundle-dc" onclick="openPaymentModal({ id: 'course-bundle', name: 'MINE GTA Course - Complete 4-Month Masterclass', price: 65000 })" title="Enroll Full Batch via Discord or Gmail">🎮 Instant Buy (Discord &amp; Email) ↗</button>
+          </div>
         </div>
       </div>
     </section>
@@ -347,9 +363,9 @@
                 <select id="applyCourse" name="course" class="gta-select">
                   <option value="Month 01: Foundation → Intermediate (₹10,000)">Month 01: Foundation → Intermediate (₹10,000)</option>
                   <option value="Month 02: Advanced Animation + Kinetic Motion (₹10,000)">Month 02: Advanced Animation + Kinetic Motion (₹10,000)</option>
-                  <option value="Month 03: Professional VFX + 3D Motion Design (₹12,000)">Month 03: Professional VFX + 3D Motion Design (₹12,000)</option>
-                  <option value="Month 04: Client Work + High-Ticket Freelancing (₹12,000)">Month 04: Client Work + High-Ticket Freelancing (₹12,000)</option>
-                  <option value="Complete 4-Month Masterclass (₹44,000)" selected>Complete 4-Month Masterclass (₹44,000)</option>
+                  <option value="Month 03: Professional VFX + 3D Motion Design (₹20,000)">Month 03: Professional VFX + 3D Motion Design (₹20,000)</option>
+                  <option value="Month 04: Client Work, High-Ticket Freelancing &amp; Mastery (₹25,000)">Month 04: Client Work, High-Ticket Freelancing &amp; Mastery (₹25,000)</option>
+                  <option value="Complete 4-Month Masterclass (₹65,000)" selected>Complete 4-Month Masterclass (₹65,000)</option>
                 </select>
               </div>
             </div>
@@ -394,6 +410,88 @@
       </div>
     </section>
   </main>
+
+  <!-- VIP PURCHASE & DIRECT CONTACT MODAL (DISCORD & GMAIL) -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Enroll via Discord or Email">
+    <div class="modal-box modal-box-vip">
+      <button class="modal-close" id="close" aria-label="Close Modal">×</button>
+      <div class="eyebrow" style="color:#22d3ee; letter-spacing:2px; font-weight:800;">⚡ OFFICIAL COURSE ADMISSION DESK</div>
+      <h3 style="margin-top:6px; font-size:26px; font-weight:900; letter-spacing:-0.5px;">Instant Enrollment &amp; Direct Access</h3>
+      <p class="modal-sub" style="margin-bottom:18px;">Direct batch seat reservation with 1-on-1 creator onboarding.</p>
+      
+      <div class="vip-item-banner">
+        <div class="vip-item-name" id="productName">Select Course Program</div>
+        <div class="vip-item-price-tag">
+          <span class="vip-price-lbl">Tuition Fee</span>
+          <span class="vip-price-val" id="payAmount">₹0</span>
+        </div>
+      </div>
+
+      <!-- Instructions in High-Conversion English -->
+      <div class="vip-order-instructions">
+        <h4 class="vip-instr-title">✦ How To Confirm Your Seat:</h4>
+        <p class="vip-instr-text">
+          To enroll in this monthly phase or the complete mentorship, please connect with Aman directly on <strong>Discord</strong> or send a message via <strong>Gmail</strong>. Your mentorship curriculum, project files, and Discord VIP role will be activated right away!
+        </p>
+        
+        <div class="vip-steps-list">
+          <div class="vip-step-item">
+            <span class="vip-step-badge">1</span>
+            <div>
+              <strong>Choose Discord or Direct Gmail:</strong>
+              <p>Click the animated Discord button or the Direct Gmail button below.</p>
+            </div>
+          </div>
+          <div class="vip-step-item">
+            <span class="vip-step-badge">2</span>
+            <div>
+              <strong>Send Enrollment Request:</strong>
+              <p>Mention that you want to enroll in <code id="conciergeItemCode" style="color:#22d3ee; background:rgba(34,211,238,0.12); padding:2px 6px; border-radius:4px;">this program</code>.</p>
+            </div>
+          </div>
+          <div class="vip-step-item">
+            <span class="vip-step-badge">3</span>
+            <div>
+              <strong>Instant Batch Activation:</strong>
+              <p>Aman Sir will confirm your student credentials, private session timetable, and software asset pack.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dual Animated Tagda Action Buttons -->
+      <div class="vip-actions-container">
+        <a class="btn-vip-discord" id="btnModalDiscord" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer">
+          <span class="btn-shine"></span>
+          <span class="btn-icon">🎮</span>
+          <div class="btn-txt-wrap">
+            <span class="btn-txt-main">Enroll via Official Discord ↗</span>
+            <span class="btn-txt-sub">Join Discord Server (discord.gg/Sgf5aqqRVy) • Instant Onboarding</span>
+          </div>
+        </a>
+
+        <a class="btn-vip-gmail" id="btnModalGmail" href="mailto:minegta611@gmail.com">
+          <span class="btn-shine"></span>
+          <span class="btn-icon">✉️</span>
+          <div class="btn-txt-wrap">
+            <span class="btn-txt-main">Message Directly on Gmail ↗</span>
+            <span class="btn-txt-sub">minegta611@gmail.com • 24-Hour Review</span>
+          </div>
+        </a>
+
+        <button type="button" class="btn-vip-copy" id="copyBtn">
+          <span>📋</span> Copy Contact Email (minegta611@gmail.com)
+        </button>
+      </div>
+
+      <div class="vip-security-footer">
+        🔒 <b>Official MINE GTA Mentorship:</b> 1-on-1 direct guidance under Aman Sir. Certification &amp; VIP community included.
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
 
   <!-- Footer -->
   <footer>

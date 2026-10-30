@@ -1,0 +1,35 @@
+{
+  "rules": {
+    "catalog": {
+      ".read": true,
+      ".write": "auth != null",
+      "$item": {
+        ".validate": "newData.hasChildren(['id', 'name', 'price', 'cat']) && newData.child('price').isNumber() && newData.child('price').val() >= 0"
+      }
+    },
+    "settings": {
+      ".read": true,
+      ".write": "auth != null",
+      ".validate": "newData.hasChildren(['discordUrl', 'email'])"
+    },
+    "orders": {
+      ".read": "auth != null",
+      "$orderId": {
+        ".write": "!data.exists() || auth != null",
+        ".validate": "newData.hasChildren(['id', 'item', 'price', 'timestamp', 'status'])"
+      }
+    },
+    "applications": {
+      ".read": "auth != null",
+      "$appId": {
+        ".write": "!data.exists() || auth != null",
+        ".validate": "newData.hasChildren(['id', 'name', 'email', 'phone', 'course', 'timestamp'])"
+      }
+    },
+    "analytics": {
+      ".read": "auth != null",
+      ".write": true
+    }
+  }
+}
+

@@ -23,12 +23,53 @@
 (function () {
   'use strict';
 
+  let readyAttempts = 0;
+  function isWebGLAvailable() {
+    try {
+      const c = document.createElement('canvas');
+      return !!(window.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl')));
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function renderFallbackStage(stageWrapper) {
+    if (!stageWrapper) return;
+    stageWrapper.innerHTML = `
+      <div class="mascot-fallback-stage" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; min-height:340px; padding:20px; text-align:center;">
+        <div style="position:relative; width:170px; height:170px; margin-bottom:14px;">
+          <img src="assets/medallion-texture.png" alt="Aman Mascot Medallion" style="width:100%; height:100%; object-fit:contain; border-radius:50%; filter:drop-shadow(0 12px 30px rgba(255,255,255,0.25));">
+        </div>
+        <div class="mascot-speech-bubble" style="position:static; transform:none; display:inline-block; border-color:rgba(255,255,255,0.3); background:rgba(10,10,14,0.9);">
+          <span class="bubble-txt" style="color:#ffffff; font-weight:700;">✦ MINE PRESETS • 4K TITANIUM MASTER COLLECTION</span>
+        </div>
+      </div>
+    `;
+  }
+
   function initWhenReady() {
+    const stageWrapper = document.getElementById('mascotStage');
+    if (!isWebGLAvailable()) {
+      console.warn('WebGL is unavailable. Initializing high-fidelity 2D fallback stage.');
+      renderFallbackStage(stageWrapper);
+      return;
+    }
     if (typeof THREE === 'undefined') {
+      readyAttempts++;
+      if (readyAttempts > 60) {
+        console.warn('Three.js failed to load within timeout. Rendering fallback stage.');
+        renderFallbackStage(stageWrapper);
+        return;
+      }
       setTimeout(initWhenReady, 50);
       return;
     }
-    initKineticCollisionStage();
+    try {
+      initKineticCollisionStage();
+    } catch (err) {
+      console.warn('Three.js initialization error, activating fallback:', err);
+      renderFallbackStage(stageWrapper);
+    }
   }
 
   function initKineticCollisionStage() {
@@ -679,9 +720,25 @@
     // 8. RENDER & INTERACTION LOOP
     // -------------------------------------------------------------------------
     const clock = new THREE.Clock();
+    let isVisible = true;
+    let animId = null;
+
+    if (window.IntersectionObserver) {
+      const stageObserver = new IntersectionObserver((entries) => {
+        isVisible = entries[0].isIntersecting;
+        if (isVisible && !animId) {
+          animate();
+        }
+      }, { threshold: 0.05 });
+      stageObserver.observe(container);
+    }
 
     function animate() {
-      requestAnimationFrame(animate);
+      if (!isVisible) {
+        animId = null;
+        return;
+      }
+      animId = requestAnimationFrame(animate);
 
       const delta = clock.getDelta();
       const elapsed = clock.getElapsedTime();

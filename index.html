@@ -13,7 +13,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 </head>
 <body>
 
@@ -39,6 +38,7 @@
       <a href="#store-cc">4K CC PRESETS</a>
       <a href="#store-systems">MASTER SYSTEMS</a>
       <a href="#course" class="nav-gta-link">AFTER EFFECTS COURSE <span class="nav-hot-badge">PRO</span></a>
+      <a href="motion-lab.html" class="nav-lab-link">MOTION LAB <span class="nav-hot-badge" style="background:#22d3ee; color:#000;">LAB</span></a>
       <a href="#why">WHY US</a>
       <a href="#contact">CONTACT</a>
     </div>
@@ -65,8 +65,8 @@
 
 <!-- Hero Section (Two-Column Apple Interactive Kinetic Stage) -->
 <header class="hero" id="home">
-  <video class="hero-video" autoplay loop muted playsinline>
-    <source src="cc_preset_1.mp4" type="video/mp4">
+  <video class="hero-video" autoplay loop muted playsinline poster="images/Mine-cc1_.png" onerror="this.style.display='none';">
+    <source src="cc_preset_1.mp4" type="video/mp4" onerror="this.parentElement.style.display='none';">
   </video>
   <div class="grid-bg"></div>
   
@@ -144,9 +144,9 @@
       <span class="metric-sub">Direct file delivery via Discord</span>
     </div>
     <div class="metric-card">
-      <span class="metric-val">0s</span>
-      <span class="metric-lbl">Verified UPI Checkout</span>
-      <span class="metric-sub">Instant QR payment pipeline</span>
+      <span class="metric-val">24/7</span>
+      <span class="metric-lbl">Discord &amp; Email VIP Desk</span>
+      <span class="metric-sub">Instant delivery &amp; creator support</span>
     </div>
   </div>
 </section>
@@ -194,7 +194,10 @@
         <p class="cc-cinematic">This 4K CC Will Be Found Nowhere Else. Razor-sharp contrast with cinematic skin tones.</p>
         <div class="price-row">
           <div class="price"><span class="price-symbol">₹</span>400</div>
-          <a class="buy" href="https://discord.gg/aunjV6zMj" target="_blank" rel="noopener noreferrer" data-name="CC 1" data-price="400">Buy now <span class="buy-arrow">↗</span></a>
+          <div class="card-price-actions">
+            <button type="button" class="btn-card-buy-modal" onclick="openPaymentModal({ id: 'cc-1', name: 'CC 1 — 4K Look', price: 400, cat: 'cc' })" title="Buy via Discord or Gmail">⚡ Buy Now</button>
+            <a class="buy btn-card-dc" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" data-name="CC 1" data-price="400">🎮 Discord ↗</a>
+          </div>
         </div>
       </div>
     </article>
@@ -212,7 +215,10 @@
         <p class="cc-cinematic">Exclusive 4K CC — Made Different. Rich titanium highlights with moody cinematic depth.</p>
         <div class="price-row">
           <div class="price"><span class="price-symbol">₹</span>350</div>
-          <a class="buy" href="https://discord.gg/aunjV6zMj" target="_blank" rel="noopener noreferrer" data-name="CC 2" data-price="350">Buy now <span class="buy-arrow">↗</span></a>
+          <div class="card-price-actions">
+            <button type="button" class="btn-card-buy-modal" onclick="openPaymentModal({ id: 'cc-2', name: 'CC 2 — Titanium Look', price: 350, cat: 'cc' })" title="Buy via Discord or Gmail">⚡ Buy Now</button>
+            <a class="buy btn-card-dc" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" data-name="CC 2" data-price="350">🎮 Discord ↗</a>
+          </div>
         </div>
       </div>
     </article>
@@ -230,7 +236,10 @@
         <p class="cc-cinematic">Your Footage Deserves This 4K Look. High-dynamic-range curve balance and filmic punch.</p>
         <div class="price-row">
           <div class="price"><span class="price-symbol">₹</span>500</div>
-          <a class="buy" href="https://discord.gg/aunjV6zMj" target="_blank" rel="noopener noreferrer" data-name="CC 3" data-price="500">Buy now <span class="buy-arrow">↗</span></a>
+          <div class="card-price-actions">
+            <button type="button" class="btn-card-buy-modal" onclick="openPaymentModal({ id: 'cc-3', name: 'CC 3 — Master Curve', price: 500, cat: 'cc' })" title="Buy via Discord or Gmail">⚡ Buy Now</button>
+            <a class="buy btn-card-dc" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" data-name="CC 3" data-price="500">🎮 Discord ↗</a>
+          </div>
         </div>
       </div>
     </article>
@@ -248,7 +257,10 @@
         <p class="cc-cinematic">One 4K CC. Infinite Cinematic Vibes. Designed for fast social and reel color grading.</p>
         <div class="price-row">
           <div class="price"><span class="price-symbol">₹</span>300</div>
-          <a class="buy" href="https://discord.gg/aunjV6zMj" target="_blank" rel="noopener noreferrer" data-name="CC 4" data-price="300">Buy now <span class="buy-arrow">↗</span></a>
+          <div class="card-price-actions">
+            <button type="button" class="btn-card-buy-modal" onclick="openPaymentModal({ id: 'cc-4', name: 'CC 4 — Reel Vibes', price: 300, cat: 'cc' })" title="Buy via Discord or Gmail">⚡ Buy Now</button>
+            <a class="buy btn-card-dc" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" data-name="CC 4" data-price="300">🎮 Discord ↗</a>
+          </div>
         </div>
       </div>
     </article>
@@ -266,7 +278,10 @@
         <p class="cc-cinematic">Not Everywhere. Just Here. The definitive flagship 4K color grading preset.</p>
         <div class="price-row">
           <div class="price"><span class="price-symbol">₹</span>850</div>
-          <a class="buy" href="https://discord.gg/aunjV6zMj" target="_blank" rel="noopener noreferrer" data-name="CC 5" data-price="850">Buy now <span class="buy-arrow">↗</span></a>
+          <div class="card-price-actions">
+            <button type="button" class="btn-card-buy-modal" onclick="openPaymentModal({ id: 'cc-5', name: 'CC 5 — Flagship Masterpiece', price: 850, cat: 'cc' })" title="Buy via Discord or Gmail">⚡ Buy Now</button>
+            <a class="buy btn-card-dc" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" data-name="CC 5" data-price="850">🎮 Discord ↗</a>
+          </div>
         </div>
       </div>
     </article>
@@ -396,7 +411,7 @@
       <span class="bento-tag">CREATOR COMMUNITY</span>
       <h3>VIP Discord Access</h3>
       <p>Need custom grading advice? Our creator squad assists you directly.</p>
-      <a class="bento-link" href="https://discord.gg/aunjV6zMj" target="_blank" rel="noopener noreferrer">Join VIP Discord ↗</a>
+      <a class="bento-link" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer">Join VIP Discord ↗</a>
     </div>
   </div>
 </section>
@@ -444,7 +459,10 @@
           <li><strong>Live Project:</strong> High-Energy YouTube / Gaming Motion Intro + 1-on-1 Feedback</li>
         </ul>
       </div>
-      <button type="button" class="btn-select-month-silver" onclick="selectCourseMonth('Month 01: Foundation → Intermediate (₹10,000)')">Enroll in Month 01 (₹10,000) ↓</button>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
+        <button type="button" class="btn-select-month-silver" style="flex:1;" onclick="selectCourseMonth('Month 01: Foundation → Intermediate (₹10,000)')">Enroll in Month 01 (₹10,000) ↓</button>
+        <button type="button" class="btn-select-month-dc" onclick="openPaymentModal({ id: 'course-m1', name: 'MINE GTA Course - Month 01: Foundation → Intermediate', price: 10000 })" title="Enroll via Discord or Gmail">🎮 Instant Buy ↗</button>
+      </div>
     </div>
 
     <!-- Month 02 Card -->
@@ -466,7 +484,10 @@
           <li><strong>Live Project:</strong> Fluid 60 FPS Kinetic Typography Showcase + 3D Tracked Sequence</li>
         </ul>
       </div>
-      <button type="button" class="btn-select-month-silver" onclick="selectCourseMonth('Month 02: Advanced Animation + Kinetic Motion (₹10,000)')">Enroll in Month 02 (₹10,000) ↓</button>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
+        <button type="button" class="btn-select-month-silver" style="flex:1;" onclick="selectCourseMonth('Month 02: Advanced Animation + Kinetic Motion (₹10,000)')">Enroll in Month 02 (₹10,000) ↓</button>
+        <button type="button" class="btn-select-month-dc" onclick="openPaymentModal({ id: 'course-m2', name: 'MINE GTA Course - Month 02: Advanced Animation', price: 10000 })" title="Enroll via Discord or Gmail">🎮 Instant Buy ↗</button>
+      </div>
     </div>
 
     <!-- Month 03 Card -->
@@ -476,7 +497,7 @@
         <h3 class="month-title">Professional VFX + 3D Motion Design</h3>
         <p class="month-tagline">Master Sapphire, Deep Glow, Universe, Element 3D &amp; complete commercial showreels.</p>
         <div class="month-price-tag">
-          <span class="month-amount">₹12,000</span>
+          <span class="month-amount">₹20,000</span>
           <span class="month-term">/ Month</span>
         </div>
         <ul class="month-topics-list">
@@ -488,7 +509,10 @@
           <li><strong>Live Project:</strong> Studio-Grade Commercial Showreel Sequence Ready for Agency Pitching</li>
         </ul>
       </div>
-      <button type="button" class="btn-select-month-silver" onclick="selectCourseMonth('Month 03: Professional VFX + 3D Motion Design (₹12,000)')">Enroll in Month 03 (₹12,000) ↓</button>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
+        <button type="button" class="btn-select-month-silver" style="flex:1;" onclick="selectCourseMonth('Month 03: Professional VFX + 3D Motion Design (₹20,000)')">Enroll in Month 03 (₹20,000) ↓</button>
+        <button type="button" class="btn-select-month-dc" onclick="openPaymentModal({ id: 'course-m3', name: 'MINE GTA Course - Month 03: Professional VFX', price: 20000 })" title="Enroll via Discord or Gmail">🎮 Instant Buy ↗</button>
+      </div>
     </div>
 
     <!-- Month 04 Card -->
@@ -498,7 +522,7 @@
         <h3 class="month-title">Client Work, High-Ticket Freelancing &amp; Mastery</h3>
         <p class="month-tagline">Land international freelance clients, master pricing psychology &amp; graduate certified.</p>
         <div class="month-price-tag">
-          <span class="month-amount">₹12,000</span>
+          <span class="month-amount">₹25,000</span>
           <span class="month-term">/ Month</span>
         </div>
         <ul class="month-topics-list">
@@ -510,7 +534,10 @@
           <li><strong>Graduation:</strong> Official MINE GTA Course Certification + Showreel Showcase</li>
         </ul>
       </div>
-      <button type="button" class="btn-select-month-silver" onclick="selectCourseMonth('Month 04: Client Work + High-Ticket Freelancing (₹12,000)')">Enroll in Month 04 (₹12,000) ↓</button>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
+        <button type="button" class="btn-select-month-silver" style="flex:1;" onclick="selectCourseMonth('Month 04: Client Work + High-Ticket Freelancing (₹25,000)')">Enroll in Month 04 (₹25,000) ↓</button>
+        <button type="button" class="btn-select-month-dc" onclick="openPaymentModal({ id: 'course-m4', name: 'MINE GTA Course - Month 04: Client Work & Mastery', price: 25000 })" title="Enroll via Discord or Gmail">🎮 Instant Buy ↗</button>
+      </div>
     </div>
   </div>
 
@@ -523,9 +550,12 @@
     <div class="bundle-right">
       <div>
         <div style="font-size:11px; font-weight:800; letter-spacing:1px; color:#94a3b8; text-transform:uppercase;">FULL 4-MONTH BUNDLE</div>
-        <div class="bundle-price-val">₹44,000</div>
+        <div class="bundle-price-val">₹65,000</div>
       </div>
-      <button type="button" class="btn-select-bundle-silver" onclick="selectCourseMonth('Complete 4-Month Masterclass (₹44,000)')">Enroll Complete Batch (₹44,000) ↓</button>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button type="button" class="btn-select-bundle-silver" onclick="selectCourseMonth('Complete 4-Month Masterclass (₹65,000)')">Enroll Complete Batch (₹65,000) ↓</button>
+        <button type="button" class="btn-select-month-dc btn-bundle-dc" onclick="openPaymentModal({ id: 'course-bundle', name: 'MINE GTA Course - Complete 4-Month Masterclass', price: 65000 })" title="Enroll Full Batch via Discord or Gmail">🎮 Instant Buy (Discord &amp; Email) ↗</button>
+      </div>
     </div>
   </div>
 
@@ -592,9 +622,9 @@
             <select id="gtaCourse" name="course" class="gta-select">
               <option value="Month 01: Foundation → Intermediate (₹10,000)">Month 01: Foundation → Intermediate (₹10,000)</option>
               <option value="Month 02: Advanced Animation + Kinetic Motion (₹10,000)">Month 02: Advanced Animation + Kinetic Motion (₹10,000)</option>
-              <option value="Month 03: Professional VFX + 3D Motion Design (₹12,000)">Month 03: Professional VFX + 3D Motion Design (₹12,000)</option>
-              <option value="Month 04: Client Work + High-Ticket Freelancing (₹12,000)">Month 04: Client Work + High-Ticket Freelancing (₹12,000)</option>
-              <option value="Complete 4-Month Masterclass (₹44,000)" selected>Complete 4-Month Masterclass (₹44,000)</option>
+              <option value="Month 03: Professional VFX + 3D Motion Design (₹20,000)">Month 03: Professional VFX + 3D Motion Design (₹20,000)</option>
+              <option value="Month 04: Client Work, High-Ticket Freelancing &amp; Mastery (₹25,000)">Month 04: Client Work, High-Ticket Freelancing &amp; Mastery (₹25,000)</option>
+              <option value="Complete 4-Month Masterclass (₹65,000)" selected>Complete 4-Month Masterclass (₹65,000)</option>
             </select>
           </div>
         </div>
@@ -684,7 +714,7 @@
       </a>
 
       <!-- Discord -->
-      <a class="social-btn social-discord" href="https://discord.gg/aunjV6zMj" target="_blank" rel="noopener noreferrer" aria-label="Official Discord Community">
+      <a class="social-btn social-discord" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" aria-label="Official Discord Community">
         <div class="social-icon-wrapper">
           <img class="social-brand-img" src="images/icon-discord.png" alt="Discord Logo" width="32" height="32" loading="lazy">
         </div>
@@ -728,42 +758,82 @@
   </div>
 </div>
 
-<!-- SECURE UPI CHECKOUT MODAL -->
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Secure UPI Checkout">
-  <div class="modal-box">
-    <button class="modal-close" id="close" aria-label="Close Checkout Modal">×</button>
-    <div class="eyebrow">Verified UPI Gateway</div>
-    <h3>Complete Your Order</h3>
-    <p class="modal-sub">Scan the QR code with GPay, PhonePe, Paytm, or BHIM.</p>
+<!-- VIP PURCHASE & DIRECT CONTACT MODAL (DISCORD & GMAIL) -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Purchase via Discord or Email">
+  <div class="modal-box modal-box-vip">
+    <button class="modal-close" id="close" aria-label="Close Modal">×</button>
+    <div class="eyebrow" style="color:#22d3ee; letter-spacing:2px; font-weight:800;">⚡ OFFICIAL CREATOR ORDER DESK</div>
+    <h3 style="margin-top:6px; font-size:26px; font-weight:900; letter-spacing:-0.5px;">Instant Buy &amp; Direct Access</h3>
+    <p class="modal-sub" style="margin-bottom:18px;">Get instant file delivery &amp; 1-on-1 creator support.</p>
     
-    <div class="product-name" id="productName">Product Name — ₹0</div>
-    
-    <div class="qr-wrap">
-      <div class="qr-luxury-frame">
-        <span class="qr-corner tl"></span>
-        <span class="qr-corner tr"></span>
-        <span class="qr-corner bl"></span>
-        <span class="qr-corner br"></span>
-        <canvas id="paymentQR" width="360" height="360" aria-label="Dynamic UPI QR Code"></canvas>
+    <div class="vip-item-banner">
+      <div class="vip-item-name" id="productName">Select Product or Course</div>
+      <div class="vip-item-price-tag">
+        <span class="vip-price-lbl">Official Price</span>
+        <span class="vip-price-val" id="payAmount">₹0</span>
       </div>
     </div>
-    
-    <div class="upi-info">UPI ID: <b id="upiIdText">ankitgirirg@okicici</b></div>
-    <button class="copy-btn" id="copyBtn">📋 Copy UPI ID</button>
-    
-    <div class="payment-total">Pay Exactly <span id="payAmount">₹0</span></div>
-    
-    <div class="modal-actions">
-      <button class="btn-upi-app" id="upiPay">⚡ Open in UPI App</button>
-      <button class="btn-paid" id="paidBtn">I Have Paid ✓</button>
+
+    <!-- Instructions in High-Conversion English -->
+    <div class="vip-order-instructions">
+      <h4 class="vip-instr-title">✦ How To Complete Your Order:</h4>
+      <p class="vip-instr-text">
+        To purchase this pack or enroll in the mentorship, please connect with Aman directly on <strong>Discord</strong> or send a message via <strong>Gmail</strong>. All presets, drive download links, and course batch seats are delivered and confirmed instantly!
+      </p>
+      
+      <div class="vip-steps-list">
+        <div class="vip-step-item">
+          <span class="vip-step-badge">1</span>
+          <div>
+            <strong>Choose Your Preferred Platform:</strong>
+            <p>Click the animated Discord button or the Direct Gmail button below.</p>
+          </div>
+        </div>
+        <div class="vip-step-item">
+          <span class="vip-step-badge">2</span>
+          <div>
+            <strong>Send Your Order Message:</strong>
+            <p>Mention that you want to buy <code id="conciergeItemCode" style="color:#22d3ee; background:rgba(34,211,238,0.12); padding:2px 6px; border-radius:4px;">this item</code>.</p>
+          </div>
+        </div>
+        <div class="vip-step-item">
+          <span class="vip-step-badge">3</span>
+          <div>
+            <strong>Receive Instant VIP Delivery:</strong>
+            <p>Aman Sir will send your high-speed Google Drive access link or course onboarding credentials right away.</p>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <div id="downloadArea">
-      <div style="color:#ffffff; font-weight:700; margin-bottom:8px;">✓ Payment Recorded — File Ready</div>
-      <a id="downloadBtn" class="btn btn-primary" href="#" download style="padding:10px 20px; font-size:13px; display:inline-flex;">Download Preset Pack ↓</a>
+
+    <!-- Dual Animated Tagda Action Buttons -->
+    <div class="vip-actions-container">
+      <a class="btn-vip-discord" id="btnModalDiscord" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer">
+        <span class="btn-shine"></span>
+        <span class="btn-icon">🎮</span>
+        <div class="btn-txt-wrap">
+          <span class="btn-txt-main">Buy via Official Discord ↗</span>
+          <span class="btn-txt-sub">Join Discord Server (discord.gg/Sgf5aqqRVy) • Instant Delivery</span>
+        </div>
+      </a>
+
+      <a class="btn-vip-gmail" id="btnModalGmail" href="mailto:minegta611@gmail.com">
+        <span class="btn-shine"></span>
+        <span class="btn-icon">✉️</span>
+        <div class="btn-txt-wrap">
+          <span class="btn-txt-main">Message Directly on Gmail ↗</span>
+          <span class="btn-txt-sub">minegta611@gmail.com • Quick Response</span>
+        </div>
+      </a>
+
+      <button type="button" class="btn-vip-copy" id="copyBtn">
+        <span>📋</span> Copy Gmail Address (minegta611@gmail.com)
+      </button>
     </div>
-    
-    <div class="note">After payment, take a screenshot of your payment confirmation. If you need any assistance, contact minegta611@gmail.com</div>
+
+    <div class="vip-security-footer">
+      🔒 <b>100% Verified Creator Delivery:</b> You interact directly with Aman. Lifetime updates &amp; VIP support included.
+    </div>
   </div>
 </div>
 
@@ -1032,7 +1102,7 @@
             <div class="auth-field">
               <label for="settingDiscordUrl">Official Discord Invite URL</label>
               <div class="input-wrap">
-                <input type="url" id="settingDiscordUrl" value="https://discord.gg/aunjV6zMj" required>
+                <input type="url" id="settingDiscordUrl" value="https://discord.gg/Sgf5aqqRVy" required>
               </div>
               <span class="field-hint">All "Buy now" buttons immediately redirect to this invite link.</span>
             </div>
@@ -1160,7 +1230,8 @@
                 <strong>Step 2:</strong> Click <strong>"Add project"</strong> &rarr; enter name <code>mine-presets</code> &rarr; click Continue &rarr; Create Project.
               </li>
               <li>
-                <strong>Step 3:</strong> In the left sidebar, click <strong>Build &rarr; Realtime Database</strong> &rarr; click <strong>"Create Database"</strong>. Select any location &rarr; Choose <strong>"Start in test mode"</strong> (Rules: <code>".read": true, ".write": true</code>).
+                <strong>Step 3 (Production Security Rules):</strong> In the left sidebar, click <strong>Build &rarr; Realtime Database</strong> &rarr; click <strong>"Create Database"</strong>. Open the <strong>Rules</strong> tab and paste our secure production rules (from <code>database.rules.json</code>) so catalog is public-readable while unauthorized writes and student application records are strictly protected!
+                <br><button type="button" class="btn-sm-ghost" id="btnCopyRules" style="margin-top:8px; display:inline-flex; font-size:11px; padding:4px 12px;" onclick="copySecurityRules()">📋 Copy Secure Firebase Rules</button>
               </li>
               <li>
                 <strong>Step 4:</strong> Copy your Database URL at the top (starts with <code>https://...firebaseio.com</code>) &rarr; paste it in the box above &rarr; click <strong>"Connect &amp; Test"</strong> &rarr; then click <strong>"Push All Local Presets to Cloud Now"</strong>!
@@ -1181,6 +1252,7 @@
               <button type="button" class="btn-sm-ghost" id="btnExportJson">📥 Download JSON Backup</button>
               <button type="button" class="btn-sm-ghost" id="btnCopyPresetCode">📋 Copy script.js Code</button>
             </div>
+          </div>
         </div>
       </div>
 

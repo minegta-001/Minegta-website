@@ -89,17 +89,21 @@
       align-items: center;
       gap: 6px;
       background: linear-gradient(135deg, #ffffff, #e2e8f0);
-      color: #ffffff !important;
-      padding: 7px 14px;
+      color: #050608 !important;
+      padding: 7px 16px;
       border-radius: var(--radius-pill);
       font-size: 12.5px !important;
-      font-weight: 700 !important;
-      border: 1px solid rgba(192, 132, 252, 0.4);
-      transition: all 0.2s;
+      font-weight: 800 !important;
+      border: 1px solid #ffffff;
+      box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25);
+      white-space: nowrap;
+      text-decoration: none;
+      transition: all 0.25s ease;
     }
     .lab-cta-course:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 18px rgba(124, 58, 237, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.45);
+      color: #000000 !important;
     }
     @media (max-width: 820px) {
       .lab-nav-links { display: none; }
@@ -460,13 +464,17 @@
       transition: all 0.2s;
     }
     .lab-gate-btn-purple {
-      background: linear-gradient(135deg, #ffffff, #e2e8f0);
-      border: 1px solid #ffffff;
-      color: #ffffff;
+      background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff !important;
+      font-weight: 800;
+      box-shadow: 0 8px 26px rgba(147, 51, 234, 0.45);
     }
     .lab-gate-btn-purple:hover {
-      box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
-      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(168, 85, 247, 0.7);
+      transform: translateY(-2px) scale(1.01);
+      border-color: #ffffff;
+      color: #ffffff !important;
     }
     .lab-gate-btn-blue {
       background: linear-gradient(135deg, #0284c7, #0369a1);
@@ -692,7 +700,9 @@
           </p>
           <div class="lab-gate-pricing">
             <span class="lab-gate-pill">Month 01 &amp; 02: <strong>₹10,000 / mo</strong></span>
-            <span class="lab-gate-pill">Month 03 &amp; 04: <strong>₹12,000 / mo</strong></span>
+            <span class="lab-gate-pill">Month 03: <strong>₹20,000 / mo</strong></span>
+            <span class="lab-gate-pill">Month 04: <strong>₹25,000 / mo</strong></span>
+            <span class="lab-gate-pill">Full 4-Month Batch: <strong>₹65,000</strong></span>
           </div>
         </div>
         <a href="course.html" class="lab-gate-btn lab-gate-btn-purple">
@@ -711,7 +721,7 @@
           <div class="lab-gate-pricing">
             <span class="lab-gate-pill">Instant Download</span>
             <span class="lab-gate-pill">Lifetime License</span>
-            <span class="lab-gate-pill">UPI QR Payment</span>
+            <span class="lab-gate-pill">Discord &amp; Email Delivery</span>
           </div>
         </div>
         <a href="index.html#store" class="lab-gate-btn lab-gate-btn-blue">

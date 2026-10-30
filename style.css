@@ -4086,3 +4086,378 @@ footer {
   border: 1px solid rgba(239, 68, 68, 0.4);
   color: #fca5a5;
 }
+
+/* ==========================================================================
+   OFFICIAL DISCORD & DIRECT GMAIL VIP BUY SYSTEM (FULLY ANIMATED & TAGDA)
+   Discord Server: https://discord.gg/Sgf5aqqRVy
+   Direct Gmail: minegta611@gmail.com
+   ========================================================================== */
+
+/* Shimmer Light Sweep Keyframe */
+@keyframes shimmerSweep {
+  0% { transform: translateX(-160%) skewX(-20deg); opacity: 0; }
+  20% { opacity: 0.75; }
+  60% { transform: translateX(260%) skewX(-20deg); opacity: 0.75; }
+  100% { transform: translateX(260%) skewX(-20deg); opacity: 0; }
+}
+
+/* Discord Ambient Glow Pulse */
+@keyframes discordPulse {
+  0%, 100% { box-shadow: 0 4px 18px rgba(88, 101, 242, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+  50% { box-shadow: 0 8px 30px rgba(88, 101, 242, 0.75), 0 0 14px rgba(121, 131, 245, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+}
+
+@keyframes gmailPulse {
+  0%, 100% { box-shadow: 0 4px 18px rgba(234, 67, 53, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2); }
+  50% { box-shadow: 0 8px 28px rgba(234, 67, 53, 0.6), 0 0 12px rgba(255, 110, 100, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
+}
+
+/* Card Price Action Container */
+.card-price-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Product Card Discord Button */
+.btn-card-dc,
+.buy.btn-card-dc {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, #5865F2 0%, #4752c4 100%);
+  color: #ffffff !important;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(88, 101, 242, 0.4);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+.btn-card-dc:hover,
+.buy.btn-card-dc:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 26px rgba(88, 101, 242, 0.7);
+  border-color: #ffffff;
+  color: #ffffff !important;
+}
+
+/* Product Card Instant Buy (Modal Opener) */
+.btn-card-buy-modal,
+.btn-pay-qr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+.btn-card-buy-modal:hover,
+.btn-pay-qr:hover {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.35);
+}
+
+/* Course Month Discord / Direct Buy Buttons */
+.btn-select-month-dc,
+.btn-select-month-qr,
+.btn-select-bundle-qr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, #5865F2 0%, #7c3aed 100%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 18px rgba(88, 101, 242, 0.4);
+  white-space: nowrap;
+}
+.btn-select-month-dc:hover,
+.btn-select-month-qr:hover,
+.btn-select-bundle-qr:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(88, 101, 242, 0.7);
+  border-color: #ffffff;
+  color: #ffffff;
+}
+.btn-bundle-dc {
+  background: linear-gradient(135deg, #5865F2 0%, #a855f7 50%, #ec4899 100%);
+  animation: discordPulse 3s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   VIP MODAL LUXURY STYLING (DISCORD & GMAIL DIRECT ORDER DESK)
+   ========================================================================== */
+.modal-box-vip {
+  max-width: 540px;
+  padding: 34px 28px;
+  background: radial-gradient(circle at 50% 0%, rgba(88, 101, 242, 0.16) 0%, rgba(13, 13, 18, 0.98) 70%);
+  border: 1px solid rgba(88, 101, 242, 0.4);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(88, 101, 242, 0.25);
+  border-radius: 20px;
+}
+
+/* Product & Price Banner in Modal */
+.vip-item-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.vip-item-name {
+  font-size: 17px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.2px;
+}
+.vip-item-price-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.vip-price-lbl {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+.vip-price-val {
+  font-size: 24px;
+  font-weight: 900;
+  color: #22d3ee;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* VIP Instructions Card */
+.vip-order-instructions {
+  background: rgba(16, 17, 26, 0.9);
+  border: 1px solid rgba(88, 101, 242, 0.25);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 22px;
+  text-align: left;
+}
+.vip-instr-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.vip-instr-text {
+  font-size: 13px;
+  color: #cbd5e1;
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.vip-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.vip-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 12.5px;
+  color: #d4d4d8;
+  line-height: 1.45;
+}
+.vip-step-item strong {
+  color: #ffffff;
+  display: block;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+.vip-step-item p {
+  margin: 0;
+  color: #a1a1aa;
+}
+.vip-step-badge {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5865F2, #7c3aed);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: 0 2px 8px rgba(88, 101, 242, 0.5);
+}
+
+/* Modal Action Container */
+.vip-actions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+/* Luxury Animated Discord Button */
+.btn-vip-discord {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 15px 22px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #5865F2 0%, #404eed 100%);
+  color: #ffffff !important;
+  text-decoration: none;
+  font-weight: 800;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(88, 101, 242, 0.5);
+  animation: discordPulse 2.8s infinite ease-in-out;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.btn-vip-discord:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 14px 40px rgba(88, 101, 242, 0.8), 0 0 20px rgba(121, 131, 245, 0.6);
+  border-color: #ffffff;
+  color: #ffffff !important;
+}
+.btn-vip-discord:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* Shimmer Sweep Animation Overlay */
+.btn-vip-discord .btn-shine,
+.btn-vip-gmail .btn-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  animation: shimmerSweep 3s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.btn-vip-discord .btn-icon,
+.btn-vip-gmail .btn-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
+.btn-vip-discord .btn-txt-wrap,
+.btn-vip-gmail .btn-txt-wrap {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.btn-txt-main {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+.btn-txt-sub {
+  font-size: 11.5px;
+  font-weight: 500;
+  opacity: 0.88;
+}
+
+/* Luxury Animated Gmail Button */
+.btn-vip-gmail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 14px 22px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(234, 67, 53, 0.18) 0%, rgba(20, 16, 24, 0.95) 100%);
+  border: 1px solid rgba(234, 67, 53, 0.45);
+  color: #ffffff !important;
+  text-decoration: none;
+  font-weight: 800;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(234, 67, 53, 0.25);
+  animation: gmailPulse 3.4s infinite ease-in-out;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.btn-vip-gmail:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 32px rgba(234, 67, 53, 0.55), 0 0 16px rgba(255, 110, 100, 0.35);
+  border-color: #ea4335;
+  color: #ffffff !important;
+}
+
+/* Quick Copy Email Button */
+.btn-vip-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.btn-vip-copy:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+.btn-vip-copy.copied {
+  background: rgba(34, 197, 94, 0.2);
+  border-color: #22c55e;
+  color: #4ade80;
+}
+
+.vip-security-footer {
+  font-size: 11.5px;
+  color: #94a3b8;
+  line-height: 1.5;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}

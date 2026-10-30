@@ -64,6 +64,27 @@ function playSound(type) {
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
       osc.start(now);
       osc.stop(now + 0.16);
+    } else if (type === 'discord' || type === 'discord-blast') {
+      [523.25, 659.25, 1046.50].forEach((freq, i) => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'triangle';
+        o.frequency.setValueAtTime(freq, now + i * 0.05);
+        g.gain.setValueAtTime(0.08, now + i * 0.05);
+        g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.05 + 0.32);
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.start(now + i * 0.05);
+        o.stop(now + i * 0.05 + 0.35);
+      });
+    } else if (type === 'hover-shine') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(900, now);
+      osc.frequency.exponentialRampToValueAtTime(1800, now + 0.08);
+      gain.gain.setValueAtTime(0.03, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      osc.start(now);
+      osc.stop(now + 0.08);
     }
   } catch (e) {}
 }
@@ -83,7 +104,119 @@ function showToast(msg, type = 'info') {
   }, 4000);
 }
 
+// Price Resolver Helper
+function getCoursePrice(courseString) {
+  if (!courseString) return 65000;
+  if (courseString.includes('Month 01') || courseString.includes('Month 1')) return 10000;
+  if (courseString.includes('Month 02') || courseString.includes('Month 2')) return 10000;
+  if (courseString.includes('Month 03') || courseString.includes('Month 3')) return 20000;
+  if (courseString.includes('Month 04') || courseString.includes('Month 4')) return 25000;
+  if (courseString.includes('Complete') || courseString.includes('4-Month') || courseString.includes('Bundle')) return 65000;
+  const match = courseString.match(/[₹\s]*([0-9,]+)/);
+  if (match) {
+    const num = parseInt(match[1].replace(/,/g, ''), 10);
+    if (!isNaN(num) && num > 0) return num;
+  }
+  return 65000;
+}
+
 // 2. Select Course Month (from Pricing Cards)
+let selectedCourseItem = null;
+
+window.openPaymentModal = function(item) {
+  if (!item) return;
+  if (typeof item === 'string') {
+    const p = getCoursePrice(item);
+    item = { name: item, price: p };
+  }
+  selectedCourseItem = item;
+
+  const modal = document.getElementById('modal');
+  const productName = document.getElementById('productName');
+  const payAmount = document.getElementById('payAmount');
+  const conciergeItemCode = document.getElementById('conciergeItemCode');
+  const btnModalDiscord = document.getElementById('btnModalDiscord');
+  const btnModalGmail = document.getElementById('btnModalGmail');
+
+  if (productName) {
+    productName.textContent = item.name;
+  }
+  if (payAmount) {
+    payAmount.textContent = '₹' + Number(item.price).toLocaleString('en-IN');
+  }
+  if (conciergeItemCode) {
+    conciergeItemCode.textContent = `${item.name} (₹${Number(item.price).toLocaleString('en-IN')})`;
+  }
+
+  // Pre-fill Direct Gmail link for course
+  if (btnModalGmail) {
+    const mailSub = encodeURIComponent(`[COURSE ENROLLMENT] ${item.name} (₹${Number(item.price).toLocaleString('en-IN')})`);
+    const mailBody = encodeURIComponent(`Hello Aman Sir,\n\nI want to enroll in the MINE GTA Mentorship Program:\n• Program: ${item.name}\n• Tuition Fee: ₹${Number(item.price).toLocaleString('en-IN')}\n• Date: ${new Date().toLocaleString()}\n\nPlease verify my enrollment and share the batch timetable, curriculum, and VIP access.\n\nThank you!`);
+    btnModalGmail.href = `mailto:minegta611@gmail.com?subject=${mailSub}&body=${mailBody}`;
+  }
+
+  if (modal) {
+    modal.classList.add('show');
+    playSound('discord');
+  }
+};
+
+function initCoursePaymentModal() {
+  const modal = document.getElementById('modal');
+  const modalClose = document.getElementById('close');
+  const copyBtn = document.getElementById('copyBtn');
+  const btnModalDiscord = document.getElementById('btnModalDiscord');
+  const btnModalGmail = document.getElementById('btnModalGmail');
+
+  if (!modal) return;
+
+  function closeModal() {
+    modal.classList.remove('show');
+    playSound('click');
+  }
+
+  if (modalClose) modalClose.onclick = closeModal;
+  modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+  });
+
+  if (btnModalDiscord) {
+    btnModalDiscord.onmouseenter = () => playSound('hover-shine');
+    btnModalDiscord.onclick = () => {
+      playSound('discord-blast');
+      showToast('🎮 Opening Official Discord (discord.gg/Sgf5aqqRVy)...', 'info');
+    };
+  }
+
+  if (btnModalGmail) {
+    btnModalGmail.onmouseenter = () => playSound('hover-shine');
+    btnModalGmail.onclick = () => {
+      playSound('pay');
+      showToast('✉️ Opening Gmail to message Aman Sir...', 'info');
+    };
+  }
+
+  if (copyBtn) {
+    copyBtn.onclick = async () => {
+      try {
+        await navigator.clipboard.writeText('minegta611@gmail.com');
+        copyBtn.innerHTML = '<span>✓</span> Copied minegta611@gmail.com!';
+        copyBtn.classList.add('copied');
+        playSound('pay');
+        showToast('✓ Copied contact email: minegta611@gmail.com', 'success');
+        setTimeout(() => {
+          copyBtn.innerHTML = '<span>📋</span> Copy Contact Email (minegta611@gmail.com)';
+          copyBtn.classList.remove('copied');
+        }, 2200);
+      } catch (e) {
+        showToast('minegta611@gmail.com', 'info');
+      }
+    };
+  }
+}
+}
+
 window.selectCourseMonth = function(monthString) {
   const selectEl = document.getElementById('applyCourse');
   if (selectEl) {
@@ -258,6 +391,8 @@ Please confirm my seat!`;
     if (btnText) btnText.textContent = 'Sending to amangta599990@gmail.com...';
 
     const appId = 'GTA-' + Math.floor(100000 + Math.random() * 900000);
+    const coursePrice = getCoursePrice(course);
+    const formattedPrice = '₹' + Number(coursePrice).toLocaleString('en-IN');
     const appRecord = {
       id: appId,
       name,
@@ -265,6 +400,8 @@ Please confirm my seat!`;
       email,
       phone,
       course,
+      price: coursePrice,
+      formattedPrice,
       level,
       notes: notes || 'None',
       timestamp: new Date().toISOString(),
@@ -283,6 +420,7 @@ Please confirm my seat!`;
       "Student Personal Gmail": email,
       "WhatsApp / Phone": phone,
       "Selected Course Program": course,
+      "Tuition Fee / Pricing": formattedPrice,
       "Experience Level": level,
       "Student Goals": notes || 'Not provided',
       "Submitted At": appRecord.formattedDate
@@ -353,5 +491,6 @@ function initScrollReveals() {
 document.addEventListener('DOMContentLoaded', () => {
   initCurriculumTabs();
   initCourseApplicationForm();
+  initCoursePaymentModal();
   initScrollReveals();
 });
