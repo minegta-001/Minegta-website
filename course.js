@@ -215,7 +215,6 @@ function initCoursePaymentModal() {
     };
   }
 }
-}
 
 window.selectCourseMonth = function(monthString) {
   const selectEl = document.getElementById('applyCourse');
@@ -283,7 +282,7 @@ function initCourseApplicationForm() {
 
   if (!form) return;
 
-  // Real-time update of direct Gmail / WhatsApp link as student types
+  // Real-time update of direct Gmail compose link as student types
   function updateDirectLinks() {
     const name = (document.getElementById('applyName')?.value || '').trim();
     const city = (document.getElementById('applyAddress')?.value || '').trim();
@@ -294,14 +293,14 @@ function initCourseApplicationForm() {
 
     const subject = `MINE GTA Course Application - ${name || 'New Student'}`;
     const body = 
-`Hello Aman Sir,
+`Hello Aman,
 
 I want to enroll in the MINE GTA After Effects Professional Course.
 
 • Student Name: ${name || '[Your Name]'}
 • Address / City: ${city || '[Your City]'}
 • Student Gmail: ${email || '[Your Gmail]'}
-• Phone / WhatsApp: ${phone || '[Your Phone]'}
+• Contact Phone: ${phone || '[Your Phone]'}
 • Selected Course: ${course}
 • Goal / Message: ${notes || 'Ready to learn!'}
 
@@ -319,18 +318,6 @@ ${name || 'Student'}`;
     if (gmailDirectBtn) {
       gmailDirectBtn.href = gmailWebUrl;
       gmailDirectBtn.title = `Send directly from your logged-in Gmail to amangta599990@gmail.com`;
-    }
-
-    // 3. WhatsApp link
-    if (waLink) {
-      const waMsg = 
-`Hello Aman Sir, I want to apply for the MINE GTA Course!
-• Name: ${name || 'Student'}
-• City: ${city || 'India'}
-• My Gmail: ${email}
-• Course: ${course}
-Please confirm my seat!`;
-      waLink.href = `https://wa.me/917999900000?text=${encodeURIComponent(waMsg)}`;
     }
   }
 
@@ -378,7 +365,7 @@ Please confirm my seat!`;
     }
     const phoneClean = phone.replace(/[^0-9+]/g, '');
     if (!phoneClean || phoneClean.length < 8) {
-      setStatus('Please enter a valid WhatsApp / Phone number with country code.', 'error');
+      setStatus('Please enter a valid contact phone number with country code.', 'error');
       document.getElementById('applyPhone')?.focus();
       playSound('warn');
       return;
@@ -418,7 +405,7 @@ Please confirm my seat!`;
       "Student Name": name,
       "Full Address": address,
       "Student Personal Gmail": email,
-      "WhatsApp / Phone": phone,
+      "Contact Phone": phone,
       "Selected Course Program": course,
       "Tuition Fee / Pricing": formattedPrice,
       "Experience Level": level,
@@ -444,8 +431,8 @@ Please confirm my seat!`;
         `<strong>✓ Application Dispatched to amangta599990@gmail.com!</strong><br>` +
         `Thank you, <strong>${name}</strong> (Enrollment ID: <code>${appId}</code>). ` +
         `Your selected course: <strong>${course}</strong>.<br>` +
-        `Aman Sir will contact you directly at your Gmail (<strong>${email}</strong>) and WhatsApp (<strong>${phone}</strong>) within 24 hours.<br><br>` +
-        `<a href="https://mail.google.com/mail/?view=cm&fs=1&to=amangta599990@gmail.com&su=${encodeURIComponent(`MINE GTA Application Confirmation (${appId}) - ${name}`)}&body=${encodeURIComponent(`Hello Aman Sir, I just submitted my application for ${course}.\nMy Phone: ${phone}\nMy Gmail: ${email}`)}" target="_blank" style="color:#ffffff; text-decoration:underline; font-weight:700;">Open Gmail to see/send direct copy &rarr;</a>`,
+        `Lead Mentor Aman will review your application and respond directly to your Gmail (<strong>${email}</strong>) within 24 hours.<br><br>` +
+        `<a href="https://mail.google.com/mail/?view=cm&fs=1&to=amangta599990@gmail.com&su=${encodeURIComponent(`MINE GTA Application Confirmation (${appId}) - ${name}`)}&body=${encodeURIComponent(`Hello Aman, I just submitted my application for ${course}.\nMy Phone: ${phone}\nMy Gmail: ${email}`)}" target="_blank" style="color:#ffffff; text-decoration:underline; font-weight:700;">Open Gmail to see/send direct copy &rarr;</a>`,
         'success'
       );
 

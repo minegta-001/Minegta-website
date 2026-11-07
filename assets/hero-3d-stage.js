@@ -41,7 +41,7 @@
           <img src="assets/medallion-texture.png" alt="Aman Mascot Medallion" style="width:100%; height:100%; object-fit:contain; border-radius:50%; filter:drop-shadow(0 12px 30px rgba(255,255,255,0.25));">
         </div>
         <div class="mascot-speech-bubble" style="position:static; transform:none; display:inline-block; border-color:rgba(255,255,255,0.3); background:rgba(10,10,14,0.9);">
-          <span class="bubble-txt" style="color:#ffffff; font-weight:700;">✦ MINE PRESETS • 4K TITANIUM MASTER COLLECTION</span>
+          <span class="bubble-txt" style="color:#ffffff; font-weight:700;">✦ MINEGTA MOTION LAB • 3D KINETIC ENGINE</span>
         </div>
       </div>
     `;

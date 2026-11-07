@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact &amp; Admissions — MINEGTA MOTION LAB</title>
+  <meta name="description" content="Direct contact and admission desk for MINEGTA MOTION LAB & MINEGTA SHOP. Contact Lead Mentor Aman directly via Gmail or Discord.">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-face-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-face-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+  <!-- Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+
+  <!-- Reading Progress Bar -->
+  <div class="progress" id="progress"></div>
+
+  <!-- Ambient background canvas -->
+  <canvas id="weatherCanvas" aria-hidden="true"></canvas>
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-3"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html" aria-label="MINEGTA MOTION LAB Homepage">
+        <img class="nav-brand-img" src="images/website-icon.png" alt="Icon" width="34" height="34">
+        <div class="nav-brand-text">
+          <span class="nav-brand-title">MINEGTA</span>
+          <span class="nav-brand-sub">MOTION LAB</span>
+        </div>
+      </a>
+
+      <div class="nav-menu-links" id="navLinks">
+        <a href="index.html">HOME</a>
+        <a href="courses.html">COURSES</a>
+        <a href="shop.html" class="nav-shop-pill">
+          <span class="shop-bag-icon">🛍️</span>
+          <span>MINEGTA SHOP</span>
+        </a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html" class="active">CONTACT</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="sound-toggle" id="soundToggle" title="Toggle audio" aria-label="Toggle Audio">
+          <span class="sound-icon-container">
+            <svg class="sound-svg sound-svg-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            <svg class="sound-svg sound-svg-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="22" y1="9" x2="16" y2="15"></line></svg>
+          </span>
+        </button>
+        <a class="nav-cta-btn" href="courses.html#apply">Enroll Now ↗</a>
+        <button class="menu" id="menu" aria-label="Toggle Menu">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contact Hero -->
+  <header class="academy-hero" style="min-height:auto; padding:140px 5% 50px 5%;">
+    <div style="max-width:920px; margin:0 auto; text-align:center;">
+      <div class="academy-eyebrow-badge">
+        <span class="eyebrow-live-dot"></span>
+        <span>DIRECT ADMISSIONS &amp; SUPPORT</span>
+      </div>
+      <h1 class="academy-hero-title" style="font-size:clamp(36px, 5.5vw, 64px);">
+        CONNECT WITH US.<br>
+        <span class="academy-title-gradient">DIRECT CREATOR DESK.</span>
+      </h1>
+      <p class="academy-hero-desc" style="max-width:760px; margin:0 auto 30px auto;">
+        Have questions about the 4-Month Mentorship Masterclass or need custom preset downloads? Connect directly with Lead Mentor Aman across our official verified communication channels.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section class="academy-contact-section" style="padding-top:20px; padding-bottom:90px;">
+      <div class="feature-box" style="max-width:1100px; margin:0 auto;">
+        <div class="eyebrow" style="color:#22d3ee;">Official Communication Channels</div>
+        <h3>Direct Mentorship &amp; Order Support</h3>
+        
+        <div style="margin:20px 0; padding:18px; border-radius:14px; background:rgba(34,211,238,0.06); border:1px solid rgba(34,211,238,0.25); text-align:center;">
+          <div style="font-size:12px; font-weight:800; color:#22d3ee; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px;">
+            🔒 OFFICIAL DIRECT INBOXES
+          </div>
+          <div style="font-size:15px; color:#ffffff; font-weight:700;">
+            Admissions: <a href="mailto:amangta599990@gmail.com" style="color:#ffffff; text-decoration:underline;">amangta599990@gmail.com</a>
+            &nbsp;•&nbsp;
+            Store Orders: <a href="mailto:minegta611@gmail.com" style="color:#ffffff; text-decoration:underline;">minegta611@gmail.com</a>
+          </div>
+        </div>
+
+        <!-- Social Channels Grid -->
+        <div class="socials-grid">
+          <!-- Direct Gmail Desk -->
+          <a class="social-btn" href="mailto:amangta599990@gmail.com?subject=Enquiry%20-%20MINEGTA%20MOTION%20LAB&body=Hello%20Aman,%0D%0A%0D%0AI%20have%20an%20enquiry%20regarding%20MINEGTA%20MOTION%20LAB%20Courses%20and%20Digital%20Products.%0D%0A%0D%0A[Please%20write%20your%20question%20here]" aria-label="Official Gmail Desk" style="border-color:rgba(239,68,68,0.4); background:rgba(239,68,68,0.06);">
+            <div class="social-icon-wrapper" style="background:rgba(239,68,68,0.18); font-size:24px; display:flex; align-items:center; justify-content:center;">
+              ✉️
+            </div>
+            <div class="social-info">
+              <span class="social-name">Direct Gmail Desk</span>
+              <span class="social-tag">amangta599990@gmail.com</span>
+            </div>
+            <span class="social-arrow">↗</span>
+          </a>
+
+          <!-- Discord VIP Community -->
+          <a class="social-btn social-discord" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" aria-label="Official Discord">
+            <div class="social-icon-wrapper">
+              <img class="social-brand-img" src="images/icon-discord.png" alt="Discord Logo" width="32" height="32" loading="lazy">
+            </div>
+            <div class="social-info">
+              <span class="social-name">Discord Server</span>
+              <span class="social-tag">VIP Community (discord.gg/Sgf5aqqRVy)</span>
+            </div>
+            <span class="social-arrow">↗</span>
+          </a>
+
+          <!-- Instagram -->
+          <a class="social-btn social-instagram" href="https://www.instagram.com/minegta_?stkn=MTVidTk5bm9mb25pbg==" target="_blank" rel="noopener noreferrer" aria-label="Official Instagram">
+            <div class="social-icon-wrapper">
+              <img class="social-brand-img" src="images/icon-instagram.png" alt="Instagram Logo" width="32" height="32" loading="lazy">
+            </div>
+            <div class="social-info">
+              <span class="social-name">Instagram</span>
+              <span class="social-tag">@minegta_</span>
+            </div>
+            <span class="social-arrow">↗</span>
+          </a>
+
+          <!-- YouTube -->
+          <a class="social-btn social-youtube" href="https://www.youtube.com/@MINEGTA_OFFICIAL_1" target="_blank" rel="noopener noreferrer" aria-label="Official YouTube">
+            <div class="social-icon-wrapper">
+              <img class="social-brand-img" src="images/icon-youtube.png" alt="YouTube Logo" width="32" height="32" loading="lazy">
+            </div>
+            <div class="social-info">
+              <span class="social-name">YouTube Channel</span>
+              <span class="social-tag">@MINEGTA_OFFICIAL_1</span>
+            </div>
+            <span class="social-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-in">
+      <span>© 2026 MINEGTA MOTION LAB • All rights reserved.</span>
+      <div class="footer-meta-wrap">
+        <span>Direct Contact: amangta599990@gmail.com</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

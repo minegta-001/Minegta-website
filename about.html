@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About MINEGTA MOTION LAB — Creative Vision &amp; Mentorship</title>
+  <meta name="description" content="Discover MINEGTA MOTION LAB: India's premier online creative academy for After Effects, Motion Graphics, and High-Ticket Freelance Mastery by Aman.">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-face-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-face-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+  <!-- Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+
+  <!-- Reading Progress Bar -->
+  <div class="progress" id="progress"></div>
+
+  <!-- Ambient background canvas -->
+  <canvas id="weatherCanvas" aria-hidden="true"></canvas>
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html" aria-label="MINEGTA MOTION LAB Homepage">
+        <img class="nav-brand-img" src="images/website-icon.png" alt="Icon" width="34" height="34">
+        <div class="nav-brand-text">
+          <span class="nav-brand-title">MINEGTA</span>
+          <span class="nav-brand-sub">MOTION LAB</span>
+        </div>
+      </a>
+
+      <div class="nav-menu-links" id="navLinks">
+        <a href="index.html">HOME</a>
+        <a href="courses.html">COURSES</a>
+        <a href="shop.html" class="nav-shop-pill">
+          <span class="shop-bag-icon">🛍️</span>
+          <span>MINEGTA SHOP</span>
+        </a>
+        <a href="about.html" class="active">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="sound-toggle" id="soundToggle" title="Toggle audio" aria-label="Toggle Audio">
+          <span class="sound-icon-container">
+            <svg class="sound-svg sound-svg-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            <svg class="sound-svg sound-svg-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="22" y1="9" x2="16" y2="15"></line></svg>
+          </span>
+        </button>
+        <a class="nav-cta-btn" href="courses.html">Explore Courses ↗</a>
+        <button class="menu" id="menu" aria-label="Toggle Menu">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- About Hero -->
+  <header class="academy-hero" style="min-height:auto; padding:140px 5% 50px 5%;">
+    <div style="max-width:920px; margin:0 auto; text-align:center;">
+      <div class="academy-eyebrow-badge">
+        <span class="eyebrow-live-dot"></span>
+        <span>THE ACADEMY MISSION</span>
+      </div>
+      <h1 class="academy-hero-title" style="font-size:clamp(36px, 5.5vw, 64px);">
+        ART DIRECTED BY EDITORS.<br>
+        <span class="academy-title-gradient">FOR ELITE CREATORS.</span>
+      </h1>
+      <p class="academy-hero-desc" style="max-width:760px; margin:0 auto 30px auto;">
+        MINEGTA MOTION LAB was created to bridge the massive gap between generic button-pushing tutorials and high-ticket commercial motion design.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section class="academy-about-section" style="padding-top:20px;">
+      <div class="about-split-grid">
+        <div class="about-card-frame">
+          <div style="font-size:11px; font-weight:800; color:#22d3ee; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px;">OUR PHILOSOPHY</div>
+          <h3>Why We Built MINEGTA MOTION LAB</h3>
+          <p>
+            Most video editing courses teach you where tools are located. We teach you how top creators think: the mathematical relationship between speed curves and viewer retention, how optical contrast controls visual hierarchy, and how to pitch high-paying international clients.
+          </p>
+          <p>
+            Whether you want to build a high-energy personal brand or land \$1,000+ monthly client retainers, our 4-Month roadmap is engineered to give you the exact technical and commercial tools to succeed.
+          </p>
+        </div>
+
+        <div class="about-card-frame" style="background:rgba(2,6,23,0.85); border-color:rgba(34,211,238,0.25);">
+          <div style="font-size:11px; font-weight:800; color:#cbd5e1; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px;">THE ECOSYSTEM</div>
+          <h3>Two Businesses. One Complete Ecosystem.</h3>
+          <p>
+            <strong>1. MINEGTA MOTION LAB (The Academy):</strong><br>
+            Our core educational institution offering 4 months of intensive hands-on After Effects, motion design, and freelancing mentorship with 1-on-1 reviews.
+          </p>
+          <p style="margin-top:14px;">
+            <strong>2. MINEGTA SHOP (Digital Products):</strong><br>
+            Our curated marketplace for elite digital assets: 4K CC presets, beat-synced transitions, and workflow extensions used by thousands of editors worldwide.
+          </p>
+          <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+            <a class="btn-academy-primary" href="courses.html">Explore Courses ↗</a>
+            <a class="nav-shop-pill" href="shop.html">Visit MINEGTA SHOP ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-in">
+      <span>© 2026 MINEGTA MOTION LAB • All rights reserved.</span>
+      <div class="footer-meta-wrap">
+        <span>Direct Contact: amangta599990@gmail.com</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

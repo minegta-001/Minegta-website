@@ -181,7 +181,7 @@ function playSound(type) {
 
       case 'discord':
       case 'discord-blast':
-        // Tagda futuristic cyber bass drop + dual harmonic chime
+        // Resonant cyber bass sweep + dual harmonic chime
         makeTone(110, 45, 0.08, 0.35, 'sine');
         [0, 0.05, 0.10].forEach((delay, i) => {
           const osc = ctx.createOscillator();
@@ -613,7 +613,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && modal && modal.classList.contains('show')) closeModal();
 });
 
-// Interactive Discord & Gmail modal action buttons with tagda sound feedback
+// Interactive Discord & Gmail modal action buttons with sound feedback
 const btnModalDiscord = document.getElementById('btnModalDiscord');
 if (btnModalDiscord) {
   btnModalDiscord.onmouseenter = () => playSound('hover-shine');
@@ -3234,7 +3234,6 @@ function setupMineGtaSection() {
   const submitBtn = document.getElementById('gtaSubmitBtn');
   const btnSpinner = document.getElementById('gtaBtnSpinner');
   const statusBox = document.getElementById('gtaFormStatus');
-  const whatsappLink = document.getElementById('gtaWhatsappLink');
   const gmailDirectBtn = document.getElementById('btnSendFromMyGmail');
 
   // Real-time Gmail compose link updater as student types
@@ -3255,7 +3254,7 @@ I want to enroll in the MINE GTA After Effects Professional Course.
 • Student Name: ${name || '[Your Name]'}
 • Address / City: ${city || '[Your City]'}
 • Student Personal Gmail: ${email || '[Your Gmail]'}
-• Phone / WhatsApp: ${phone || '[Your Phone]'}
+• Contact Phone: ${phone || '[Your Phone]'}
 • Selected Program: ${course}
 • Goals / Message: ${notes || 'Ready to learn!'}
 
@@ -3345,7 +3344,7 @@ ${name || 'Student'}`;
       }
       const phoneClean = phone.replace(/[^0-9+]/g, '');
       if (!phoneClean || phoneClean.length < 8) {
-        showStatus('Please enter a valid WhatsApp / Phone number with country code.', 'error');
+        showStatus('Please enter a valid contact phone number with country code.', 'error');
         if (phoneInput) phoneInput.focus();
         playSound('warning');
         return;
@@ -3385,7 +3384,7 @@ ${name || 'Student'}`;
         "Student Full Name": name,
         "Address / City": address,
         "Student Gmail": email,
-        "WhatsApp / Phone": phone,
+        "Contact Phone": phone,
         "Selected Course Program": course,
         "Tuition Fee / Pricing": formattedPrice,
         "Current Experience Level": level,
@@ -3409,13 +3408,13 @@ ${name || 'Student'}`;
         playSound('pay');
         showToast('✓ Application Dispatched to amangta599990@gmail.com! 🚀', 'success');
 
-        const composeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=amangta599990@gmail.com&su=${encodeURIComponent(`MINE GTA Application Confirmation (${applicationId}) - ${name}`)}&body=${encodeURIComponent(`Hello Aman Sir, I just submitted my application for ${course}.\nMy Phone: ${phone}\nMy Gmail: ${email}`)}`;
+        const composeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=amangta599990@gmail.com&su=${encodeURIComponent(`MINE GTA Application Confirmation (${applicationId}) - ${name}`)}&body=${encodeURIComponent(`Hello Aman, I just submitted my application for ${course}.\nMy Phone: ${phone}\nMy Gmail: ${email}`)}`;
 
         showStatus(
           `<strong>✓ Application Dispatched to amangta599990@gmail.com!</strong><br>` +
           `Thank you, <strong>${name}</strong> (Enrollment ID: <code>${applicationId}</code>). ` +
           `Selected Course: <strong>${course}</strong>.<br>` +
-          `Aman Sir will contact you directly at your Gmail (<strong>${email}</strong>) and WhatsApp within 24 hours.<br><br>` +
+          `Lead Mentor Aman will review your application and respond directly to your Gmail (<strong>${email}</strong>) within 24 hours.<br><br>` +
           `<a href="${composeUrl}" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 18px; border-radius:999px; background:#ffffff; color:#000000; font-weight:700; text-decoration:none;">✉️ Open My Gmail to Send Direct Copy &rarr;</a>`,
           'success'
         );
@@ -3476,9 +3475,7 @@ function renderAdminGtaApplications() {
     `;
   } else {
     appsHtml = apps.map(app => {
-      const waText = encodeURIComponent(`Hello ${app.name}, this is Aman from MINE GTA regarding your course application (${app.id}).`);
-      const cleanPhone = (app.phone || '').replace(/[^0-9]/g, '');
-      const waUrl = `https://wa.me/${cleanPhone}?text=${waText}`;
+      const cleanPhone = (app.phone || '').replace(/[^0-9+]/g, '');
       const mailUrl = `mailto:${app.email}?subject=MINE%20GTA%20Course%20Admission%20-%20Confirmation%20for%20${encodeURIComponent(app.name)}`;
       const priceDisplay = app.formattedPrice || ('₹' + Number(app.price || getCoursePrice(app.course)).toLocaleString('en-IN'));
 
@@ -3497,7 +3494,7 @@ function renderAdminGtaApplications() {
             <div><b>💰 Fee / Price:</b> <span style="color:#4ade80; font-weight:700;">${sanitizeGta(priceDisplay)}</span></div>
             <div><b>📍 Address:</b> ${sanitizeGta(app.address)}</div>
             <div><b>✉️ Gmail:</b> <a href="${mailUrl}" style="color:#c084fc; text-decoration:underline;">${sanitizeGta(app.email)}</a></div>
-            <div><b>📱 Phone:</b> <a href="${waUrl}" target="_blank" style="color:#4ade80; text-decoration:underline;">${sanitizeGta(app.phone)}</a></div>
+            <div><b>📱 Phone:</b> <a href="tel:${cleanPhone}" style="color:#22d3ee; text-decoration:underline;">${sanitizeGta(app.phone)}</a></div>
             <div><b>⚡ Level:</b> <span style="color:#e9d5ff;">${sanitizeGta(app.level || 'Intermediate')}</span></div>
           </div>
 
@@ -3508,7 +3505,7 @@ function renderAdminGtaApplications() {
           ` : ''}
 
           <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; margin-top:4px;">
-            <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn-sm-ghost" style="border-color:#22c55e; color:#4ade80;">💬 WhatsApp Student</a>
+            <a href="tel:${cleanPhone}" class="btn-sm-ghost" style="border-color:#22d3ee; color:#22d3ee;">📞 Call / Phone</a>
             <a href="${mailUrl}" class="btn-sm-ghost" style="border-color:#a855f7; color:#d8b4fe;">✉️ Email Student</a>
           </div>
         </div>
@@ -3589,3 +3586,520 @@ if (btnClearGtaApps) {
     }
   };
 }
+
+
+/* ==========================================================================
+   MINEGTA MOTION LAB & MINEGTA SHOP — CORE RUNTIME EXTENSIONS
+   Course Contact System, Cockpit Engine, Store Grid, Direct Gmail & Discord
+   ========================================================================== */
+
+// 1. Mobile Menu Toggle Controller
+(function initNavToggle() {
+  const menuBtn = document.getElementById('menu');
+  const navLinks = document.getElementById('navLinks');
+  if (menuBtn && navLinks) {
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+      playSound('click');
+    });
+    // Close on click link
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('show');
+      });
+    });
+  }
+})();
+
+// 2. Course Contact System (Direct Gmail & Discord with Auto-Message)
+window.openCourseContactModal = function(courseName, coursePrice) {
+  if (!courseName) courseName = 'Complete 4-Month Masterclass Mentorship';
+  if (!coursePrice) coursePrice = getCoursePrice(courseName);
+
+  const formattedPrice = '₹' + Number(coursePrice).toLocaleString('en-IN');
+  const item = { name: courseName, price: coursePrice, isCourse: true };
+  selectedProduct = item;
+
+  const modal = document.getElementById('modal');
+  const productName = document.getElementById('productName');
+  const payAmount = document.getElementById('payAmount');
+  const conciergeItemCode = document.getElementById('conciergeItemCode');
+  const btnModalDiscord = document.getElementById('btnModalDiscord');
+  const btnModalGmail = document.getElementById('btnModalGmail');
+
+  if (productName) productName.textContent = courseName;
+  if (payAmount) payAmount.textContent = formattedPrice;
+  if (conciergeItemCode) conciergeItemCode.textContent = `${courseName} (${formattedPrice})`;
+
+  // Direct Gmail Compose Link (Primary Action)
+  if (btnModalGmail) {
+    const mailSub = `[MINEGTA MOTION LAB] Enrollment & Course Enquiry - ${courseName}`;
+    const mailBody = `Hello Aman,\n\nI want to enroll in / enquire about the MINEGTA MOTION LAB Mentorship Program:\n• Program: ${courseName}\n• Tuition: ${formattedPrice}\n• Date: ${new Date().toLocaleString()}\n\nPlease share the batch timing, syllabus, payment details, and how I can proceed.\n\nThank you!`;
+    btnModalGmail.href = `mailto:amangta599990@gmail.com?subject=${encodeURIComponent(mailSub)}&body=${encodeURIComponent(mailBody)}`;
+    btnModalGmail.onclick = () => {
+      playSound('pay');
+      showToast('✉️ Opening Gmail to message Aman directly...', 'info');
+    };
+  }
+
+  // Official Discord Link
+  if (btnModalDiscord) {
+    btnModalDiscord.href = 'https://discord.gg/Sgf5aqqRVy';
+    btnModalDiscord.onclick = () => {
+      playSound('discord-blast');
+      showToast('🎮 Opening Official Discord (discord.gg/Sgf5aqqRVy)...', 'info');
+    };
+  }
+
+  if (modal) {
+    modal.classList.add('show');
+    playSound('discord');
+  }
+};
+
+// Patch default openPaymentModal for product Direct Gmail auto-message
+const originalOpenPaymentModal = window.openPaymentModal;
+window.openPaymentModal = function(item) {
+  if (originalOpenPaymentModal) originalOpenPaymentModal(item);
+
+  if (!item) return;
+  if (typeof item === 'string') {
+    const p = getCoursePrice(item);
+    item = { name: item, price: p };
+  }
+
+  const formattedPrice = '₹' + Number(item.price).toLocaleString('en-IN');
+  const btnModalGmail = document.getElementById('btnModalGmail');
+  if (btnModalGmail) {
+    const mailSub = `[MINEGTA SHOP] Product Order & Enquiry: ${item.name} (${formattedPrice})`;
+    const mailBody = `Hello Aman,\n\nI want to purchase / enquire about this digital product:\n• Item: ${item.name}\n• Price: ${formattedPrice}\n• Date: ${new Date().toLocaleString()}\n\nPlease guide me on how to pay and receive instant download access.\n\nThank you!`;
+    btnModalGmail.href = `mailto:minegta611@gmail.com?subject=${encodeURIComponent(mailSub)}&body=${encodeURIComponent(mailBody)}`;
+    btnModalGmail.onclick = () => {
+      playSound('pay');
+      showToast('✉️ Opening Gmail to message Aman directly...', 'info');
+    };
+  }
+};
+
+// 3. Interactive Course Learning Cockpit Engine
+const COCKPIT_DATA = {
+  1: {
+    name: "Module 01: Foundations & 60 FPS Setup",
+    lessons: [
+      { id: "1.1", title: "Lesson 1.1: After Effects Pro Workspace & 60 FPS Engine Setup", dur: "28 MIN", desc: "Configuring GPU acceleration, setting up color-managed workspaces, setting optimal RAM preview caching, and organizing industry-standard layer folders for maximum workflow velocity.", img: "images/Mine-cc1_.png" },
+      { id: "1.2", title: "Lesson 1.2: Graph Editor Mechanics & Bezier Spatial Curves", dur: "34 MIN", desc: "Mastering the value graph and speed graph. Translating physical momentum into smooth keyframe curves without robotic ease.", img: "images/Mine-cc2_.png" },
+      { id: "1.3", title: "Lesson 1.3: Null Objects, Parenting Hierarchies & Layer Stacking", dur: "25 MIN", desc: "Architecting complex multi-layer animation hierarchies without tangled keyframe nests using clean controller nulls.", img: "images/Mine-cc3_.png" },
+      { id: "1.4", title: "Lesson 1.4: Precision Masking, Track Mattes & Roto Brush", dur: "30 MIN", desc: "Isolating subjects with sub-pixel accuracy for cinematic background text, matte fills, and foreground separation.", img: "images/Mine-cc4_.png" },
+      { id: "1.5", title: "Lesson 1.5: Live Project: High-Energy YouTube Intro Delivery", dur: "42 MIN", desc: "Putting all foundations together into a commercial high-energy motion intro sequence with 1-on-1 feedback from Aman Sir.", img: "images/Mine-cc5_.png" }
+    ]
+  },
+  2: {
+    name: "Module 02: Advanced Animation & Kinetic Typography",
+    lessons: [
+      { id: "2.1", title: "Lesson 2.1: Speed Graph Acceleration & Snappy Easing", dur: "32 MIN", desc: "How to craft snappy, buttery ease curves that elevate your motion edits into studio-grade commercial pieces.", img: "images/Mine-cc2_.png" },
+      { id: "2.2", title: "Lesson 2.2: Kinetic Typography & Custom Text Range Selectors", dur: "38 MIN", desc: "Building high-retention text animations, tracking flourishes, and custom typewriter sequences with per-character 3D.", img: "images/Mine-cc1_.png" },
+      { id: "2.3", title: "Lesson 2.3: After Effects Expressions (Wiggle & Inertial Bounce)", dur: "29 MIN", desc: "Automating spring mechanics, procedural overshoot, and audio-reactive amplitude with clean JavaScript expressions.", img: "images/Mine-cc3_.png" },
+      { id: "2.4", title: "Lesson 2.4: Mocha AE Planar Tracking & 3D Camera Projection", dur: "45 MIN", desc: "Advanced corner pinning and live-action camera tracking using Boris FX Mocha planar optics with zero drift.", img: "images/Mine-cc4_.png" },
+      { id: "2.5", title: "Lesson 2.5: Live Project: Fluid 60 FPS Kinetic Sequence", dur: "40 MIN", desc: "Assembling a complete 60 FPS typography showcase with synchronized sound design stems and impact blurs.", img: "images/Mine-cc5_.png" }
+    ]
+  },
+  3: {
+    name: "Module 03: Professional Hollywood VFX & 3D Motion Design",
+    lessons: [
+      { id: "3.1", title: "Lesson 3.1: 3D Spatial Rigs, Studio Lighting & Depth of Field", dur: "36 MIN", desc: "Multi-node cameras, 3D null rigs, studio softbox illumination, and realistic optical camera blur.", img: "images/Mine-cc3_.png" },
+      { id: "3.2", title: "Lesson 3.2: Boris FX Sapphire Mastery (S_Glow, S_Distort, S_Shake)", dur: "44 MIN", desc: "Hollywood plugin pipelines. Creating signature glow halos, film damage, and chromatic aberrations without artifacting.", img: "images/Mine-cc1_.png" },
+      { id: "3.3", title: "Lesson 3.3: Element 3D: OBJ Model Imports & Physical Shading", dur: "50 MIN", desc: "Importing 3D geometry into After Effects, assigning PBR textures, and casting realistic environment shadows.", img: "images/Mine-cc2_.png" },
+      { id: "3.4", title: "Lesson 3.4: Deep Glow, Optical Flares & 10-Bit Color Science", dur: "33 MIN", desc: "Inverse-square optical falloff, anamorphic streaks, and zero-banding 10-bit export settings for OLED screens.", img: "images/Mine-cc5_.png" },
+      { id: "3.5", title: "Lesson 3.5: Live Project: Commercial Agency Showreel Sequence", dur: "55 MIN", desc: "Producing a 15-second hyper-polished 3D commercial sequence ready for client pitch decks.", img: "images/Mine-cc4_.png" }
+    ]
+  },
+  4: {
+    name: "Module 04: Client Acquisition, High-Ticket Freelancing & Certification",
+    lessons: [
+      { id: "4.1", title: "Lesson 4.1: Commercial Production Pipelines & Client Briefs", dur: "30 MIN", desc: "How top agencies onboard clients, structure revision limits, and manage tight turnaround deadlines.", img: "images/Mine-cc4_.png" },
+      { id: "4.2", title: "Lesson 4.2: High-Retention Viral Reels & Motion Poster Frameworks", dur: "35 MIN", desc: "Engineering 9:16 vertical motion assets designed specifically for massive algorithmic retention.", img: "images/Mine-cc1_.png" },
+      { id: "4.3", title: "Lesson 4.3: International Cold Pitching & Pricing Psychology ($$)", dur: "48 MIN", desc: "The exact email and DM outreach scripts used to close $500 - $3,000+ per month retainers with global brands.", img: "images/Mine-cc2_.png" },
+      { id: "4.4", title: "Lesson 4.4: Invoicing, Client Contracts & Clean Delivery Hand-offs", dur: "26 MIN", desc: "Protecting your work with contracts, setting 50% upfront deposits, and packaging clean client deliverables.", img: "images/Mine-cc3_.png" },
+      { id: "4.5", title: "Lesson 4.5: Capstone Review, Official Certification & Portfolio Launch", dur: "50 MIN", desc: "Final 1-on-1 review with Aman Sir, graduation certification, and private student community onboarding.", img: "images/Mine-cc5_.png" }
+    ]
+  }
+};
+
+let currentCockpitModule = 1;
+let currentCockpitLessonIdx = 0;
+
+window.switchCockpitModule = function(modNum) {
+  if (!COCKPIT_DATA[modNum]) return;
+  currentCockpitModule = modNum;
+  currentCockpitLessonIdx = 0;
+
+  // Update tab buttons
+  document.querySelectorAll('.cockpit-tab-btn').forEach(btn => {
+    btn.classList.toggle('active', Number(btn.dataset.mod) === modNum);
+  });
+
+  renderCockpitState();
+  playSound('tab');
+};
+
+window.selectCockpitLesson = function(idx) {
+  const mod = COCKPIT_DATA[currentCockpitModule];
+  if (!mod || !mod.lessons[idx]) return;
+  currentCockpitLessonIdx = idx;
+  renderCockpitState();
+  playSound('click');
+};
+
+window.prevCockpitLesson = function() {
+  const mod = COCKPIT_DATA[currentCockpitModule];
+  if (!mod) return;
+  if (currentCockpitLessonIdx > 0) {
+    currentCockpitLessonIdx--;
+  } else if (currentCockpitModule > 1) {
+    currentCockpitModule--;
+    currentCockpitLessonIdx = COCKPIT_DATA[currentCockpitModule].lessons.length - 1;
+  }
+  document.querySelectorAll('.cockpit-tab-btn').forEach(btn => {
+    btn.classList.toggle('active', Number(btn.dataset.mod) === currentCockpitModule);
+  });
+  renderCockpitState();
+  playSound('swipe');
+};
+
+window.nextCockpitLesson = function() {
+  const mod = COCKPIT_DATA[currentCockpitModule];
+  if (!mod) return;
+  if (currentCockpitLessonIdx < mod.lessons.length - 1) {
+    currentCockpitLessonIdx++;
+  } else if (currentCockpitModule < 4) {
+    currentCockpitModule++;
+    currentCockpitLessonIdx = 0;
+  }
+  document.querySelectorAll('.cockpit-tab-btn').forEach(btn => {
+    btn.classList.toggle('active', Number(btn.dataset.mod) === currentCockpitModule);
+  });
+  renderCockpitState();
+  playSound('swipe');
+};
+
+function renderCockpitState() {
+  const mod = COCKPIT_DATA[currentCockpitModule];
+  if (!mod) return;
+  const lesson = mod.lessons[currentCockpitLessonIdx];
+  if (!lesson) return;
+
+  const titleEl = document.getElementById('cockpitLessonTitle');
+  const durEl = document.getElementById('cockpitLessonDuration');
+  const descEl = document.getElementById('cockpitLessonDesc');
+  const imgEl = document.getElementById('cockpitScreenImg');
+  const countEl = document.getElementById('cockpitLessonCount');
+  const stackEl = document.getElementById('cockpitPlaylistStack');
+  const tcEl = document.getElementById('cockpitTimecode');
+
+  if (titleEl) titleEl.textContent = lesson.title;
+  if (durEl) durEl.textContent = lesson.dur;
+  if (descEl) descEl.textContent = lesson.desc;
+  if (imgEl) imgEl.src = lesson.img;
+  if (countEl) countEl.textContent = `${mod.lessons.length} Lessons • Source Files Included`;
+  if (tcEl) {
+    const mins = Math.max(1, parseInt(lesson.dur) || 28);
+    tcEl.textContent = `TIMECODE: 00:${String(mins).padStart(2, '0')}:14:08`;
+  }
+
+  if (stackEl) {
+    stackEl.innerHTML = mod.lessons.map((les, idx) => {
+      const isActive = idx === currentCockpitLessonIdx;
+      return `
+        <div class="playlist-item-card ${isActive ? 'active' : ''}" onclick="selectCockpitLesson(${idx})">
+          <div class="pl-left">
+            <span class="pl-num">${les.id}</span>
+            <span class="pl-title">${les.title.replace(/^Lesson\s+[0-9.]+\s*:\s*/, '')}</span>
+          </div>
+          <span class="pl-dur">${les.dur}</span>
+        </div>
+      `;
+    }).join('');
+  }
+}
+
+// 4. Products Rendering Engine for Homepage & Shop Page
+function renderStoreProducts() {
+  const catalog = (typeof getCatalog === 'function') ? getCatalog() : DEFAULT_PRESETS;
+
+  // A. Homepage Featured Products Grid
+  const homeGrid = document.getElementById('homepageProductsGrid');
+  if (homeGrid) {
+    homeGrid.innerHTML = catalog.map(p => {
+      const imgSrc = p.img || (p.cat === 'transition' ? 'images/Mine-cc1_.png' : 'images/Mine-cc2_.png');
+      const formattedPrice = '₹' + Number(p.price).toLocaleString('en-IN');
+      return `
+        <div class="shop-product-card" data-cat="${p.cat || 'cc'}">
+          <div class="product-thumb-frame" onclick="openLightboxForProduct('${p.id}')">
+            <img class="product-thumb-img" src="${imgSrc}" alt="${p.name}" loading="lazy">
+            <span class="product-badge-tag">${p.tag || '4K CC'}</span>
+            <span class="product-zoom-hint">🔍 4K ZOOM</span>
+          </div>
+          <div class="product-info-body">
+            <div class="product-name-row">
+              <h4 class="product-title">${p.name}</h4>
+            </div>
+            <p class="product-short-desc">${p.desc || 'Premium 4K asset engineered by Aman.'}</p>
+            <div class="product-action-row">
+              <span class="product-price-val">${formattedPrice}</span>
+              <button type="button" class="btn-buy-product" onclick="openPaymentModal({ id: '${p.id}', name: '${p.name}', price: ${p.price} })">
+                <span>Buy Now ↗</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // B. Dedicated Shop Page Products Grid
+  const shopGrid = document.getElementById('shopProductsGrid');
+  if (shopGrid) {
+    const renderShopItems = (items) => {
+      shopGrid.innerHTML = items.map(p => {
+        const imgSrc = p.img || (p.cat === 'transition' ? 'images/Mine-cc1_.png' : 'images/Mine-cc2_.png');
+        const formattedPrice = '₹' + Number(p.price).toLocaleString('en-IN');
+        return `
+          <div class="shop-product-card" data-cat="${p.cat || 'cc'}">
+            <div class="product-thumb-frame" onclick="openLightboxForProduct('${p.id}')">
+              <img class="product-thumb-img" src="${imgSrc}" alt="${p.name}" loading="lazy">
+              <span class="product-badge-tag">${p.tag || '4K CC'}</span>
+              <span class="product-zoom-hint">🔍 4K ZOOM</span>
+            </div>
+            <div class="product-info-body">
+              <div class="product-name-row">
+                <h4 class="product-title">${p.name}</h4>
+              </div>
+              <p class="product-short-desc">${p.desc || 'Premium 4K asset engineered by Aman.'}</p>
+              <div class="product-action-row">
+                <span class="product-price-val">${formattedPrice}</span>
+                <div style="display:flex; gap:6px;">
+                  <button type="button" class="btn-sm-ghost" style="font-size:11px; padding:6px 10px;" onclick="openProductDetailView('${p.id}')">Details</button>
+                  <button type="button" class="btn-buy-product" onclick="openPaymentModal({ id: '${p.id}', name: '${p.name}', price: ${p.price} })">
+                    <span>Buy Now ↗</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    };
+
+    renderShopItems(catalog);
+
+    // Bind Search Input
+    const searchInput = document.getElementById('shopSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        const filtered = catalog.filter(p => 
+          p.name.toLowerCase().includes(q) || 
+          (p.desc && p.desc.toLowerCase().includes(q)) || 
+          (p.tag && p.tag.toLowerCase().includes(q))
+        );
+        renderShopItems(filtered);
+      });
+    }
+
+    // Bind Category Filter Buttons on Shop Page
+    const filterBtns = document.querySelectorAll('.shop-filter-bar .shop-filter-btn');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.cat;
+        playSound('filter');
+
+        if (cat === 'all') {
+          renderShopItems(catalog);
+        } else {
+          const filtered = catalog.filter(p => p.cat === cat);
+          renderShopItems(filtered);
+        }
+      });
+    });
+  }
+}
+
+// Lightbox opener helper
+window.openLightboxForProduct = function(productId) {
+  const catalog = (typeof getCatalog === 'function') ? getCatalog() : DEFAULT_PRESETS;
+  const p = catalog.find(item => item.id === productId);
+  if (!p || !p.img) return;
+
+  const lightbox = document.getElementById('ccLightbox');
+  const imgEl = document.getElementById('ccLightboxImage');
+  const lblEl = document.getElementById('ccLightboxLabel');
+
+  if (lightbox && imgEl) {
+    imgEl.src = p.img;
+    if (lblEl) lblEl.textContent = `${p.name} — 4K FULL RESOLUTION ZOOM — ESC TO CLOSE`;
+    lightbox.classList.add('show');
+    lightbox.setAttribute('aria-hidden', 'false');
+    playSound('zoom');
+  }
+};
+
+// Product detail view drawer/modal
+window.openProductDetailView = function(productId) {
+  const catalog = (typeof getCatalog === 'function') ? getCatalog() : DEFAULT_PRESETS;
+  const p = catalog.find(item => item.id === productId);
+  if (!p) return;
+
+  const modal = document.getElementById('productDetailModal');
+  const title = document.getElementById('detailTitle');
+  const img = document.getElementById('detailImg');
+  const cat = document.getElementById('detailCat');
+  const price = document.getElementById('detailPrice');
+  const desc = document.getElementById('detailDesc');
+  const format = document.getElementById('detailFormat');
+  const buyBtn = document.getElementById('detailBuyNowBtn');
+
+  if (title) title.textContent = p.name;
+  if (img) img.src = p.img || 'images/Mine-cc1_.png';
+  if (cat) cat.textContent = p.tag || 'Digital Creative Asset';
+  if (price) price.textContent = '₹' + Number(p.price).toLocaleString('en-IN');
+  if (desc) desc.textContent = p.desc || 'Engineered by Aman with optical S-curves and zero-banding 10-bit pipeline.';
+  if (format) format.textContent = p.cat === 'cc' ? '.ffx / .cube / .prfpset' : (p.cat === 'transition' ? '.prfpset / .aep' : '.jsxbin / .bat / .zip');
+
+  if (buyBtn) {
+    buyBtn.onclick = () => {
+      if (modal) modal.classList.remove('show');
+      openPaymentModal({ id: p.id, name: p.name, price: p.price });
+    };
+  }
+
+  if (modal) {
+    modal.classList.add('show');
+    playSound('click');
+  }
+};
+
+const closeProductDetailBtn = document.getElementById('closeProductDetail');
+if (closeProductDetailBtn) {
+  closeProductDetailBtn.onclick = () => {
+    const modal = document.getElementById('productDetailModal');
+    if (modal) modal.classList.remove('show');
+    playSound('modal-close');
+  };
+}
+
+// 5. Support #courseApplyForm on dedicated courses page
+(function initCoursePageApplyForm() {
+  const form = document.getElementById('courseApplyForm');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = (document.getElementById('applyName')?.value || '').trim();
+    const address = (document.getElementById('applyAddress')?.value || '').trim();
+    const email = (document.getElementById('applyEmail')?.value || '').trim();
+    const phone = (document.getElementById('applyPhone')?.value || '').trim();
+    const course = document.getElementById('applyCourse')?.value || 'Complete 4-Month Masterclass';
+    const level = document.getElementById('applyLevel')?.value || 'Intermediate';
+    const notes = (document.getElementById('applyNotes')?.value || '').trim();
+    const statusBox = document.getElementById('courseFormStatus');
+    const submitBtn = document.getElementById('btnCourseSubmit');
+    const spinner = document.getElementById('courseSpinner');
+
+    if (!name || name.length < 2) {
+      if (statusBox) {
+        statusBox.className = 'gta-form-status error';
+        statusBox.innerHTML = 'Please enter your full student name.';
+        statusBox.style.display = 'block';
+      }
+      playSound('warn');
+      return;
+    }
+
+    if (submitBtn) submitBtn.disabled = true;
+    if (spinner) spinner.style.display = 'inline-block';
+
+    const appId = 'LAB-' + Math.floor(100000 + Math.random() * 900000);
+    const coursePrice = getCoursePrice(course);
+    const formattedPrice = '₹' + Number(coursePrice).toLocaleString('en-IN');
+
+    const appRecord = {
+      id: appId,
+      name,
+      address,
+      email,
+      phone,
+      course,
+      price: coursePrice,
+      formattedPrice,
+      level,
+      notes: notes || 'None',
+      timestamp: new Date().toISOString(),
+      formattedDate: new Date().toLocaleString()
+    };
+
+    const payload = {
+      _subject: `🔥 [MINEGTA MOTION LAB ENROLLMENT] ${name} - ${course} (${appId})`,
+      _template: 'table',
+      _captcha: 'false',
+      _replyto: email,
+      "Application ID": appId,
+      "Student Name": name,
+      "Full Address": address,
+      "Student Personal Gmail": email,
+      "Contact Phone": phone,
+      "Selected Course Program": course,
+      "Tuition Fee / Pricing": formattedPrice,
+      "Experience Level": level,
+      "Student Goals": notes || 'Not provided',
+      "Submitted At": appRecord.formattedDate
+    };
+
+    try {
+      await fetch('https://formsubmit.co/ajax/amangta599990@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (typeof saveGtaApplication === 'function') {
+        saveGtaApplication(appRecord);
+      }
+      playSound('pay');
+      showToast('✓ Application Dispatched to amangta599990@gmail.com! 🚀', 'success');
+
+      if (statusBox) {
+        statusBox.className = 'gta-form-status success';
+        statusBox.innerHTML = `
+          <strong>✓ Application Dispatched to amangta599990@gmail.com!</strong><br>
+          Thank you, <strong>${name}</strong> (Enrollment ID: <code>${appId}</code>).<br>
+          Selected Program: <strong>${course}</strong>.<br>
+          Lead Mentor Aman will review your application and respond directly to your Gmail (<strong>${email}</strong>) within 24 hours.
+        `;
+        statusBox.style.display = 'block';
+      }
+      form.reset();
+    } catch(err) {
+      if (typeof saveGtaApplication === 'function') {
+        saveGtaApplication(appRecord);
+      }
+      playSound('pay');
+      if (statusBox) {
+        statusBox.className = 'gta-form-status success';
+        statusBox.innerHTML = `<strong>✓ Application Recorded (ID: ${appId})!</strong><br>Details logged for <strong>${name}</strong>. Aman Sir has been notified.`;
+        statusBox.style.display = 'block';
+      }
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+      if (spinner) spinner.style.display = 'none';
+    }
+  });
+})();
+
+// Automatically initialize Cockpit and Store on load
+window.addEventListener('DOMContentLoaded', () => {
+  renderCockpitState();
+  renderStoreProducts();
+});

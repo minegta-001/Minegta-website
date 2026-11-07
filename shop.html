@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MINEGTA SHOP — Premium Digital Products &amp; 4K Creative Toolkit</title>
+  <meta name="description" content="Official MINEGTA SHOP. Download 4K CC presets, cinematic transitions, After Effects extensions, and master grading engines engineered by Aman.">
+  <meta property="og:title" content="MINEGTA SHOP — Premium Digital Products">
+  <meta property="og:description" content="Your creative toolkit starts here. Premium 4K CC Presets, Transitions, and After Effects workflow extensions.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/Mine-cc1_.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MINEGTA SHOP — Premium Digital Products">
+  <meta name="twitter:description" content="Your creative toolkit starts here. 4K CC presets, transitions, and After Effects workflow extensions.">
+  <meta name="twitter:image" content="images/Mine-cc1_.png">
+
+  <!-- Schema.org Product Catalog for Google Search -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "MINEGTA SHOP Product Catalog",
+    "description": "Premium 4K CC Presets, Transitions, and After Effects Tools engineered by Aman.",
+    "itemListElement": [
+      {
+        "@type": "Product",
+        "name": "CC 1",
+        "description": "This 4K CC Will Be Found Nowhere Else. Razor-sharp contrast with cinematic skin tones.",
+        "image": "https://www.minegta.shop/images/Mine-cc1_.png",
+        "offers": { "@type": "Offer", "price": "400", "priceCurrency": "INR" }
+      },
+      {
+        "@type": "Product",
+        "name": "CC 2",
+        "description": "Exclusive 4K CC — Made Different. Rich golden highlights with moody cinematic depth.",
+        "image": "https://www.minegta.shop/images/Mine-cc2_.png",
+        "offers": { "@type": "Offer", "price": "350", "priceCurrency": "INR" }
+      },
+      {
+        "@type": "Product",
+        "name": "CC 3",
+        "description": "Your Footage Deserves This 4K Look. High-dynamic-range curve balance and filmic punch.",
+        "image": "https://www.minegta.shop/images/Mine-cc3_.png",
+        "offers": { "@type": "Offer", "price": "500", "priceCurrency": "INR" }
+      },
+      {
+        "@type": "Product",
+        "name": "CC 4",
+        "description": "One 4K CC. Infinite Cinematic Vibes. Designed for fast social and reel color grading.",
+        "image": "https://www.minegta.shop/images/Mine-cc4_.png",
+        "offers": { "@type": "Offer", "price": "300", "priceCurrency": "INR" }
+      },
+      {
+        "@type": "Product",
+        "name": "CC 5",
+        "description": "Not Everywhere. Just Here. The definitive flagship 4K color grading preset.",
+        "image": "https://www.minegta.shop/images/Mine-cc5_.png",
+        "offers": { "@type": "Offer", "price": "850", "priceCurrency": "INR" }
+      },
+      {
+        "@type": "Product",
+        "name": "Transition Pack 01",
+        "description": "Ultra-fast seamless zooms, whip moves, and camera impacts for gaming & reels.",
+        "offers": { "@type": "Offer", "price": "249", "priceCurrency": "INR" }
+      },
+      {
+        "@type": "Product",
+        "name": "Mine Pc Cleaner",
+        "description": "Cleans cache, frees memory, and eliminates After Effects timeline lag.",
+        "offers": { "@type": "Offer", "price": "200", "priceCurrency": "INR" }
+      },
+      {
+        "@type": "Product",
+        "name": "MINE MEGASUITE",
+        "description": "Fast & powerful After Effects tools for creators. One-click animations, markers, and workflow macros.",
+        "offers": { "@type": "Offer", "price": "2000", "priceCurrency": "INR" }
+      },
+      {
+        "@type": "Product",
+        "name": "System Preset 01",
+        "description": "Complete creator workflow setup for consistent Hollywood-grade grading.",
+        "offers": { "@type": "Offer", "price": "299", "priceCurrency": "INR" }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-face-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-face-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+  <!-- Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+
+  <!-- Reading Progress Bar -->
+  <div class="progress" id="progress"></div>
+
+  <!-- Ambient background canvas -->
+  <canvas id="weatherCanvas" aria-hidden="true"></canvas>
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-3"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html" aria-label="MINEGTA MOTION LAB Homepage">
+        <img class="nav-brand-img" src="images/website-icon.png" alt="Icon" width="34" height="34">
+        <div class="nav-brand-text">
+          <span class="nav-brand-title">MINEGTA</span>
+          <span class="nav-brand-sub" style="color:#ffffff;">SHOP</span>
+        </div>
+      </a>
+
+      <div class="nav-menu-links" id="navLinks">
+        <a href="index.html">HOME</a>
+        <a href="courses.html">COURSES</a>
+        <a href="shop.html" class="active nav-shop-pill">
+          <span class="shop-bag-icon">🛍️</span>
+          <span>MINEGTA SHOP</span>
+        </a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="sound-toggle" id="soundToggle" title="Toggle audio" aria-label="Toggle Audio">
+          <span class="sound-icon-container">
+            <svg class="sound-svg sound-svg-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            <svg class="sound-svg sound-svg-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="22" y1="9" x2="16" y2="15"></line></svg>
+          </span>
+        </button>
+        <a class="nav-cta-btn" href="index.html#courses">Academy ↗</a>
+        <button class="menu" id="menu" aria-label="Toggle Menu">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Store Hero Header -->
+  <header class="academy-hero" style="min-height:auto; padding:130px 5% 60px 5%;">
+    <div style="max-width:960px; margin:0 auto; text-align:center;">
+      <div class="academy-eyebrow-badge">
+        <span class="eyebrow-live-dot"></span>
+        <span>MINEGTA SHOP • OFFICIAL DIGITAL ASSETS</span>
+      </div>
+      <h1 class="academy-hero-title" style="font-size:clamp(34px, 5.5vw, 68px); margin-bottom:14px;">
+        YOUR CREATIVE TOOLKIT<br>
+        <span class="academy-title-gradient">STARTS HERE.</span>
+      </h1>
+      <div class="academy-hero-subtitle" style="color:#ffffff; font-size:clamp(16px, 2.2vw, 22px); margin-bottom:16px;">
+        PREMIUM DIGITAL ASSETS FOR CREATIVE MINDS.
+      </div>
+      <p class="academy-hero-desc" style="max-width:740px; margin:0 auto 34px auto;">
+        Exclusive 4K CC color science, optical transition packs, and After Effects workflow enhancers engineered by Aman. Tested on millions of views with instant digital delivery.
+      </p>
+
+      <!-- Trust Badges -->
+      <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
+        <span class="skill-tag">⚡ Instant Delivery via Discord &amp; Gmail</span>
+        <span class="skill-tag">🔒 Lifetime License &amp; Free Updates</span>
+        <span class="skill-tag">🎬 Compatible: Premiere, AE, DaVinci, FCP</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="catalog">
+    <!-- Store Catalog Section -->
+    <section class="shop-section-hub" style="padding-top:20px;">
+      <!-- Search & Filters Container -->
+      <div style="max-width:1320px; margin:0 auto 36px auto; display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap;">
+        <!-- Category Filter Tabs -->
+        <div class="shop-filter-bar" style="margin-bottom:0;">
+          <button type="button" class="shop-filter-btn active" data-cat="all">✦ All Products (<span id="countAll">9</span>)</button>
+          <button type="button" class="shop-filter-btn" data-cat="cc">4K CC Presets (<span id="countCC">5</span>)</button>
+          <button type="button" class="shop-filter-btn" data-cat="transition">Transitions (<span id="countTrans">1</span>)</button>
+          <button type="button" class="shop-filter-btn" data-cat="system">Master Systems &amp; Tools (<span id="countSys">3</span>)</button>
+        </div>
+
+        <!-- Live Search Box -->
+        <div style="position:relative; min-width:260px;">
+          <input type="text" id="shopSearchInput" placeholder="Search presets or tools..." style="width:100%; padding:10px 16px 10px 38px; border-radius:var(--radius-pill); background:rgba(15,23,42,0.8); border:1px solid rgba(255,255,255,0.15); color:#ffffff; font-size:13px; outline:none;">
+          <svg style="position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#94a3b8;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+      </div>
+
+      <!-- Main Products Grid -->
+      <div class="shop-products-grid" id="shopProductsGrid">
+        <!-- Rendered dynamically by script.js -->
+      </div>
+    </section>
+
+    <!-- Academy Gateway Banner at bottom of Shop -->
+    <section style="padding:40px 5% 90px 5%;">
+      <div class="shop-gateway-banner" style="background:radial-gradient(circle at 10% 50%, rgba(34,211,238,0.14) 0%, rgba(15,23,42,0.95) 70%);">
+        <div class="gateway-banner-text">
+          <span style="font-size:11px; font-weight:800; color:#22d3ee; letter-spacing:1px; text-transform:uppercase;">ONLINE CREATIVE ACADEMY</span>
+          <h3>Want to learn how to CREATE these presets &amp; 3D effects?</h3>
+          <p>Join Aman's 4-Month After Effects &amp; Motion Design Masterclass. Month-by-month curriculum with 1-on-1 feedback.</p>
+        </div>
+        <a class="btn-explore-shop-full" href="courses.html">
+          <span>EXPLORE ACADEMY COURSES</span>
+          <span style="font-size:16px;">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Product Details Modal -->
+  <div class="modal" id="productDetailModal" role="dialog" aria-modal="true" aria-label="Product Details">
+    <div class="modal-box modal-box-vip" style="max-width:680px;">
+      <button class="modal-close" id="closeProductDetail" aria-label="Close">×</button>
+      <div class="eyebrow" style="color:#22d3ee; letter-spacing:2px; font-weight:800;">✦ PRODUCT SPECIFICATIONS</div>
+      <h3 style="margin-top:6px; font-size:26px; font-weight:900;" id="detailTitle">Product Title</h3>
+      
+      <div style="margin:16px 0; border-radius:14px; overflow:hidden; max-height:260px; background:#020617; border:1px solid rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center;">
+        <img id="detailImg" src="images/Mine-cc1_.png" alt="Product Image" style="width:100%; height:100%; object-fit:contain;">
+      </div>
+
+      <div class="vip-item-banner">
+        <div class="vip-item-name" id="detailCat">4K CC Preset</div>
+        <div class="vip-item-price-tag">
+          <span class="vip-price-lbl">Official Price</span>
+          <span class="vip-price-val" id="detailPrice">₹400</span>
+        </div>
+      </div>
+
+      <p style="font-size:14px; line-height:1.6; color:#cbd5e1; margin-bottom:18px;" id="detailDesc">
+        Description
+      </p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; font-size:12.5px;">
+        <div style="background:rgba(255,255,255,0.04); padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.08);">
+          <strong style="color:#ffffff;">📦 File Format:</strong><br>
+          <span style="color:#94a3b8;" id="detailFormat">.ffx / .cube / .prfpset</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.04); padding:10px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.08);">
+          <strong style="color:#ffffff;">🎬 Compatibility:</strong><br>
+          <span style="color:#94a3b8;">Premiere, AE, DaVinci, FCP</span>
+        </div>
+      </div>
+
+      <button type="button" class="btn-academy-primary" style="width:100%;" id="detailBuyNowBtn">
+        <span>Instant Buy Now ↗</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- VIP PURCHASE & DIRECT CONTACT MODAL (DIRECT GMAIL & DISCORD) -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Purchase via Gmail or Discord">
+    <div class="modal-box modal-box-vip">
+      <button class="modal-close" id="close" aria-label="Close Modal">×</button>
+      <div class="eyebrow" style="color:#22d3ee; letter-spacing:2px; font-weight:800;">⚡ OFFICIAL CREATOR ORDER DESK</div>
+      <h3 style="margin-top:6px; font-size:26px; font-weight:900; letter-spacing:-0.5px;">Instant Buy &amp; Direct Access</h3>
+      <p class="modal-sub" style="margin-bottom:18px;">Get instant high-speed file delivery &amp; 1-on-1 creator support from Aman via Gmail.</p>
+      
+      <div class="vip-item-banner">
+        <div class="vip-item-name" id="productName">Select Product</div>
+        <div class="vip-item-price-tag">
+          <span class="vip-price-lbl">Official Price</span>
+          <span class="vip-price-val" id="payAmount">₹0</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons (Gmail & Discord) -->
+      <div class="vip-actions-container">
+        <!-- Direct Gmail (Primary Channel) -->
+        <a class="btn-vip-gmail" id="btnModalGmail" href="mailto:minegta611@gmail.com" style="background:linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); border-color:#f87171; box-shadow:0 4px 20px rgba(220,38,38,0.35);">
+          <span class="btn-shine"></span>
+          <span class="btn-icon">✉️</span>
+          <div class="btn-txt-wrap">
+            <span class="btn-txt-main">Message Directly on Gmail ↗</span>
+            <span class="btn-txt-sub">minegta611@gmail.com • Auto-prepares product order</span>
+          </div>
+        </a>
+
+        <!-- Discord -->
+        <a class="btn-vip-discord" id="btnModalDiscord" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer">
+          <span class="btn-shine"></span>
+          <span class="btn-icon">🎮</span>
+          <div class="btn-txt-wrap">
+            <span class="btn-txt-main">Buy via Official Discord ↗</span>
+            <span class="btn-txt-sub">Join Discord Server (discord.gg/Sgf5aqqRVy) • Instant VIP Delivery</span>
+          </div>
+        </a>
+
+        <button type="button" class="btn-vip-copy" id="copyBtn">
+          <span>📋</span> Copy Contact Email (minegta611@gmail.com)
+        </button>
+      </div>
+
+      <div class="vip-security-footer">
+        🔒 <b>100% Verified Creator Delivery:</b> You interact directly with Aman. Lifetime updates &amp; VIP support included.
+      </div>
+    </div>
+  </div>
+
+  <!-- 4K CC ZOOM LIGHTBOX -->
+  <div class="cc-lightbox" id="ccLightbox" aria-hidden="true" role="dialog" aria-label="CC Image Preview Lightbox">
+    <div class="cc-lightbox-frame">
+      <button class="cc-lightbox-close" id="ccLightboxClose" aria-label="Close Preview">×</button>
+      <button class="cc-lightbox-nav prev" id="ccLightboxPrev" aria-label="Previous Preview">‹</button>
+      <button class="cc-lightbox-nav next" id="ccLightboxNext" aria-label="Next Preview">›</button>
+      
+      <img id="ccLightboxImage" src="" alt="4K CC Preview">
+      <div class="cc-lightbox-label" id="ccLightboxLabel">CC 1 OF 5 — CLICK TO ZOOM — ESC TO CLOSE</div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-in">
+      <span>© 2026 MINEGTA SHOP • Digital Creative Marketplace.</span>
+      <div class="footer-meta-wrap">
+        <span>Support: minegta611@gmail.com</span>
+        <a href="index.html" style="color:#22d3ee; margin-left:14px; text-decoration:underline;">MINEGTA MOTION LAB Academy &rarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

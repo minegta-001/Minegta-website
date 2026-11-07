@@ -1,1295 +1,1167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MINE PRESETS — 4K Cinematic Master Editing Suite</title>
-<meta name="description" content="Ultra-premium 4K CC presets, cinematic transitions, and master editing packs by MINE PRESETS. Titanium Monochrome Edition.">
-<link rel="icon" type="image/x-icon" href="images/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-face-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-face-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MINEGTA MOTION LAB — Online Creative Academy | Adobe After Effects & Motion Design</title>
+  <meta name="description" content="Master Adobe After Effects, 3D motion design, kinetic typography, Hollywood VFX, and high-ticket client freelancing at MINEGTA MOTION LAB. Official online creative mentorship by Aman.">
+  <meta property="og:title" content="MINEGTA MOTION LAB — Online Creative Academy">
+  <meta property="og:description" content="Create without limits. Master the art of motion and build your creative future with India's premier 4-Month After Effects & Motion Graphics Masterclass.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.minegta.shop/">
+  <meta property="og:image" content="images/website-icon.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MINEGTA MOTION LAB — Online Creative Academy">
+  <meta name="twitter:description" content="Create without limits. Master Adobe After Effects, 3D motion design, and high-ticket client freelancing.">
+  <meta name="twitter:image" content="images/website-icon.png">
+
+  <!-- Schema.org Structured Data for Google Rich Results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "EducationalOrganization",
+        "@id": "https://www.minegta.shop/#academy",
+        "name": "MINEGTA MOTION LAB",
+        "url": "https://www.minegta.shop/",
+        "logo": "https://www.minegta.shop/images/website-icon.png",
+        "description": "India's premier online creative academy for Adobe After Effects, 3D motion graphics, kinetic typography, and high-ticket freelancing.",
+        "founder": {
+          "@type": "Person",
+          "name": "Aman",
+          "email": "amangta599990@gmail.com"
+        },
+        "sameAs": [
+          "https://discord.gg/Sgf5aqqRVy",
+          "https://www.youtube.com/@MINEGTA_OFFICIAL_1",
+          "https://www.instagram.com/minegta_"
+        ]
+      },
+      {
+        "@type": "Course",
+        "name": "MINE GTA After Effects Professional Masterclass",
+        "description": "Comprehensive 4-Month Mentorship roadmap covering workspace setup, graph editor physics, kinetic typography, 3D camera tracking, Mocha planar optics, Sapphire VFX, and high-ticket client freelancing.",
+        "provider": {
+          "@type": "Organization",
+          "name": "MINEGTA MOTION LAB",
+          "sameAs": "https://www.minegta.shop/"
+        },
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Month 01: Foundation → Intermediate",
+            "price": "10000",
+            "priceCurrency": "INR"
+          },
+          {
+            "@type": "Offer",
+            "name": "Month 02: Advanced Animation + Kinetic Motion",
+            "price": "10000",
+            "priceCurrency": "INR"
+          },
+          {
+            "@type": "Offer",
+            "name": "Month 03: Professional VFX + 3D Motion Design",
+            "price": "20000",
+            "priceCurrency": "INR"
+          },
+          {
+            "@type": "Offer",
+            "name": "Month 04: Client Work, High-Ticket Freelancing & Mastery",
+            "price": "25000",
+            "priceCurrency": "INR"
+          },
+          {
+            "@type": "Offer",
+            "name": "Complete 4-Month Masterclass Mentorship Bundle",
+            "price": "65000",
+            "priceCurrency": "INR"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-face-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-face-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="top">
 
-<div class="progress" id="progress"></div>
+  <!-- Reading Progress Bar -->
+  <div class="progress" id="progress"></div>
 
-<!-- Ambient background canvas for interactive Titanium particle field -->
-<canvas id="weatherCanvas" aria-hidden="true"></canvas>
+  <!-- Ambient background canvas for interactive particle field -->
+  <canvas id="weatherCanvas" aria-hidden="true"></canvas>
 
-<!-- Atmospheric Ambient Glow Spheres -->
-<div class="ambient-glow ambient-glow-1"></div>
-<div class="ambient-glow ambient-glow-2"></div>
-<div class="ambient-glow ambient-glow-3"></div>
+  <!-- Atmospheric Ambient Glow Spheres (Midnight Blue & Cyan) -->
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+  <div class="ambient-glow ambient-glow-3"></div>
 
-<!-- Navigation Header -->
-<nav class="nav" id="nav">
-  <div class="nav-inner">
-    <a class="logo" href="#home" aria-label="MINE PRESETS Homepage">
-      <img class="logo-icon-img" src="images/website-icon.png" alt="MINE PRESETS Icon" width="34" height="34">
-      MINE<span class="logo-accent">PRESETS</span>
-    </a>
-    <div class="links">
-      <a href="#store">STORE</a>
-      <a href="#store-cc">4K CC PRESETS</a>
-      <a href="#store-systems">MASTER SYSTEMS</a>
-      <a href="#course" class="nav-gta-link">AFTER EFFECTS COURSE <span class="nav-hot-badge">PRO</span></a>
-      <a href="motion-lab.html" class="nav-lab-link">MOTION LAB <span class="nav-hot-badge" style="background:#22d3ee; color:#000;">LAB</span></a>
-      <a href="#why">WHY US</a>
-      <a href="#contact">CONTACT</a>
-    </div>
-    <div class="nav-actions">
-      <button class="sound-toggle" id="soundToggle" title="Toggle audio effects" aria-label="Toggle Audio">
-        <span class="sound-icon-container">
-          <svg class="sound-svg sound-svg-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="rgba(255, 255, 255, 0.2)"></polygon>
-            <path class="sound-wave wave-inner" d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-            <path class="sound-wave wave-outer" d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-          </svg>
-          <svg class="sound-svg sound-svg-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <line x1="22" y1="9" x2="16" y2="15"></line>
-            <line x1="16" y1="9" x2="22" y2="15"></line>
-          </svg>
-        </span>
-      </button>
-      <a class="nav-cta" href="#course">Explore Course ↗</a>
-      <button class="menu" id="menu" aria-label="Toggle Navigation Menu">☰</button>
-    </div>
-  </div>
-</nav>
-
-<!-- Hero Section (Two-Column Apple Interactive Kinetic Stage) -->
-<header class="hero" id="home">
-  <video class="hero-video" autoplay loop muted playsinline poster="images/Mine-cc1_.png" onerror="this.style.display='none';">
-    <source src="cc_preset_1.mp4" type="video/mp4" onerror="this.parentElement.style.display='none';">
-  </video>
-  <div class="grid-bg"></div>
-  
-  <div class="hero-grid">
-    <!-- Hero Left: Typography & Actions -->
-    <div class="hero-content">
-      <div class="hero-header-brand">
-        <img class="hero-brand-mini" src="images/website-icon.png" alt="MINE PRESETS Mascot" width="56" height="56" onerror="this.onerror=null; this.src='images/mine_brand_logo.png';">
-        <div class="badge"><span class="dot"></span> TITANIUM 4K MASTER COLLECTION</div>
-      </div>
-      <h1>MAKE EVERY<br><span class="gradient">FRAME HIT.</span></h1>
-      <p>Precision 4K CC profiles, beat-synced transitions, and master grading engines engineered to transform flat footage into cinematic perfection.</p>
-      <div class="actions">
-        <a class="btn btn-primary" href="#store">Explore Store ↓</a>
-        <a class="btn btn-gta" href="#course">✦ After Effects Course ↓</a>
-      </div>
-      <div class="hero-micro-trust">
-        <span class="trust-dot"></span> Engineered for Premiere Pro, After Effects, DaVinci Resolve &amp; Final Cut
-      </div>
-    </div>
-
-    <!-- Hero Right: 3D Interactive WebGL Mascot Stage powered by Three.js -->
-    <div class="hero-stage" id="heroStage">
-      <div class="hero-kinetic-card" id="heroKineticCard">
-        <div class="kinetic-card-shine"></div>
-
-        <!-- Clean Top Status Badges (Separated on Left and Right, No overlap!) -->
-        <div class="hero-corner-badge badge-top-left">
-          <span class="pill-dot"></span>
-          <span>4K UHD • 60 FPS • 10-BIT</span>
+  <!-- ==========================================================================
+       NAVIGATION HEADER (MINEGTA MOTION LAB)
+       ========================================================================== -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main Navigation">
+    <div class="nav-inner">
+      <!-- Brand Logo -->
+      <a class="nav-brand" href="#top" aria-label="MINEGTA MOTION LAB Homepage">
+        <img class="nav-brand-img" src="images/website-icon.png" alt="MINEGTA MOTION LAB Icon" width="34" height="34">
+        <div class="nav-brand-text">
+          <span class="nav-brand-title">MINEGTA</span>
+          <span class="nav-brand-sub">MOTION LAB</span>
         </div>
-        <div class="hero-corner-badge badge-top-right">
-          <span class="badge-dot-live"></span>
-          <span>✦ 3D AE COLLISION LAB</span>
-        </div>
+      </a>
 
-        <!-- 3D Mascot Stage Container (Three.js WebGL Canvas) -->
-        <div class="mascot-stage" id="mascotStage" role="region" aria-label="3D Kinetic After Effects Collision Simulator">
-          <canvas id="hero3DCanvas" class="hero-3d-canvas" aria-label="3D Interactive After Effects Elements"></canvas>
-          <div class="mascot-speech-bubble" id="mascotBubble">
-            <span class="bubble-txt" id="mascotBubbleTxt">✦ KINETIC 3D PHYSICS • HOVER TO REFLECT / DRAG 360°</span>
-          </div>
-        </div>
-
-        <!-- Clean Bottom Action Badges (Separated on Left and Right, No overlap!) -->
-        <div class="hero-corner-badge badge-bottom-left">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg>
-          <span>🖱 DRAG TO ROTATE 360°</span>
-        </div>
-        <div class="hero-corner-badge badge-bottom-right">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-          <span>ZERO-BANDING ENGINE</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- Full-Width Relocated Metrics Marquee -->
-<section class="metrics-section reveal" aria-label="Key Performance Metrics">
-  <div class="metrics-grid">
-    <div class="metric-card">
-      <span class="metric-val">5+</span>
-      <span class="metric-lbl">Flagship 4K CC Presets</span>
-      <span class="metric-sub">Handcrafted color curves</span>
-    </div>
-    <div class="metric-card">
-      <span class="metric-val">4K+</span>
-      <span class="metric-lbl">Active Video Creators</span>
-      <span class="metric-sub">Trusted by elite editors</span>
-    </div>
-    <div class="metric-card">
-      <span class="metric-val">100%</span>
-      <span class="metric-lbl">Instant Digital Delivery</span>
-      <span class="metric-sub">Direct file delivery via Discord</span>
-    </div>
-    <div class="metric-card">
-      <span class="metric-val">24/7</span>
-      <span class="metric-lbl">Discord &amp; Email VIP Desk</span>
-      <span class="metric-sub">Instant delivery &amp; creator support</span>
-    </div>
-  </div>
-</section>
-
-<main>
-<!-- Store Section Hub -->
-<section class="section reveal" id="store">
-  <div class="section-head">
-    <div>
-      <div class="eyebrow">Studio Catalog</div>
-      <h2>Engineered For Elite Editors.</h2>
-    </div>
-    <p>Browse dedicated vaults for color science, After Effects workflow systems, and kinetic transitions. Click any thumbnail to preview in full 4K zoom.</p>
-  </div>
-
-  <!-- Category Quick Jump Navigation -->
-  <div class="store-category-nav">
-    <a href="#store-cc" class="store-nav-pill active">✦ 4K CC Presets (<span id="countCCNav">5</span>)</a>
-    <a href="#store-systems" class="store-nav-pill">⚙️ Master Systems &amp; Tools (<span id="countSysNav">2</span>)</a>
-    <a href="#store-transitions" class="store-nav-pill">⚡ Transitions Vault (<span id="countTransNav">1</span>)</a>
-  </div>
-</section>
-
-<!-- SECTION 1: 4K CC PRESETS VAULT -->
-<section class="section reveal" id="store-cc" style="padding-top: 20px;">
-  <div class="section-head">
-    <div>
-      <div class="eyebrow">Signature Color Science</div>
-      <h2>4K Color Grading Presets</h2>
-    </div>
-    <p>Exclusive 4K CC profiles crafted for razor-sharp contrast, protected skin tones, and cinematic highlight rolloff. Click any card to preview in 4K zoom.</p>
-  </div>
-
-  <div class="products products-cc" id="productsCC">
-    <!-- CC 1 -->
-    <article class="card product cc-card" data-cat="cc" data-index="0">
-      <div class="card-shine"></div>
-      <div class="thumb cc-thumb">
-        <span class="tag">4K CC</span>
-        <span class="zoom-hint">🔍 Click to Zoom</span>
-        <img src="images/Mine-cc1_.png" alt="CC 1 — 4K Cinematic Look" loading="lazy" decoding="async">
-      </div>
-      <div class="card-body">
-        <h3>CC 1</h3>
-        <p class="cc-cinematic">This 4K CC Will Be Found Nowhere Else. Razor-sharp contrast with cinematic skin tones.</p>
-        <div class="price-row">
-          <div class="price"><span class="price-symbol">₹</span>400</div>
-          <div class="card-price-actions">
-            <button type="button" class="btn-card-buy-modal" onclick="openPaymentModal({ id: 'cc-1', name: 'CC 1 — 4K Look', price: 400, cat: 'cc' })" title="Buy via Discord or Gmail">⚡ Buy Now</button>
-            <a class="buy btn-card-dc" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" data-name="CC 1" data-price="400">🎮 Discord ↗</a>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- CC 2 -->
-    <article class="card product cc-card" data-cat="cc" data-index="1">
-      <div class="card-shine"></div>
-      <div class="thumb cc-thumb">
-        <span class="tag">4K CC</span>
-        <span class="zoom-hint">🔍 Click to Zoom</span>
-        <img src="images/Mine-cc2_.png" alt="CC 2 — Exclusive Grading" loading="lazy" decoding="async">
-      </div>
-      <div class="card-body">
-        <h3>CC 2</h3>
-        <p class="cc-cinematic">Exclusive 4K CC — Made Different. Rich titanium highlights with moody cinematic depth.</p>
-        <div class="price-row">
-          <div class="price"><span class="price-symbol">₹</span>350</div>
-          <div class="card-price-actions">
-            <button type="button" class="btn-card-buy-modal" onclick="openPaymentModal({ id: 'cc-2', name: 'CC 2 — Titanium Look', price: 350, cat: 'cc' })" title="Buy via Discord or Gmail">⚡ Buy Now</button>
-            <a class="buy btn-card-dc" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" data-name="CC 2" data-price="350">🎮 Discord ↗</a>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- CC 3 -->
-    <article class="card product cc-card" data-cat="cc" data-index="2">
-      <div class="card-shine"></div>
-      <div class="thumb cc-thumb">
-        <span class="tag">4K CC</span>
-        <span class="zoom-hint">🔍 Click to Zoom</span>
-        <img src="images/Mine-cc3_.png" alt="CC 3 — Master 4K Look" loading="lazy" decoding="async">
-      </div>
-      <div class="card-body">
-        <h3>CC 3</h3>
-        <p class="cc-cinematic">Your Footage Deserves This 4K Look. High-dynamic-range curve balance and filmic punch.</p>
-        <div class="price-row">
-          <div class="price"><span class="price-symbol">₹</span>500</div>
-          <div class="card-price-actions">
-            <button type="button" class="btn-card-buy-modal" onclick="openPaymentModal({ id: 'cc-3', name: 'CC 3 — Master Curve', price: 500, cat: 'cc' })" title="Buy via Discord or Gmail">⚡ Buy Now</button>
-            <a class="buy btn-card-dc" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" data-name="CC 3" data-price="500">🎮 Discord ↗</a>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- CC 4 -->
-    <article class="card product cc-card" data-cat="cc" data-index="3">
-      <div class="card-shine"></div>
-      <div class="thumb cc-thumb">
-        <span class="tag">4K CC</span>
-        <span class="zoom-hint">🔍 Click to Zoom</span>
-        <img src="images/Mine-cc4_.png" alt="CC 4 — Infinite Vibes" loading="lazy" decoding="async">
-      </div>
-      <div class="card-body">
-        <h3>CC 4</h3>
-        <p class="cc-cinematic">One 4K CC. Infinite Cinematic Vibes. Designed for fast social and reel color grading.</p>
-        <div class="price-row">
-          <div class="price"><span class="price-symbol">₹</span>300</div>
-          <div class="card-price-actions">
-            <button type="button" class="btn-card-buy-modal" onclick="openPaymentModal({ id: 'cc-4', name: 'CC 4 — Reel Vibes', price: 300, cat: 'cc' })" title="Buy via Discord or Gmail">⚡ Buy Now</button>
-            <a class="buy btn-card-dc" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" data-name="CC 4" data-price="300">🎮 Discord ↗</a>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- CC 5 -->
-    <article class="card product cc-card" data-cat="cc" data-index="4">
-      <div class="card-shine"></div>
-      <div class="thumb cc-thumb">
-        <span class="tag">4K CC</span>
-        <span class="zoom-hint">🔍 Click to Zoom</span>
-        <img src="images/Mine-cc5_.png" alt="CC 5 — Ultimate Masterpiece" loading="lazy" decoding="async">
-      </div>
-      <div class="card-body">
-        <h3>CC 5</h3>
-        <p class="cc-cinematic">Not Everywhere. Just Here. The definitive flagship 4K color grading preset.</p>
-        <div class="price-row">
-          <div class="price"><span class="price-symbol">₹</span>850</div>
-          <div class="card-price-actions">
-            <button type="button" class="btn-card-buy-modal" onclick="openPaymentModal({ id: 'cc-5', name: 'CC 5 — Flagship Masterpiece', price: 850, cat: 'cc' })" title="Buy via Discord or Gmail">⚡ Buy Now</button>
-            <a class="buy btn-card-dc" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" data-name="CC 5" data-price="850">🎮 Discord ↗</a>
-          </div>
-        </div>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- SECTION 2: MASTER SYSTEMS & WORKFLOW TOOLS -->
-<section class="section reveal" id="store-systems">
-  <div class="section-head">
-    <div>
-      <div class="eyebrow">Workflow Acceleration</div>
-      <h2>Master Systems &amp; Extensions</h2>
-    </div>
-    <p>Dedicated PC cleaners, performance boosters, and After Effects extension suites engineered to eliminate timeline lag and supercharge your editing pipeline.</p>
-  </div>
-
-  <!-- Interactive 1-Click System Performance Simulator Widget -->
-  <div class="benchmark-card reveal" id="benchmarkCard">
-    <div class="benchmark-left">
-      <span class="benchmark-tag">REAL-TIME BENCHMARK ENGINE</span>
-      <h3>1-Click AE &amp; PC Booster Simulator</h3>
-      <p>See the immediate impact of Mine PC Cleaner &amp; Megasuite on timeline rendering speed.</p>
-      <div class="benchmark-stats-row">
-        <div class="b-stat">
-          <span class="b-lbl">TIMELINE FPS</span>
-          <span class="b-val" id="bmFpsVal">120+ FPS</span>
-        </div>
-        <div class="b-stat">
-          <span class="b-lbl">RAM / DISK CACHE</span>
-          <span class="b-val" id="bmCacheVal">4.2 GB FREED</span>
-        </div>
-        <div class="b-stat">
-          <span class="b-lbl">PLAYBACK LAG</span>
-          <span class="b-val" id="bmLagVal">0.0 ms</span>
-        </div>
-      </div>
-      <button type="button" class="btn-run-benchmark" id="btnRunBenchmark">
-        <span>⚡ Test Instant Boost</span>
-      </button>
-    </div>
-    <div class="benchmark-meter-wrap">
-      <div class="meter-dial">
-        <svg class="meter-svg" viewBox="0 0 200 200">
-          <circle cx="100" cy="100" r="80" class="meter-bg" />
-          <circle cx="100" cy="100" r="80" class="meter-fill" id="meterFill" />
-        </svg>
-        <div class="meter-inner">
-          <span class="meter-num" id="meterNum">120</span>
-          <span class="meter-unit">FPS ULTRA</span>
-        </div>
-      </div>
-      <span class="meter-status" id="meterStatus">✓ MAXIMUM HARDWARE EFFICIENCY</span>
-    </div>
-  </div>
-
-  <div class="products products-system" id="productsSystem">
-    <!-- Fallback / Rendered cards for Mine PC Cleaner, Megasuite, System Preset 01 -->
-  </div>
-</section>
-
-<!-- SECTION 3: KINETIC TRANSITIONS VAULT -->
-<section class="section reveal" id="store-transitions">
-  <div class="section-head">
-    <div>
-      <div class="eyebrow">Kinetic Impact</div>
-      <h2>Transitions Vault</h2>
-    </div>
-    <p>Seamless zooms, whip moves, and camera impacts designed for beat-sync edits, gaming montages, and high-retention viral reels.</p>
-  </div>
-
-  <div class="products products-transition" id="productsTransition">
-    <!-- Fallback / Rendered cards for Transition Pack 01 -->
-  </div>
-</section>
-
-<!-- Why Us Section (Apple Pro Bento Grid) -->
-<section class="section reveal" id="why">
-  <div class="section-head">
-    <div>
-      <div class="eyebrow">The Creator Advantage</div>
-      <h2>Precision Engineering. Zero Compromise.</h2>
-    </div>
-    <p>Every preset curve is mathematically tuned to protect natural skin tones while maximizing dynamic range on modern screens.</p>
-  </div>
-
-  <div class="bento-grid">
-    <!-- Bento 1: Cinema Waveform & Oscilloscope Motion Graphic -->
-    <div class="bento-card bento-waveform">
-      <div class="bento-header">
-        <span class="bento-tag">DYNAMIC COLOR SCIENCE</span>
-        <h3>Cinema S-Curve Optics</h3>
-        <p>Engineered with zero color banding across deep shadows and highlight rolloff.</p>
-      </div>
-      <div class="waveform-box">
-        <canvas id="waveformCanvas" width="520" height="160"></canvas>
-        <div class="waveform-footer">
-          <span>LUMA 0-1023</span>
-          <span>RGB PARADE MONOCHROME</span>
-          <span>DELTA &lt; 0.1%</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bento 2: Universal NLE Drag & Drop -->
-    <div class="bento-card bento-compat">
-      <span class="bento-tag">WORKFLOW INTEGRATION</span>
-      <h3>Universal Drag &amp; Drop</h3>
-      <p>Seamlessly import into your timeline with native profile support.</p>
-      <div class="software-chips">
-        <div class="soft-chip"><span>Premiere Pro</span><b>.prfpset</b></div>
-        <div class="soft-chip"><span>After Effects</span><b>.ffx</b></div>
-        <div class="soft-chip"><span>DaVinci Resolve</span><b>.cube</b></div>
-        <div class="soft-chip"><span>Final Cut Pro</span><b>.cube</b></div>
-      </div>
-    </div>
-
-    <!-- Bento 3: Instant Digital Pipeline -->
-    <div class="bento-card bento-speed">
-      <span class="bento-tag">DIGITAL PIPELINE</span>
-      <h3>Zero-Second Delivery</h3>
-      <div class="bento-stat">0.0<span class="stat-unit">s</span></div>
-      <p>Instant digital file access immediately upon checkout verification.</p>
-    </div>
-
-    <!-- Bento 4: VIP Support -->
-    <div class="bento-card bento-support">
-      <span class="bento-tag">CREATOR COMMUNITY</span>
-      <h3>VIP Discord Access</h3>
-      <p>Need custom grading advice? Our creator squad assists you directly.</p>
-      <a class="bento-link" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer">Join VIP Discord ↗</a>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================================================
-     AFTER EFFECTS PROFESSIONAL COURSE SECTION (#course)
-     Ultra-Luxury Liquid Silver & Titanium Edition | 4-Month Mentorship by Aman
-     Direct Admissions: amangta599990@gmail.com
-     ========================================================================== -->
-<section class="section reveal gta-master-section" id="course">
-  <div class="gta-ambient-glow"></div>
-  
-  <div class="section-head gta-section-head">
-    <div class="gta-hero-badge-wrap">
-      <span class="gta-hero-badge">✦ OFFICIAL MENTORSHIP PROGRAM</span>
-      <span class="gta-duration-badge">4 MONTHS ROADMAP • MONTH-BY-MONTH MASTERY</span>
-      <span class="gta-pill gta-pill-pro">STUDIO CERTIFIED</span>
-    </div>
-    <div class="gta-brand-row">
-      <h2 class="gta-title">MINE GTA<br><span class="gta-title-gradient">AFTER EFFECTS PROFESSIONAL COURSE</span></h2>
-    </div>
-    <p class="gta-lead-desc">
-      India’s most comprehensive After Effects &amp; Motion Design masterclass by Aman. Engineered to take you from absolute scratch to high-paying client work, 3D camera tracking, Hollywood VFX plugins, and international freelancing mastery. <strong>Pehle mahine se hi commercial-grade skills build karenge.</strong>
-    </p>
-  </div>
-
-  <!-- 4 MONTH-BY-MONTH CARDS (NO WEEKS!) -->
-  <div class="course-month-grid">
-    <!-- Month 01 Card -->
-    <div class="course-month-card" id="monthCard1">
-      <div>
-        <span class="month-badge">MONTH 01</span>
-        <h3 class="month-title">Foundation → Intermediate</h3>
-        <p class="month-tagline">Interface mastery, keyframe math, parenting &amp; introductory animation deliverables.</p>
-        <div class="month-price-tag">
-          <span class="month-amount">₹10,000</span>
-          <span class="month-term">/ Month</span>
-        </div>
-        <ul class="month-topics-list">
-          <li>Complete After Effects UI, Workspace &amp; 60 FPS Setup</li>
-          <li>Graph Editor Mechanics &amp; Bezier Spatial Interpolation</li>
-          <li>Parenting, Null Controllers &amp; Layer Stacking Systems</li>
-          <li>Precision Masking, Track Mattes &amp; AI Rotoscoping</li>
-          <li>Optical Effects, Chromatic Aberration &amp; Intro Assembly</li>
-          <li><strong>Live Project:</strong> High-Energy YouTube / Gaming Motion Intro + 1-on-1 Feedback</li>
-        </ul>
-      </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
-        <button type="button" class="btn-select-month-silver" style="flex:1;" onclick="selectCourseMonth('Month 01: Foundation → Intermediate (₹10,000)')">Enroll in Month 01 (₹10,000) ↓</button>
-        <button type="button" class="btn-select-month-dc" onclick="openPaymentModal({ id: 'course-m1', name: 'MINE GTA Course - Month 01: Foundation → Intermediate', price: 10000 })" title="Enroll via Discord or Gmail">🎮 Instant Buy ↗</button>
-      </div>
-    </div>
-
-    <!-- Month 02 Card -->
-    <div class="course-month-card" id="monthCard2">
-      <div>
-        <span class="month-badge">MONTH 02</span>
-        <h3 class="month-title">Advanced Animation + Kinetic Motion</h3>
-        <p class="month-tagline">Speed graph secrets, kinetic typography, Mocha 3D tracking &amp; impact effects.</p>
-        <div class="month-price-tag">
-          <span class="month-amount">₹10,000</span>
-          <span class="month-term">/ Month</span>
-        </div>
-        <ul class="month-topics-list">
-          <li>Speed Graph Secrets for Snappy, Buttery Organic Motion</li>
-          <li>Kinetic Typography, Range Selectors &amp; Expressions</li>
-          <li>3D Camera Tracker &amp; Mocha AE Planar Tracking</li>
-          <li>Impact SFX Beat-Syncing &amp; Cinematic RGB Glitch</li>
-          <li>Multi-Layer Compositions with Synchronized Motion Blur</li>
-          <li><strong>Live Project:</strong> Fluid 60 FPS Kinetic Typography Showcase + 3D Tracked Sequence</li>
-        </ul>
-      </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
-        <button type="button" class="btn-select-month-silver" style="flex:1;" onclick="selectCourseMonth('Month 02: Advanced Animation + Kinetic Motion (₹10,000)')">Enroll in Month 02 (₹10,000) ↓</button>
-        <button type="button" class="btn-select-month-dc" onclick="openPaymentModal({ id: 'course-m2', name: 'MINE GTA Course - Month 02: Advanced Animation', price: 10000 })" title="Enroll via Discord or Gmail">🎮 Instant Buy ↗</button>
-      </div>
-    </div>
-
-    <!-- Month 03 Card -->
-    <div class="course-month-card featured" id="monthCard3">
-      <div>
-        <span class="month-badge" style="background:#ffffff; color:#000000; border-color:#ffffff;">MONTH 03 • PRO VFX</span>
-        <h3 class="month-title">Professional VFX + 3D Motion Design</h3>
-        <p class="month-tagline">Master Sapphire, Deep Glow, Universe, Element 3D &amp; complete commercial showreels.</p>
-        <div class="month-price-tag">
-          <span class="month-amount">₹20,000</span>
-          <span class="month-term">/ Month</span>
-        </div>
-        <ul class="month-topics-list">
-          <li>3D Spatial Systems, Camera Rigs &amp; Studio Lighting</li>
-          <li>Boris FX Sapphire (S_Glow, S_Distort, S_Shake) &amp; Deep Glow</li>
-          <li>Element 3D: OBJ Model Imports &amp; Texture Mapping</li>
-          <li>Commercial Brand Packages &amp; Music Video VFX</li>
-          <li>10-Bit Color Science &amp; Studio Render Presets</li>
-          <li><strong>Live Project:</strong> Studio-Grade Commercial Showreel Sequence Ready for Agency Pitching</li>
-        </ul>
-      </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
-        <button type="button" class="btn-select-month-silver" style="flex:1;" onclick="selectCourseMonth('Month 03: Professional VFX + 3D Motion Design (₹20,000)')">Enroll in Month 03 (₹20,000) ↓</button>
-        <button type="button" class="btn-select-month-dc" onclick="openPaymentModal({ id: 'course-m3', name: 'MINE GTA Course - Month 03: Professional VFX', price: 20000 })" title="Enroll via Discord or Gmail">🎮 Instant Buy ↗</button>
-      </div>
-    </div>
-
-    <!-- Month 04 Card -->
-    <div class="course-month-card featured" id="monthCard4">
-      <div>
-        <span class="month-badge" style="background:#ffffff; color:#000000; border-color:#ffffff;">MONTH 04 • FREELANCE</span>
-        <h3 class="month-title">Client Work, High-Ticket Freelancing &amp; Mastery</h3>
-        <p class="month-tagline">Land international freelance clients, master pricing psychology &amp; graduate certified.</p>
-        <div class="month-price-tag">
-          <span class="month-amount">₹25,000</span>
-          <span class="month-term">/ Month</span>
-        </div>
-        <ul class="month-topics-list">
-          <li>Agency Production Pipeline: Moodboards &amp; Deadlines</li>
-          <li>High-Retention Formats: 9:16 Viral Reels &amp; Motion Posters</li>
-          <li>International Client Outreach: Cold Pitching &amp; Pricing ($$)</li>
-          <li>Professional Invoicing, Client Contracts &amp; Delivery</li>
-          <li>Final Capstone Master Project under Aman's 1-on-1 supervision</li>
-          <li><strong>Graduation:</strong> Official MINE GTA Course Certification + Showreel Showcase</li>
-        </ul>
-      </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
-        <button type="button" class="btn-select-month-silver" style="flex:1;" onclick="selectCourseMonth('Month 04: Client Work + High-Ticket Freelancing (₹25,000)')">Enroll in Month 04 (₹25,000) ↓</button>
-        <button type="button" class="btn-select-month-dc" onclick="openPaymentModal({ id: 'course-m4', name: 'MINE GTA Course - Month 04: Client Work & Mastery', price: 25000 })" title="Enroll via Discord or Gmail">🎮 Instant Buy ↗</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Master Bundle Banner (All 4 Months) -->
-  <div class="course-bundle-silver-card">
-    <div class="bundle-left">
-      <h4>✦ Complete 4-Month Masterclass Mentorship</h4>
-      <p>Enroll in all 4 months together for end-to-end guidance from Aman Sir. Includes all MINE Preset Packs for free, VIP Discord feedback sessions, and private client leads.</p>
-    </div>
-    <div class="bundle-right">
-      <div>
-        <div style="font-size:11px; font-weight:800; letter-spacing:1px; color:#94a3b8; text-transform:uppercase;">FULL 4-MONTH BUNDLE</div>
-        <div class="bundle-price-val">₹65,000</div>
-      </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <button type="button" class="btn-select-bundle-silver" onclick="selectCourseMonth('Complete 4-Month Masterclass (₹65,000)')">Enroll Complete Batch (₹65,000) ↓</button>
-        <button type="button" class="btn-select-month-dc btn-bundle-dc" onclick="openPaymentModal({ id: 'course-bundle', name: 'MINE GTA Course - Complete 4-Month Masterclass', price: 65000 })" title="Enroll Full Batch via Discord or Gmail">🎮 Instant Buy (Discord &amp; Email) ↗</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- APPLICATION FORM -->
-  <div class="gta-apply-box" id="apply">
-    <div class="gta-apply-header">
-      <span class="apply-eyebrow">LIMITED BATCH ADMISSIONS</span>
-      <h3 class="apply-heading">Apply For MINE GTA Mentorship</h3>
-      <p class="apply-sub">
-        Fill out your details below. Your personal Gmail and application will be delivered directly to Aman Sir at 
-        <strong style="color:#ffffff;">amangta599990@gmail.com</strong>. We review every profile and respond within 24 hours.
-      </p>
-      <div class="locked-inbox-badge">
-        <span>🔒 Direct Admission Inbox:</span>
-        <code>amangta599990@gmail.com</code>
-        <span style="font-size:10px; color:#a1a1aa;">(Locked &amp; Verified)</span>
-      </div>
-    </div>
-
-    <form class="gta-apply-form" id="gtaApplyForm" novalidate>
-      <div class="gta-form-grid">
-        <!-- 1. Full Name -->
-        <div class="gta-form-group">
-          <label for="gtaName" class="gta-label">Student Full Name <span class="req">*</span></label>
-          <div class="gta-input-wrap">
-            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <input type="text" id="gtaName" name="name" class="gta-input" placeholder="e.g. Aman Sharma" required autocomplete="name">
-          </div>
-        </div>
-
-        <!-- 2. Address / City -->
-        <div class="gta-form-group">
-          <label for="gtaAddress" class="gta-label">Full Address / City &amp; State <span class="req">*</span></label>
-          <div class="gta-input-wrap">
-            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            <input type="text" id="gtaAddress" name="address" class="gta-input" placeholder="e.g. Delhi / Mumbai, Maharashtra" required autocomplete="street-address">
-          </div>
-        </div>
-
-        <!-- 3. Personal Gmail -->
-        <div class="gta-form-group">
-          <label for="gtaEmail" class="gta-label">Your Personal Gmail Address <span class="req">*</span></label>
-          <div class="gta-input-wrap">
-            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            <input type="email" id="gtaEmail" name="email" class="gta-input" placeholder="yourname@gmail.com" required autocomplete="email">
-          </div>
-          <span class="field-hint">★ Sent directly from your email to amangta599990@gmail.com</span>
-        </div>
-
-        <!-- 4. Phone / WhatsApp -->
-        <div class="gta-form-group">
-          <label for="gtaPhone" class="gta-label">Phone / WhatsApp Number <span class="req">*</span></label>
-          <div class="gta-input-wrap">
-            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-            <input type="tel" id="gtaPhone" name="phone" class="gta-input" placeholder="+91 98765 43210" required autocomplete="tel">
-          </div>
-        </div>
-
-        <!-- 5. Course Month Selection -->
-        <div class="gta-form-group">
-          <label for="gtaCourse" class="gta-label">Select Course Program / Month <span class="req">*</span></label>
-          <div class="gta-input-wrap">
-            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            <select id="gtaCourse" name="course" class="gta-select">
-              <option value="Month 01: Foundation → Intermediate (₹10,000)">Month 01: Foundation → Intermediate (₹10,000)</option>
-              <option value="Month 02: Advanced Animation + Kinetic Motion (₹10,000)">Month 02: Advanced Animation + Kinetic Motion (₹10,000)</option>
-              <option value="Month 03: Professional VFX + 3D Motion Design (₹20,000)">Month 03: Professional VFX + 3D Motion Design (₹20,000)</option>
-              <option value="Month 04: Client Work, High-Ticket Freelancing &amp; Mastery (₹25,000)">Month 04: Client Work, High-Ticket Freelancing &amp; Mastery (₹25,000)</option>
-              <option value="Complete 4-Month Masterclass (₹65,000)" selected>Complete 4-Month Masterclass (₹65,000)</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- 6. Experience Level -->
-        <div class="gta-form-group">
-          <label for="gtaLevel" class="gta-label">Current Experience Level</label>
-          <div class="gta-input-wrap">
-            <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <select id="gtaLevel" name="level" class="gta-select">
-              <option value="Beginner (Starting fresh)">Beginner (Starting fresh)</option>
-              <option value="Intermediate (Know basics, want pro motion graphics)" selected>Intermediate (Know basics, want pro motion graphics)</option>
-              <option value="Advanced (Ready for high-paying client work)">Advanced (Ready for high-paying client work)</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- 7. Motivation & Goals -->
-        <div class="gta-form-group full-width">
-          <label for="gtaNotes" class="gta-label">What is your primary goal from this course? (Optional)</label>
-          <textarea id="gtaNotes" name="notes" class="gta-textarea" rows="3" placeholder="e.g. Master speed curves, 3D tracking, Sapphire VFX, and land international freelance clients..."></textarea>
-        </div>
+      <!-- Desktop Nav Links -->
+      <div class="nav-menu-links" id="navLinks">
+        <a href="#top" class="active">HOME</a>
+        <a href="#courses">COURSES</a>
+        <a href="shop.html" class="nav-shop-pill" title="Explore MINEGTA SHOP Digital Creative Products">
+          <span class="shop-bag-icon">🛍️</span>
+          <span>MINEGTA SHOP</span>
+        </a>
+        <a href="#about">ABOUT</a>
+        <a href="#contact">CONTACT</a>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="gta-form-actions">
-        <button type="submit" class="gta-submit-btn animated-submit-btn" id="gtaSubmitBtn">
-          <span class="btn-shimmer-sweep"></span>
-          <span class="btn-glow-pulse"></span>
-          <span class="btn-content-wrap">
-            <span class="btn-dot-live"></span>
-            <span class="btn-text">✦ Submit Application to Aman Sir</span>
-            <span class="btn-arrow-anim">↗</span>
+      <!-- Nav Actions (Sound Toggle + CTA + Mobile Hamburger) -->
+      <div class="nav-actions">
+        <!-- Luxury Web Audio Toggle -->
+        <button class="sound-toggle" id="soundToggle" title="Toggle audio effects" aria-label="Toggle Audio Feedback">
+          <span class="sound-icon-container">
+            <svg class="sound-svg sound-svg-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="rgba(34, 211, 238, 0.2)"></polygon>
+              <path class="sound-wave wave-inner" d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              <path class="sound-wave wave-outer" d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+            <svg class="sound-svg sound-svg-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="22" y1="9" x2="16" y2="15"></line>
+              <line x1="16" y1="9" x2="22" y2="15"></line>
+            </svg>
           </span>
-          <span class="btn-spinner" id="gtaBtnSpinner" style="display:none;"></span>
         </button>
-      </div>
 
-      <!-- Live Status Banner -->
-      <div class="gta-form-status" id="gtaFormStatus" style="display:none;"></div>
-    </form>
-  </div>
-</section>
+        <!-- Direct Apply CTA -->
+        <a class="nav-cta-btn" href="#courses">Explore Courses ↗</a>
 
-<!-- About Section -->
-<section class="section reveal" id="about">
-  <div class="section-head">
-    <div>
-      <div class="eyebrow">About MINE PRESETS</div>
-      <h2>Crafted With An Editor Mindset.</h2>
-    </div>
-    <p>MINE PRESETS was founded by video creators who demand excellence. Every color grade curve, transition curve, and light leak is handcrafted for maximum visual impact on modern screens.</p>
-  </div>
-</section>
-
-<!-- Contact & Socials -->
-<section class="section reveal" id="contact">
-  <div class="feature-box">
-    <div class="eyebrow">Direct Contact &amp; Community</div>
-    <h3>Need Help Or Custom Presets?</h3>
-    <p>Reach out directly for bundle inquiries, creator sponsorships, or instant editing support.</p>
-    <p style="margin-top:14px; font-weight:600; color:#ffffff;">Official Support: <a href="mailto:minegta611@gmail.com" style="color:#ffffff; text-decoration:underline;">minegta611@gmail.com</a></p>
-    
-    <div class="socials-grid">
-      <!-- Instagram -->
-      <a class="social-btn social-instagram" href="https://www.instagram.com/minegta_?stkn=MTVidTk5bm9mb25pbg==" target="_blank" rel="noopener noreferrer" aria-label="Official Instagram">
-        <div class="social-icon-wrapper">
-          <img class="social-brand-img" src="images/icon-instagram.png" alt="Instagram Logo" width="32" height="32" loading="lazy">
-        </div>
-        <div class="social-info">
-          <span class="social-name">Instagram</span>
-          <span class="social-tag">@minegta_</span>
-        </div>
-        <span class="social-arrow">↗</span>
-      </a>
-
-      <!-- YouTube -->
-      <a class="social-btn social-youtube" href="https://www.youtube.com/@MINEGTA_OFFICIAL_1" target="_blank" rel="noopener noreferrer" aria-label="Official YouTube Channel">
-        <div class="social-icon-wrapper">
-          <img class="social-brand-img" src="images/icon-youtube.png" alt="YouTube Logo" width="32" height="32" loading="lazy">
-        </div>
-        <div class="social-info">
-          <span class="social-name">YouTube</span>
-          <span class="social-tag">@MINEGTA_OFFICIAL_1</span>
-        </div>
-        <span class="social-arrow">↗</span>
-      </a>
-
-      <!-- Discord -->
-      <a class="social-btn social-discord" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" aria-label="Official Discord Community">
-        <div class="social-icon-wrapper">
-          <img class="social-brand-img" src="images/icon-discord.png" alt="Discord Logo" width="32" height="32" loading="lazy">
-        </div>
-        <div class="social-info">
-          <span class="social-name">Discord Server</span>
-          <span class="social-tag">VIP Community</span>
-        </div>
-        <span class="social-arrow">↗</span>
-      </a>
-    </div>
-  </div>
-</section>
-</main>
-
-<!-- Footer -->
-<footer>
-  <div class="footer-in">
-    <span>© 2026 MINE PRESETS — Titanium Studio Edition.</span>
-    <div class="footer-meta-wrap">
-      <span>Designed for Elite Video Editors. All rights reserved.</span>
-      <button class="btn-admin-portal-link" id="openAdminBtn" type="button" title="Owner Admin Portal (Shortcut: Ctrl + Shift + A)">
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-        </svg>
-        <span>Admin Portal</span>
-      </button>
-    </div>
-  </div>
-</footer>
-
-<!-- 4K CC ZOOM LIGHTBOX -->
-<div class="cc-lightbox" id="ccLightbox" aria-hidden="true" role="dialog" aria-label="CC Image Preview Lightbox">
-  <div class="cc-lightbox-frame">
-    <button class="cc-lightbox-close" id="ccLightboxClose" aria-label="Close Preview">×</button>
-    <button class="cc-lightbox-nav prev" id="ccLightboxPrev" aria-label="Previous Preview">‹</button>
-    <button class="cc-lightbox-nav next" id="ccLightboxNext" aria-label="Next Preview">›</button>
-    
-    <img id="ccLightboxImage" src="" alt="4K CC Preview">
-    <div class="cc-lightbox-label" id="ccLightboxLabel">CC 1 OF 5 — CLICK TO ZOOM — ESC TO CLOSE</div>
-  </div>
-</div>
-
-<!-- VIP PURCHASE & DIRECT CONTACT MODAL (DISCORD & GMAIL) -->
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Purchase via Discord or Email">
-  <div class="modal-box modal-box-vip">
-    <button class="modal-close" id="close" aria-label="Close Modal">×</button>
-    <div class="eyebrow" style="color:#22d3ee; letter-spacing:2px; font-weight:800;">⚡ OFFICIAL CREATOR ORDER DESK</div>
-    <h3 style="margin-top:6px; font-size:26px; font-weight:900; letter-spacing:-0.5px;">Instant Buy &amp; Direct Access</h3>
-    <p class="modal-sub" style="margin-bottom:18px;">Get instant file delivery &amp; 1-on-1 creator support.</p>
-    
-    <div class="vip-item-banner">
-      <div class="vip-item-name" id="productName">Select Product or Course</div>
-      <div class="vip-item-price-tag">
-        <span class="vip-price-lbl">Official Price</span>
-        <span class="vip-price-val" id="payAmount">₹0</span>
+        <!-- Mobile Menu Toggle Button -->
+        <button class="menu" id="menu" aria-label="Toggle Navigation Menu">☰</button>
       </div>
     </div>
+  </nav>
 
-    <!-- Instructions in High-Conversion English -->
-    <div class="vip-order-instructions">
-      <h4 class="vip-instr-title">✦ How To Complete Your Order:</h4>
-      <p class="vip-instr-text">
-        To purchase this pack or enroll in the mentorship, please connect with Aman directly on <strong>Discord</strong> or send a message via <strong>Gmail</strong>. All presets, drive download links, and course batch seats are delivered and confirmed instantly!
+  <!-- ==========================================================================
+       SECTION 1: EXTRAORDINARY CINEMATIC HERO (ACADEMY FIRST)
+       ========================================================================== -->
+  <header class="academy-hero">
+    <div class="academy-hero-grid">
+      <!-- Left Hero Column: Typography & Conversion Actions -->
+      <div class="academy-hero-copy">
+        <div class="academy-eyebrow-badge">
+          <span class="eyebrow-live-dot"></span>
+          <span>MINEGTA MOTION LAB • ONLINE CREATIVE ACADEMY</span>
+        </div>
+
+        <h1 class="academy-hero-title">
+          CREATE WITHOUT<br>
+          <span class="academy-title-gradient">LIMITS.</span>
+        </h1>
+
+        <div class="academy-hero-subtitle">
+          MASTER THE ART OF MOTION. BUILD YOUR CREATIVE FUTURE.
+        </div>
+
+        <p class="academy-hero-desc">
+          India's elite online creative academy by Aman. Go from zero to high-ticket motion design pro: master graph editor physics, kinetic typography, 3D camera tracking, Hollywood VFX plugins, and international client acquisition.
+        </p>
+
+        <!-- Working Main Buttons -->
+        <div class="academy-hero-actions">
+          <a class="btn-academy-primary" href="#courses">
+            <span>✦ EXPLORE COURSES</span>
+            <span style="font-size:16px;">↓</span>
+          </a>
+          <a class="btn-academy-secondary" href="#apply">
+            <span>START YOUR CREATIVE JOURNEY</span>
+            <span style="color:#22d3ee;">↗</span>
+          </a>
+        </div>
+
+        <!-- Trust Metrics Strip -->
+        <div class="academy-hero-trust">
+          <div class="trust-item">
+            <span class="trust-icon">📅</span>
+            <span>4-Month Structured Roadmap</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">🔥</span>
+            <span>1-on-1 Mentorship by Aman</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">💼</span>
+            <span>Commercial Client System</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Hero Column: 3D Interactive WebGL Mascot Stage (Three.js) -->
+      <div class="academy-hero-stage-card" id="heroKineticCard">
+        <div class="stage-card-header">
+          <div class="stage-status-chip">
+            <span class="eyebrow-live-dot"></span>
+            <span>120 FPS 3D KINETIC ENGINE</span>
+          </div>
+          <div class="stage-drag-hint">
+            <span>🖱️ HOVER / DRAG 360°</span>
+          </div>
+        </div>
+
+        <!-- Mascot Stage Container (Initialized by hero-3d-stage.js) -->
+        <div class="stage-canvas-viewport mascot-stage" id="mascotStage" role="region" aria-label="3D Kinetic Motion Stage">
+          <canvas id="hero3DCanvas" class="hero-3d-canvas" aria-label="3D Interactive Kinetic Elements"></canvas>
+          <div class="mascot-speech-bubble" id="mascotBubble" style="top:44px;">
+            <span class="bubble-txt" id="mascotBubbleTxt">✦ MINEGTA MOTION LAB • 3D PHYSICS LAB</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       SECTION 2: ACADEMY INTRODUCTION — WHAT STUDENTS MASTER
+       ========================================================================== -->
+  <section class="academy-intro-section" id="academy">
+    <div class="academy-section-head">
+      <div class="section-eyebrow">The Professional Creator Standard</div>
+      <h2>Engineered For Editors Who Refuse To Be Average</h2>
+      <p>
+        At <strong>MINEGTA MOTION LAB</strong>, we don't just teach software buttons. We train you in optical physics, motion rhythm, high-retention storytelling, and the business frameworks needed to command <strong>high-ticket international clients</strong>.
       </p>
-      
-      <div class="vip-steps-list">
-        <div class="vip-step-item">
-          <span class="vip-step-badge">1</span>
-          <div>
-            <strong>Choose Your Preferred Platform:</strong>
-            <p>Click the animated Discord button or the Direct Gmail button below.</p>
-          </div>
+    </div>
+
+    <!-- 6 Professional Pillars Bento Grid -->
+    <div class="academy-skills-grid">
+      <!-- 1. Adobe After Effects & 60 FPS Setup -->
+      <div class="skill-card">
+        <div class="skill-icon-wrap">⚡</div>
+        <h3 class="skill-title">Adobe After Effects Mastery</h3>
+        <p class="skill-desc">
+          Master the industry-standard motion graphics software. Configure flawless 60 FPS timelines, optimize RAM cache pipelines, and structure complex multi-layer project hierarchies like top commercial studios.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Workspace UI</span>
+          <span class="skill-tag">60 FPS Color</span>
+          <span class="skill-tag">Layer Stacking</span>
         </div>
-        <div class="vip-step-item">
-          <span class="vip-step-badge">2</span>
-          <div>
-            <strong>Send Your Order Message:</strong>
-            <p>Mention that you want to buy <code id="conciergeItemCode" style="color:#22d3ee; background:rgba(34,211,238,0.12); padding:2px 6px; border-radius:4px;">this item</code>.</p>
-          </div>
+      </div>
+
+      <!-- 2. Speed Graphs & Kinetic Motion -->
+      <div class="skill-card">
+        <div class="skill-icon-wrap">〰️</div>
+        <h3 class="skill-title">Graph Editor &amp; Snappy Physics</h3>
+        <p class="skill-desc">
+          Say goodbye to stiff, robotic animations. Learn how to bend bezier curves, master spatial interpolation, and sculpt buttery organic ease-in / ease-out curves that make every frame hit with impact.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Value Graph</span>
+          <span class="skill-tag">Speed Graph</span>
+          <span class="skill-tag">Inertial Bounce</span>
         </div>
-        <div class="vip-step-item">
-          <span class="vip-step-badge">3</span>
-          <div>
-            <strong>Receive Instant VIP Delivery:</strong>
-            <p>Aman Sir will send your high-speed Google Drive access link or course onboarding credentials right away.</p>
-          </div>
+      </div>
+
+      <!-- 3. Kinetic Typography & Expressions -->
+      <div class="skill-card">
+        <div class="skill-icon-wrap">✍️</div>
+        <h3 class="skill-title">Kinetic Typography &amp; Code</h3>
+        <p class="skill-desc">
+          Build viral kinetic text animations, range selectors, tracking flourishes, and custom After Effects JavaScript expressions (wiggle, loopOut, linear) to automate complex visual sequences in seconds.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Text Animators</span>
+          <span class="skill-tag">Expressions</span>
+          <span class="skill-tag">Viral Reels</span>
+        </div>
+      </div>
+
+      <!-- 4. 3D Camera Tracking & Spatial VFX -->
+      <div class="skill-card">
+        <div class="skill-icon-wrap">🎯</div>
+        <h3 class="skill-title">3D Tracking &amp; Mocha AE</h3>
+        <p class="skill-desc">
+          Solve complex live-action footage with the 3D Camera Tracker and Mocha AE planar tracking. Attach glowing text, futuristic HUDs, and 3D objects into camera footage with zero slippage.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Camera Tracker</span>
+          <span class="skill-tag">Mocha Planar</span>
+          <span class="skill-tag">Corner Pin</span>
+        </div>
+      </div>
+
+      <!-- 5. Hollywood Plugins & 3D Motion Design -->
+      <div class="skill-card">
+        <div class="skill-icon-wrap">✨</div>
+        <h3 class="skill-title">Sapphire, Deep Glow &amp; Element 3D</h3>
+        <p class="skill-desc">
+          Harness studio-grade VFX plugins: Boris FX Sapphire (S_Glow, S_Distort, S_Shake), Deep Glow optical falloff, and Element 3D OBJ model importing with physical shader texturing and studio lighting.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Boris FX</span>
+          <span class="skill-tag">Deep Glow</span>
+          <span class="skill-tag">Element 3D</span>
+        </div>
+      </div>
+
+      <!-- 6. Client Work & High-Ticket Freelancing -->
+      <div class="skill-card">
+        <div class="skill-icon-wrap">💎</div>
+        <h3 class="skill-title">High-Ticket Client Acquisition</h3>
+        <p class="skill-desc">
+          Turn your creative craft into a profitable business. Learn international cold pitching, pricing psychology ($500 - $3,000+ per project), contract negotiation, professional invoicing, and showreel curation.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Portfolio Reel</span>
+          <span class="skill-tag">Client Pitching</span>
+          <span class="skill-tag">Certification</span>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Dual Animated Tagda Action Buttons -->
-    <div class="vip-actions-container">
-      <a class="btn-vip-discord" id="btnModalDiscord" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer">
-        <span class="btn-shine"></span>
-        <span class="btn-icon">🎮</span>
-        <div class="btn-txt-wrap">
-          <span class="btn-txt-main">Buy via Official Discord ↗</span>
-          <span class="btn-txt-sub">Join Discord Server (discord.gg/Sgf5aqqRVy) • Instant Delivery</span>
-        </div>
-      </a>
-
-      <a class="btn-vip-gmail" id="btnModalGmail" href="mailto:minegta611@gmail.com">
-        <span class="btn-shine"></span>
-        <span class="btn-icon">✉️</span>
-        <div class="btn-txt-wrap">
-          <span class="btn-txt-main">Message Directly on Gmail ↗</span>
-          <span class="btn-txt-sub">minegta611@gmail.com • Quick Response</span>
-        </div>
-      </a>
-
-      <button type="button" class="btn-vip-copy" id="copyBtn">
-        <span>📋</span> Copy Gmail Address (minegta611@gmail.com)
-      </button>
+  <!-- ==========================================================================
+       SECTION 3: COURSE PRESENTATION SECTION (MOST IMPORTANT)
+       Transparent Investment • Month-by-Month Mastery
+       ========================================================================== -->
+  <section class="academy-courses-section" id="courses">
+    <div class="academy-section-head">
+      <div class="section-eyebrow">Official Academy Curriculum</div>
+      <h2>4 Monthly Phases • Transparent Investment</h2>
+      <p>
+        Enroll month-by-month based on your skill level, or take the complete 4-month journey from scratch to certified professional editor. Direct mentorship under Aman.
+      </p>
     </div>
 
-    <div class="vip-security-footer">
-      🔒 <b>100% Verified Creator Delivery:</b> You interact directly with Aman. Lifetime updates &amp; VIP support included.
-    </div>
-  </div>
-</div>
-
-<!-- MASTER ADMIN COMMAND CENTER -->
-<div class="modal admin-modal" id="adminPortalModal" role="dialog" aria-modal="true" aria-label="Master Admin Portal">
-  <div class="modal-box admin-box">
-    <button class="modal-close" id="adminPortalClose" aria-label="Close Admin Portal">×</button>
-    
-    <!-- STATE 1: SECURITY LOGIN SCREEN -->
-    <div class="admin-login-view" id="adminLoginView">
-      <div class="admin-shield-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(255, 255, 255, 0.1)"></path>
-          <path d="m9 12 2 2 4-4"></path>
-        </svg>
-      </div>
-      <div class="eyebrow">Owner Security Gateway</div>
-      <h3>Master Admin Portal</h3>
-      <p class="modal-sub">Protected by SHA-256 cryptographic hashing &amp; automated rate-limit defense.</p>
-      
-      <form id="adminLoginForm" class="auth-form" onsubmit="return false;">
-        <div class="auth-field">
-          <label for="adminUserField">Master Admin ID</label>
-          <div class="input-wrap">
-            <span class="input-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            </span>
-            <input type="text" id="adminUserField" placeholder="Enter Admin ID" required autocomplete="username">
+    <!-- 4 Month Cards Grid -->
+    <div class="courses-showcase-grid">
+      <!-- MONTH 01 CARD -->
+      <div class="course-card-premium" id="courseMonth1">
+        <div>
+          <div class="course-card-top">
+            <span class="course-month-pill">MONTH 01</span>
+            <span class="course-duration-pill">4 WEEKS • 60 FPS INTRO</span>
+          </div>
+          <h3 class="course-card-title">Foundation → Intermediate</h3>
+          <p class="course-card-tagline">
+            Interface mastery, keyframe math, parenting, null controllers &amp; introductory animation deliverables.
+          </p>
+          <div class="course-price-wrap">
+            <span class="course-price-val">₹10,000</span>
+            <span class="course-price-term">/ Month</span>
+          </div>
+          <ul class="course-syllabus-list">
+            <li>Complete After Effects UI, Workspace &amp; 60 FPS Setup</li>
+            <li>Graph Editor Mechanics &amp; Bezier Spatial Interpolation</li>
+            <li>Parenting, Null Controllers &amp; Layer Stacking Systems</li>
+            <li>Precision Masking, Track Mattes &amp; AI Rotoscoping</li>
+            <li>Optical Effects, Chromatic Aberration &amp; Intro Assembly</li>
+          </ul>
+          <div class="course-live-project-box">
+            <strong>Live Project:</strong> High-Energy YouTube / Gaming Motion Intro with 1-on-1 Feedback from Lead Mentor Aman.
           </div>
         </div>
-        
-        <div class="auth-field">
-          <label for="adminPassField">Security Key / Password</label>
-          <div class="input-wrap">
-            <span class="input-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-            </span>
-            <input type="password" id="adminPassField" placeholder="Enter Master Password" required autocomplete="current-password">
-            <button type="button" class="pwd-toggle" id="toggleAdminPwd" aria-label="Toggle password visibility">
-              <svg class="eye-svg eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-              <svg class="eye-svg eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
-            </button>
-          </div>
-        </div>
-        
-        <div class="auth-lock-msg" id="adminLockMsg"></div>
-        <button type="submit" class="btn-auth-submit" id="adminLoginSubmit">Unlock Command Center ⚡</button>
-      </form>
-    </div>
-    
-    <!-- STATE 2: AUTHENTICATED COMMAND CENTER DASHBOARD -->
-    <div class="admin-dashboard-view" id="adminDashboardView" style="display:none;">
-      <!-- Dashboard Top Bar -->
-      <div class="admin-dash-header">
-        <div class="admin-brand-block">
-          <div class="admin-badge-live"><span class="dot-pulse"></span> SYSTEM ONLINE</div>
-          <h2>Master Command Center</h2>
-          <span class="admin-subtext">Owner Control Panel — MINE PRESETS</span>
-        </div>
-        <div class="admin-top-actions">
-          <div class="cloud-status-pill" id="adminCloudStatusPill" title="Cloud Database Sync Status">
-            <span class="cloud-status-dot"></span>
-            <span class="cloud-status-label" id="cloudStatusLabel">Local Mode</span>
-          </div>
-          <button class="btn-admin-action btn-logout" id="adminLogoutBtn" type="button">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-            <span>Lock &amp; Sign Out</span>
+        <div class="course-card-actions">
+          <button type="button" class="btn-course-enroll" onclick="selectCourseMonth('Month 01: Foundation → Intermediate (₹10,000)')">
+            <span>Apply Now ↓</span>
+          </button>
+          <button type="button" class="btn-course-message" onclick="openCourseContactModal('Month 01: Foundation → Intermediate', 10000)">
+            <span>💬 Message Us</span>
           </button>
         </div>
       </div>
-      
-      <!-- Nav Tabs -->
-      <div class="admin-nav-tabs">
-        <button class="admin-tab active" data-tab="analytics" type="button">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-          Analytics &amp; Traffic
-        </button>
-        <button class="admin-tab" data-tab="catalog" type="button">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 17 22 12"></polyline></svg>
-          CC Presets &amp; Catalog
-        </button>
-        <button class="admin-tab" data-tab="settings" type="button">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-          Site &amp; Discord Links
-        </button>
-        <button class="admin-tab" data-tab="security" type="button">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-          Security &amp; Password
-        </button>
-        <button class="admin-tab" data-tab="cloud" type="button" id="adminCloudTabBtn">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
-          ☁️ Cloud Live Sync
-        </button>
-        <button class="admin-tab" data-tab="applications" type="button" id="adminAppsTabBtn">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-          🎓 GTA Admissions (<span id="gtaAppsCount">0</span>)
-        </button>
-      </div>
 
-      <!-- TAB 1: ANALYTICS -->
-      <div class="admin-tab-pane active" id="tabPane-analytics">
-        <div class="admin-stats-grid">
-          <div class="admin-stat-card">
-            <div class="stat-card-top">
-              <span class="stat-card-title">Total Website Visits</span>
-              <span class="stat-card-badge">Page Views</span>
-            </div>
-            <div class="stat-card-val" id="statTotalViews">0</div>
-            <div class="stat-card-sub" id="statTodayViews">+0 today</div>
+      <!-- MONTH 02 CARD -->
+      <div class="course-card-premium" id="courseMonth2">
+        <div>
+          <div class="course-card-top">
+            <span class="course-month-pill">MONTH 02</span>
+            <span class="course-duration-pill">4 WEEKS • KINETIC MOTION</span>
           </div>
-          <div class="admin-stat-card">
-            <div class="stat-card-top">
-              <span class="stat-card-title">Unique Creators</span>
-              <span class="stat-card-badge">Audience</span>
-            </div>
-            <div class="stat-card-val" id="statUniqueVisitors">0</div>
-            <div class="stat-card-sub">Individual Devices Tracked</div>
+          <h3 class="course-card-title">Advanced Animation + Kinetic Motion</h3>
+          <p class="course-card-tagline">
+            Speed graph secrets, kinetic typography, Mocha 3D planar tracking, expressions &amp; synchronized impact effects.
+          </p>
+          <div class="course-price-wrap">
+            <span class="course-price-val">₹10,000</span>
+            <span class="course-price-term">/ Month</span>
           </div>
-          <div class="admin-stat-card">
-            <div class="stat-card-top">
-              <span class="stat-card-title">Discord Buy Clicks</span>
-              <span class="stat-card-badge">Inquiries</span>
-            </div>
-            <div class="stat-card-val" id="statDiscordClicks">0</div>
-            <div class="stat-card-sub">Direct purchase intent clicks</div>
-          </div>
-          <div class="admin-stat-card">
-            <div class="stat-card-top">
-              <span class="stat-card-title">4K Zoom Previews</span>
-              <span class="stat-card-badge">Engagement</span>
-            </div>
-            <div class="stat-card-val" id="statLightboxViews">0</div>
-            <div class="stat-card-sub">High-res lightbox zooms</div>
+          <ul class="course-syllabus-list">
+            <li>Speed Graph Secrets for Snappy, Buttery Organic Motion</li>
+            <li>Kinetic Typography, Range Selectors &amp; Expressions</li>
+            <li>3D Camera Tracker &amp; Mocha AE Planar Tracking</li>
+            <li>Impact SFX Beat-Syncing &amp; Cinematic RGB Glitch</li>
+            <li>Multi-Layer Compositions with Synchronized Motion Blur</li>
+          </ul>
+          <div class="course-live-project-box">
+            <strong>Live Project:</strong> Fluid 60 FPS Kinetic Typography Sequence + 3D Tracked HUD Element.
           </div>
         </div>
-
-        <!-- 7-Day Visual Activity Chart -->
-        <div class="admin-card-section">
-          <div class="section-title-row">
-            <h4>📈 Traffic &amp; Engagement Activity (7 Days)</h4>
-            <span class="tag-status">Auto-logged</span>
-          </div>
-          <div class="admin-chart-container" id="adminChartContainer">
-            <div class="chart-bars" id="adminChartBars">
-              <!-- Rendered dynamically -->
-            </div>
-          </div>
-        </div>
-
-        <!-- Live Activity Log -->
-        <div class="admin-card-section">
-          <div class="section-title-row">
-            <h4>⚡ Real-Time Visitor Activity Stream</h4>
-            <button class="btn-sm-ghost" id="adminClearActivityBtn" type="button">Clear Log</button>
-          </div>
-          <div class="admin-activity-list" id="adminActivityList">
-            <!-- Rendered dynamically -->
-          </div>
+        <div class="course-card-actions">
+          <button type="button" class="btn-course-enroll" onclick="selectCourseMonth('Month 02: Advanced Animation + Kinetic Motion (₹10,000)')">
+            <span>Apply Now ↓</span>
+          </button>
+          <button type="button" class="btn-course-message" onclick="openCourseContactModal('Month 02: Advanced Animation + Kinetic Motion', 10000)">
+            <span>💬 Message Us</span>
+          </button>
         </div>
       </div>
 
-      <!-- TAB 2: CC PRESETS & CATALOG (CRUD) -->
-      <div class="admin-tab-pane" id="tabPane-catalog">
-        <div class="catalog-top-bar">
+      <!-- MONTH 03 CARD -->
+      <div class="course-card-premium featured" id="courseMonth3">
+        <div>
+          <div class="course-card-top">
+            <span class="course-month-pill" style="background:#ffffff; color:#030712; border-color:#ffffff;">MONTH 03 • PRO VFX</span>
+            <span class="course-duration-pill">4 WEEKS • 3D SHADERS</span>
+          </div>
+          <h3 class="course-card-title">Professional VFX + 3D Motion Design</h3>
+          <p class="course-card-tagline">
+            Master Boris FX Sapphire, Deep Glow, Universe, Element 3D OBJ imports &amp; commercial showreel sequences.
+          </p>
+          <div class="course-price-wrap">
+            <span class="course-price-val">₹20,000</span>
+            <span class="course-price-term">/ Month</span>
+          </div>
+          <ul class="course-syllabus-list">
+            <li>3D Spatial Systems, Multi-Camera Rigs &amp; Studio Lighting</li>
+            <li>Boris FX Sapphire (S_Glow, S_Distort, S_Shake) &amp; Deep Glow</li>
+            <li>Element 3D: OBJ Model Imports, Materials &amp; Texturing</li>
+            <li>Commercial Brand Packages &amp; Music Video VFX</li>
+            <li>10-Bit Color Science, LUTs &amp; Studio Render Presets</li>
+          </ul>
+          <div class="course-live-project-box">
+            <strong>Live Project:</strong> Studio-Grade Commercial Showreel Sequence Ready for Agency Pitching.
+          </div>
+        </div>
+        <div class="course-card-actions">
+          <button type="button" class="btn-course-enroll" onclick="selectCourseMonth('Month 03: Professional VFX + 3D Motion Design (₹20,000)')">
+            <span>Apply Now ↓</span>
+          </button>
+          <button type="button" class="btn-course-message" onclick="openCourseContactModal('Month 03: Professional VFX + 3D Motion Design', 20000)">
+            <span>💬 Message Us</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- MONTH 04 CARD -->
+      <div class="course-card-premium featured" id="courseMonth4">
+        <div>
+          <div class="course-card-top">
+            <span class="course-month-pill" style="background:#ffffff; color:#030712; border-color:#ffffff;">MONTH 04 • FREELANCE</span>
+            <span class="course-duration-pill">4 WEEKS • CERTIFIED</span>
+          </div>
+          <h3 class="course-card-title">Client Work, High-Ticket Freelancing &amp; Mastery</h3>
+          <p class="course-card-tagline">
+            Land international freelance clients, master pricing psychology, agency pipelines &amp; graduate certified.
+          </p>
+          <div class="course-price-wrap">
+            <span class="course-price-val">₹25,000</span>
+            <span class="course-price-term">/ Month</span>
+          </div>
+          <ul class="course-syllabus-list">
+            <li>Agency Production Pipeline: Moodboards, Briefs &amp; Deadlines</li>
+            <li>High-Retention Formats: 9:16 Viral Reels &amp; Motion Posters</li>
+            <li>International Client Outreach: Cold Pitching &amp; Pricing ($$)</li>
+            <li>Professional Invoicing, Client Contracts &amp; Delivery Stems</li>
+            <li>Final Capstone Master Project under Aman's 1-on-1 supervision</li>
+          </ul>
+          <div class="course-live-project-box">
+            <strong>Graduation:</strong> Official MINEGTA MOTION LAB Certification + Curated Portfolio Showcase.
+          </div>
+        </div>
+        <div class="course-card-actions">
+          <button type="button" class="btn-course-enroll" onclick="selectCourseMonth('Month 04: Client Work, High-Ticket Freelancing & Mastery (₹25,000)')">
+            <span>Apply Now ↓</span>
+          </button>
+          <button type="button" class="btn-course-message" onclick="openCourseContactModal('Month 04: Client Work & High-Ticket Freelancing', 25000)">
+            <span>💬 Message Us</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Complete 4-Month Masterclass Mentorship Bundle Banner -->
+    <div class="master-bundle-card">
+      <div class="bundle-info-side">
+        <span class="bundle-badge">✦ ALL-INCLUSIVE MENTORSHIP BUNDLE</span>
+        <h3>Complete 4-Month Masterclass Mentorship</h3>
+        <p>
+          Enroll in all 4 months together for complete end-to-end guidance from Lead Mentor Aman. Includes direct 1-on-1 weekly reviews, all MINE digital preset packs for free, private Discord VIP role, and exclusive international freelance client leads.
+        </p>
+        <div class="bundle-perks-list">
+          <span class="bundle-perk-item">✓ 16 Weeks Structured Curriculum</span>
+          <span class="bundle-perk-item">✓ Direct 1-on-1 Feedback</span>
+          <span class="bundle-perk-item">✓ Official Certification</span>
+          <span class="bundle-perk-item">✓ Free Preset Store Access</span>
+        </div>
+      </div>
+
+      <div class="bundle-pricing-side">
+        <span style="font-size:12px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:#94a3b8;">FULL 4-MONTH TUITION</span>
+        <div class="bundle-price-tag">₹65,000</div>
+        <div class="bundle-actions-stack">
+          <button type="button" class="btn-academy-primary" style="width:100%;" onclick="selectCourseMonth('Complete 4-Month Masterclass (₹65,000)')">
+            <span>Apply For Full Batch ↓</span>
+          </button>
+          <button type="button" class="btn-course-message" style="width:100%;" onclick="openCourseContactModal('Complete 4-Month Masterclass Mentorship', 65000)">
+            <span>✉️ Contact Admissions Desk (Gmail &amp; Discord)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 4: INTERACTIVE COURSE LEARNING COCKPIT
+       Experience What Learning at MINEGTA MOTION LAB Feels Like
+       ========================================================================== -->
+  <section class="academy-cockpit-section" id="cockpit">
+    <div class="academy-section-head">
+      <div class="section-eyebrow">Inside The Academy</div>
+      <h2>The Student Learning Environment</h2>
+      <p>
+        Explore actual curriculum modules, lesson breakdowns, downloadable source files, and project deliverables built into the MINEGTA MOTION LAB portal.
+      </p>
+    </div>
+
+    <div class="cockpit-container">
+      <!-- Cockpit Top Bar with Module Switcher -->
+      <div class="cockpit-top-bar">
+        <div class="cockpit-beacon">
+          <span class="eyebrow-live-dot"></span>
+          <span>STUDENT PORTAL • ACTIVE CURRICULUM</span>
+        </div>
+        <div class="cockpit-module-tabs">
+          <button type="button" class="cockpit-tab-btn active" data-mod="1" onclick="switchCockpitModule(1)">Module 01: Foundations</button>
+          <button type="button" class="cockpit-tab-btn" data-mod="2" onclick="switchCockpitModule(2)">Module 02: Kinetic Motion</button>
+          <button type="button" class="cockpit-tab-btn" data-mod="3" onclick="switchCockpitModule(3)">Module 03: 3D &amp; VFX</button>
+          <button type="button" class="cockpit-tab-btn" data-mod="4" onclick="switchCockpitModule(4)">Module 04: Freelance</button>
+        </div>
+      </div>
+
+      <!-- Cockpit Main Stage -->
+      <div class="cockpit-main-body">
+        <!-- Left: Video Viewport & Lesson Briefing -->
+        <div class="cockpit-player-view">
+          <div class="cockpit-screen-frame">
+            <img class="cockpit-screen-bg" id="cockpitScreenImg" src="images/Mine-cc1_.png" alt="Curriculum Lesson Viewport">
+            <div class="cockpit-screen-overlay-badges">
+              <span class="cockpit-badge-tag" id="cockpitResolution">1080p • 60 FPS • STUDIO PRORES</span>
+              <span class="cockpit-badge-tag" id="cockpitStatus">✓ AVAILABLE TO ENROLLED STUDENTS</span>
+            </div>
+            <div class="cockpit-screen-bottom-hud">
+              <span class="cockpit-hud-indicator"><span class="hud-dot"></span> STUDIO NLE MONITOR</span>
+              <span class="cockpit-hud-timecode" id="cockpitTimecode">TIMECODE: 00:28:14:08</span>
+            </div>
+          </div>
+
           <div>
-            <h4>Active Store Presets (<span id="adminCatalogCount">0</span>)</h4>
-            <p class="admin-help-text">Add new 4K CC presets, adjust prices, edit descriptions, or delete packs in real-time.</p>
+            <div class="cockpit-meta-row">
+              <h4 class="cockpit-lesson-name" id="cockpitLessonTitle">Lesson 1.1: After Effects Pro Workspace &amp; 60 FPS Engine Setup</h4>
+              <span class="cockpit-lesson-dur" id="cockpitLessonDuration">28 MIN</span>
+            </div>
+            <p class="cockpit-lesson-summary" id="cockpitLessonDesc">
+              Configuring GPU acceleration, setting up color-managed workspaces, setting optimal RAM preview caching, and organizing industry-standard layer folders for maximum workflow velocity.
+            </p>
+            <div class="cockpit-playback-nav">
+              <button type="button" class="cockpit-nav-btn" onclick="prevCockpitLesson()">‹ Previous Lesson</button>
+              <button type="button" class="cockpit-nav-btn" onclick="nextCockpitLesson()">Next Lesson ›</button>
+              <a href="#courses" class="cockpit-nav-btn" style="color:#22d3ee; border-color:rgba(34,211,238,0.4);">Enroll in This Module ↗</a>
+            </div>
           </div>
-          <div class="catalog-top-btns">
-            <button class="btn-admin-cta" id="toggleAddPresetBtn" type="button">+ Upload New CC Preset</button>
-            <button class="btn-sm-danger" id="resetCatalogBtn" type="button" title="Restore Default Presets">Reset Catalog</button>
+        </div>
+
+        <!-- Right: Lesson Playlist & Downloadable Materials -->
+        <div class="cockpit-playlist-view">
+          <div class="playlist-header">
+            <span>MODULE LESSONS</span>
+            <span id="cockpitLessonCount">5 Lessons • Project Files Included</span>
           </div>
-        </div>
 
-        <!-- ADD NEW PRESET FORM DRAWER -->
-        <div class="admin-add-form-wrap" id="adminAddFormWrap" style="display:none;">
-          <div class="add-form-header">
-            <h4>Upload &amp; Publish New CC Preset</h4>
-            <button class="add-form-close" id="closeAddPresetBtn" type="button">×</button>
-          </div>
-          <form id="newPresetForm" class="admin-form-grid" onsubmit="return false;">
-            <div class="form-col">
-              <div class="auth-field">
-                <label for="newPresetName">Preset Name / Title *</label>
-                <input type="text" id="newPresetName" placeholder="e.g. CC 6 — Titanium Pro" required>
-              </div>
-              <div class="auth-row-2">
-                <div class="auth-field">
-                  <label for="newPresetPrice">Price (₹) *</label>
-                  <input type="number" id="newPresetPrice" placeholder="e.g. 450" min="0" required>
-                </div>
-                <div class="auth-field">
-                  <label for="newPresetCategory">Category *</label>
-                  <select id="newPresetCategory">
-                    <option value="cc">4K CC Preset</option>
-                    <option value="transition">Transitions</option>
-                    <option value="system">Master System</option>
-                  </select>
-                </div>
-              </div>
-              <div class="auth-field">
-                <label for="newPresetTag">Tag Badge Text</label>
-                <input type="text" id="newPresetTag" placeholder="e.g. 4K CC, VIP DROP, NEW">
-              </div>
-              <div class="auth-field">
-                <label for="newPresetDesc">Cinematic Tagline / Description *</label>
-                <textarea id="newPresetDesc" rows="3" placeholder="Describe the grading style, highlights, mood..." required></textarea>
-              </div>
-            </div>
-            
-            <div class="form-col">
-              <div class="auth-field">
-                <label>Preset Image / Thumbnail *</label>
-                <div class="admin-upload-zone" id="adminUploadZone">
-                  <input type="file" id="newPresetFile" accept="image/*" class="admin-file-input">
-                  <div class="upload-zone-content">
-                    <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-                    <span>Click or Drag Image File Here</span>
-                    <span class="upload-sub">Supports PNG, JPG, WEBP (Auto-optimized to 4K)</span>
-                  </div>
-                </div>
-                <div class="upload-compression-status" id="uploadCompressionStatus" style="display:none;"></div>
-                <div class="or-divider"><span>OR ENTER LOCAL IMAGE PATH / URL</span></div>
-                <input type="text" id="newPresetImgUrl" placeholder="e.g. images/Mine-cc1_.png">
-              </div>
-
-              <!-- Live Card Preview -->
-              <div class="admin-preview-box">
-                <div class="preview-label">Live Store Card Preview:</div>
-                <div class="admin-mini-preview" id="adminCardPreview">
-                  <div class="mini-thumb">
-                    <img id="previewImg" src="images/Mine-cc1_.png" alt="Preview">
-                    <span class="mini-tag" id="previewTag">4K CC</span>
-                  </div>
-                  <div class="mini-body">
-                    <h5 id="previewTitle">Preset Title</h5>
-                    <p id="previewDesc">Description will appear here...</p>
-                    <div class="mini-price-row">
-                      <span class="mini-price" id="previewPrice">₹400</span>
-                      <span class="mini-buy-badge">Buy now ↗</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="form-full-row">
-              <button type="submit" class="btn-admin-cta full-w" id="publishPresetBtn">Publish Preset to Live Website 🚀</button>
-            </div>
-          </form>
-        </div>
-
-        <!-- Catalog List Table -->
-        <div class="admin-catalog-list" id="adminCatalogList">
-          <!-- Rendered dynamically -->
-        </div>
-      </div>
-
-      <!-- TAB 3: SITE & DISCORD CONFIG -->
-      <div class="admin-tab-pane" id="tabPane-settings">
-        <div class="admin-card-section">
-          <h4>🌐 Live Site Settings</h4>
-          <p class="admin-help-text">Update links and contact information without touching any code.</p>
-          
-          <form id="adminSettingsForm" class="admin-settings-form" onsubmit="return false;">
-            <div class="auth-field">
-              <label for="settingDiscordUrl">Official Discord Invite URL</label>
-              <div class="input-wrap">
-                <input type="url" id="settingDiscordUrl" value="https://discord.gg/Sgf5aqqRVy" required>
-              </div>
-              <span class="field-hint">All "Buy now" buttons immediately redirect to this invite link.</span>
-            </div>
-
-            <div class="auth-field">
-              <label for="settingContactEmail">Contact / Delivery Email</label>
-              <div class="input-wrap">
-                <input type="email" id="settingContactEmail" value="minegta611@gmail.com" required>
-              </div>
-            </div>
-
-            <div class="auth-field">
-              <label for="settingHeroBadge">Hero Edition Badge Text</label>
-              <div class="input-wrap">
-                <input type="text" id="settingHeroBadge" value="TITANIUM 4K MASTER COLLECTION">
-              </div>
-            </div>
-
-            <button type="submit" class="btn-admin-cta" id="saveSettingsBtn">Save Site Configuration ✓</button>
-          </form>
-        </div>
-      </div>
-
-      <!-- TAB 4: SECURITY & ACCESS -->
-      <div class="admin-tab-pane" id="tabPane-security">
-        <div class="admin-card-section">
-          <h4>🛡️ Master Admin Credentials</h4>
-          <p class="admin-help-text">Change your Admin ID or Master Password. Encrypted immediately with Web Crypto SHA-256.</p>
-          
-          <form id="adminSecurityForm" class="admin-security-form" onsubmit="return false;">
-            <div class="auth-field">
-              <label for="secNewUsername">Admin Username / ID</label>
-              <input type="text" id="secNewUsername" required autocomplete="username">
-            </div>
-
-            <div class="auth-row-2">
-              <div class="auth-field">
-                <label for="secNewPassword">New Master Password</label>
-                <input type="password" id="secNewPassword" placeholder="Minimum 8 characters" autocomplete="new-password">
-              </div>
-              <div class="auth-field">
-                <label for="secConfirmPassword">Confirm New Password</label>
-                <input type="password" id="secConfirmPassword" placeholder="Re-enter password" autocomplete="new-password">
-              </div>
-            </div>
-
-            <button type="submit" class="btn-admin-cta" id="saveSecurityBtn">Update Admin Credentials 🔐</button>
-          </form>
-        </div>
-
-        <div class="admin-card-section">
-          <h4>🔒 Security Event Audit Log</h4>
-          <div class="admin-audit-log" id="adminAuditLog">
+          <div class="playlist-items-stack" id="cockpitPlaylistStack">
             <!-- Rendered dynamically -->
           </div>
-        </div>
-      </div>
 
-      <!-- TAB 5: CLOUD LIVE SYNC & DATABASE CONFIGURATION -->
-      <div class="admin-tab-pane" id="tabPane-cloud">
-        <div class="admin-card-section">
-          <div class="section-title-row">
-            <h4>☁️ Global Cloud Live Sync Engine</h4>
-            <span class="tag-status" id="cloudLiveSyncBadge">Ready</span>
-          </div>
-          <p class="admin-help-text">
-            Jab aap website publish karte hain, local browser data dusre devices/visitors ko nahi dikhta. 
-            Apne naye presets aur uploaded photos ko <strong>duniya ke har visitor ko live dikhane ke liye</strong> apna free Firebase Realtime Database URL yahan connect karein.
-          </p>
-
-          <!-- Current Cloud Status Overview -->
-          <div class="cloud-overview-card">
-            <div class="cloud-overview-left">
-              <div class="cloud-icon-circle" id="cloudIconCircle">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
-              </div>
-              <div>
-                <h5 id="cloudConnStatusTitle">Cloud Sync: Local Mode Only</h5>
-                <span class="cloud-conn-sub" id="cloudConnStatusSub">Presets are currently saved in this local browser only. Connect Cloud Database below so all visitors worldwide can see your uploads in real-time!</span>
-              </div>
+          <!-- Downloadable Files Strip -->
+          <div style="margin-top:20px; padding:14px; border-radius:12px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);">
+            <div style="font-size:11px; font-weight:800; color:#22d3ee; letter-spacing:0.8px; text-transform:uppercase; margin-bottom:8px;">
+              📁 Downloadable Student Resources:
             </div>
-            <div class="cloud-overview-stats">
-              <div class="cloud-stat-mini">
-                <span class="mini-lbl">Local Presets</span>
-                <span class="mini-val" id="cloudStatLocalCount">0</span>
-              </div>
-              <div class="cloud-stat-mini">
-                <span class="mini-lbl">Cloud Presets</span>
-                <span class="mini-val" id="cloudStatRemoteCount">—</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Cloud Configuration Form -->
-          <form id="adminCloudConfigForm" class="admin-cloud-form" onsubmit="return false;">
-            <div class="auth-field">
-              <label for="cloudDatabaseUrl">Firebase Realtime Database URL / Endpoint *</label>
-              <div class="input-wrap">
-                <input type="url" id="cloudDatabaseUrl" value="https://minegta-web-files-default-rtdb.firebaseio.com" placeholder="https://your-project-default-rtdb.firebaseio.com" spellcheck="false">
-              </div>
-              <span class="field-hint">Connected to: https://minegta-web-files-default-rtdb.firebaseio.com</span>
-            </div>
-
-            <div class="cloud-action-btns">
-              <button type="button" class="btn-admin-cta" id="btnSaveCloudConfig">
-                ⚡ Connect &amp; Test Cloud Database
-              </button>
-              <button type="button" class="btn-admin-action" id="btnPushToCloud">
-                🚀 Push All Local Presets to Cloud Now
-              </button>
-              <button type="button" class="btn-admin-action" id="btnPullFromCloud">
-                📥 Pull Latest from Cloud
-              </button>
-            </div>
-          </form>
-
-          <!-- 4-Step Visual Setup Guide -->
-          <div class="cloud-guide-box">
-            <h5>📖 2-Minute Free Cloud Setup Guide (Step-by-Step):</h5>
-            <ol class="cloud-guide-steps">
-              <li>
-                <strong>Step 1:</strong> Open <a href="https://console.firebase.google.com" target="_blank" rel="noopener noreferrer" style="color:#ffffff; text-decoration:underline;">Firebase Console (console.firebase.google.com)</a> with your Google account.
-              </li>
-              <li>
-                <strong>Step 2:</strong> Click <strong>"Add project"</strong> &rarr; enter name <code>mine-presets</code> &rarr; click Continue &rarr; Create Project.
-              </li>
-              <li>
-                <strong>Step 3 (Production Security Rules):</strong> In the left sidebar, click <strong>Build &rarr; Realtime Database</strong> &rarr; click <strong>"Create Database"</strong>. Open the <strong>Rules</strong> tab and paste our secure production rules (from <code>database.rules.json</code>) so catalog is public-readable while unauthorized writes and student application records are strictly protected!
-                <br><button type="button" class="btn-sm-ghost" id="btnCopyRules" style="margin-top:8px; display:inline-flex; font-size:11px; padding:4px 12px;" onclick="copySecurityRules()">📋 Copy Secure Firebase Rules</button>
-              </li>
-              <li>
-                <strong>Step 4:</strong> Copy your Database URL at the top (starts with <code>https://...firebaseio.com</code>) &rarr; paste it in the box above &rarr; click <strong>"Connect &amp; Test"</strong> &rarr; then click <strong>"Push All Local Presets to Cloud Now"</strong>!
-              </li>
-            </ol>
-            <div class="guide-note">
-              🎉 <strong>Congratulations!</strong> From that moment on, whenever you upload pictures, add presets, or update prices from this Admin Portal, they will instantly appear for <em>every single visitor worldwide</em> on their phone and PC in real-time!
-            </div>
-          </div>
-
-          <!-- Offline Backup / Export Box -->
-          <div class="cloud-backup-card">
-            <div>
-              <h5>💾 Offline Backup &amp; Static Export</h5>
-              <p class="admin-help-text" style="margin-bottom:0;">Download all current presets as a JSON file or copy updated code for script.js.</p>
-            </div>
-            <div class="cloud-backup-actions">
-              <button type="button" class="btn-sm-ghost" id="btnExportJson">📥 Download JSON Backup</button>
-              <button type="button" class="btn-sm-ghost" id="btnCopyPresetCode">📋 Copy script.js Code</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB: GTA COURSE APPLICATIONS (ADMISSIONS) -->
-      <div class="admin-tab-pane" id="tabPane-applications">
-        <div class="admin-card-section">
-          <div class="section-title-row">
-            <h4>🎓 MINE GTA Student Applications (Delivered to amangta599990@gmail.com)</h4>
-            <div style="display:flex; gap:8px;">
-              <button class="btn-tool-outline" id="btnRefreshGtaApps" type="button">🔄 Refresh List</button>
-              <button class="btn-tool-outline" id="btnClearGtaApps" type="button" style="color:#f87171;">🗑️ Clear Records</button>
-            </div>
-          </div>
-          <p class="admin-help-text">
-            All applications are automatically dispatched directly to <strong>amangta599990@gmail.com</strong>. A persistent copy is also stored here with direct 1-click WhatsApp &amp; Gmail follow-up buttons.
-          </p>
-
-          <div class="gta-apps-table-wrap" id="gtaAppsTableWrap">
-            <div id="gtaAppsList" class="gta-apps-cards-list">
-              <!-- Dynamically populated -->
+            <div style="font-size:12px; color:#cbd5e1; line-height:1.5;">
+              • Master After Effects Template (.aep)<br>
+              • 60 FPS Raw 4K Practice Footage Clips<br>
+              • Exclusive Color Grading Profile (.ffx / .cube)
             </div>
           </div>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 5: LIVE MOTION LAB (120 FPS KINETIC OSCILLOSCOPE)
+       Calibrated Optical Engineering
+       ========================================================================== -->
+  <section class="lab-stage-section" id="labConsole" style="padding-top:40px;">
+    <div class="academy-section-head">
+      <div class="section-eyebrow">Calibrated Optical Engineering</div>
+      <h2>Live 120 FPS Kinetic Oscilloscope</h2>
+      <p>
+        Engineered with mathematical S-curve optics, 10-bit sub-pixel vectors, and real-time frequency response. Touch, drag, or switch modes below to bend the live signal in real time.
+      </p>
+    </div>
+
+    <div class="lab-console-card">
+      <!-- Top Bar with Mode Switchers -->
+      <div class="console-top-bar">
+        <div class="console-beacon">
+          <span class="signal-dot"></span>
+          <span class="signal-title">MINEGTA OSCILLOSCOPE MONITOR</span>
+          <span class="signal-badge">120 FPS HARDWARE ACCEL</span>
+        </div>
+
+        <div class="scope-mode-chips">
+          <button type="button" class="scope-mode-chip active" data-mode="scurve">
+            <span class="mode-idx">01</span> ✦ Cinema S-Curve
+          </button>
+          <button type="button" class="scope-mode-chip" data-mode="parade">
+            <span class="mode-idx">02</span> ⚡ RGB Parade
+          </button>
+          <button type="button" class="scope-mode-chip" data-mode="beatsync">
+            <span class="mode-idx">03</span> 〰️ Beat-Sync Audio
+          </button>
+          <button type="button" class="scope-mode-chip" data-mode="vector">
+            <span class="mode-idx">04</span> 🌀 Vectorscope Radar
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Interactive Canvas Viewport -->
+      <div class="lab-canvas-container" id="labCanvasWrap">
+        <canvas id="labCanvas" width="1220" height="340"></canvas>
+        <div class="canvas-grid-overlay"></div>
+        <div class="canvas-interactive-hint">
+          <span class="hint-icon">✦</span> HOVER / DRAG TO MODULATE SIGNAL FREQUENCY
+        </div>
+      </div>
+
+      <!-- High-Tech Telemetry Strip -->
+      <div class="console-telemetry-strip">
+        <div class="telemetry-cell">
+          <span class="t-lbl">LUMA LEVELS (IRE)</span>
+          <span class="t-val" id="telLuma">0 — 1023 <small>[ACTIVE: 842]</small></span>
+        </div>
+        <div class="telemetry-cell">
+          <span class="t-lbl">COLOR DEPTH PIPELINE</span>
+          <span class="t-val">10-BIT PRORES <small>[1.07B COLORS]</small></span>
+        </div>
+        <div class="telemetry-cell">
+          <span class="t-lbl">HARMONIC ACCURACY</span>
+          <span class="t-val" id="telDelta">DELTA &lt; 0.08% <small>[ZERO BANDING]</small></span>
+        </div>
+        <div class="telemetry-cell">
+          <span class="t-lbl">FREQUENCY SPECTRUM</span>
+          <span class="t-val" id="telFreq">24Hz — 48kHz <small>[BEAT-SYNCED]</small></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Signal Control Deck (Gain, Frequency, Bloom, Audio tone) -->
+    <div class="lab-controls-deck">
+      <div class="lab-control-item">
+        <label class="lab-ctrl-label" for="sliderGain">
+          <span>Signal Gain / IRE</span>
+          <span id="lblGainVal">1.00x</span>
+        </label>
+        <input type="range" class="lab-slider" id="sliderGain" min="0.5" max="1.8" step="0.05" value="1.0">
+      </div>
+
+      <div class="lab-control-item">
+        <label class="lab-ctrl-label" for="sliderFreq">
+          <span>Oscillator Frequency</span>
+          <span id="lblFreqVal">1.00x</span>
+        </label>
+        <input type="range" class="lab-slider" id="sliderFreq" min="0.4" max="2.5" step="0.1" value="1.0">
+      </div>
+
+      <div class="lab-control-item">
+        <label class="lab-ctrl-label">
+          <span>Phosphor Bloom Glow</span>
+          <span id="lblBloomVal">ON</span>
+        </label>
+        <button type="button" class="lab-toggle-btn active" id="btnToggleBloom">
+          <span>✨ Soft Phosphor Glow</span>
+        </button>
+      </div>
+
+      <div class="lab-control-item">
+        <label class="lab-ctrl-label">
+          <span>Interactive Audio</span>
+          <span id="lblAudioVal">MUTED</span>
+        </label>
+        <button type="button" class="lab-toggle-btn" id="btnToggleSynthAudio">
+          <span>🔊 Synthesizer Audio</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 6: MINEGTA SHOP — DIGITAL PRODUCTS SHOWCASE GATEWAY
+       Secondary Business Section • Real Product Inventory
+       ========================================================================== -->
+  <section class="shop-section-hub" id="shop">
+    <div class="shop-showcase-header">
+      <div class="shop-brand-eyebrow">MINEGTA SHOP • DIGITAL ASSETS</div>
+      <h2>YOUR CREATIVE TOOLKIT STARTS HERE.</h2>
+      <p>
+        PREMIUM DIGITAL ASSETS FOR CREATIVE MINDS. Download battle-tested 4K CC presets, beat-synced transitions, and workflow automation suites engineered by Aman.
+      </p>
+    </div>
+
+    <!-- Category Filter Bar -->
+    <div class="shop-filter-bar">
+      <button type="button" class="shop-filter-btn active" data-cat="all">✦ All Products (9)</button>
+      <button type="button" class="shop-filter-btn" data-cat="cc">4K CC Presets (5)</button>
+      <button type="button" class="shop-filter-btn" data-cat="transition">Transitions (1)</button>
+      <button type="button" class="shop-filter-btn" data-cat="system">Master Systems &amp; Tools (3)</button>
+    </div>
+
+    <!-- Products Showcase Grid (Rendered from real inventory) -->
+    <div class="shop-products-grid" id="homepageProductsGrid">
+      <!-- Populated dynamically by script.js with real inventory -->
+    </div>
+
+    <!-- Full Shop Gateway Card Banner -->
+    <div class="shop-gateway-banner">
+      <div class="gateway-banner-text">
+        <span style="font-size:11px; font-weight:800; color:#22d3ee; letter-spacing:1px; text-transform:uppercase;">DEDICATED STORE EXPERIENCE</span>
+        <h3>Explore The Complete MINEGTA SHOP</h3>
+        <p>Browse full 4K lightbox zooms, system compatibility guides, and instant digital delivery via Discord &amp; Gmail.</p>
+      </div>
+      <a class="btn-explore-shop-full" href="shop.html">
+        <span>VISIT MINEGTA SHOP</span>
+        <span style="font-size:16px;">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 7: LIMITED ADMISSION APPLICATION FORM
+       Direct Dispatch to: amangta599990@gmail.com
+       ========================================================================== -->
+  <section class="section reveal" id="apply" style="padding-top:40px; padding-bottom:80px;">
+    <div class="gta-apply-box">
+      <div class="gta-apply-header">
+        <span class="apply-eyebrow">LIMITED BATCH ADMISSIONS</span>
+        <h2 class="apply-heading">Apply For MINEGTA MOTION LAB Mentorship</h2>
+        <p class="apply-sub">
+          Fill out your details below. Your personal application will be delivered directly to Lead Mentor Aman at 
+          <strong style="color:#ffffff;">amangta599990@gmail.com</strong>. We review every profile and respond within 24 hours.
+        </p>
+        <div class="locked-inbox-badge">
+          <span>🔒 Direct Admission Inbox:</span>
+          <code>amangta599990@gmail.com</code>
+          <span style="font-size:10px; color:#a1a1aa;">(Locked &amp; Verified)</span>
+        </div>
+      </div>
+
+      <form class="gta-apply-form" id="gtaApplyForm" novalidate>
+        <div class="gta-form-grid">
+          <!-- 1. Full Name -->
+          <div class="gta-form-group">
+            <label for="gtaName" class="gta-label">Student Full Name <span class="req">*</span></label>
+            <div class="gta-input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              <input type="text" id="gtaName" name="name" class="gta-input" placeholder="e.g. Aman Sharma" required autocomplete="name">
+            </div>
+          </div>
+
+          <!-- 2. Address / City -->
+          <div class="gta-form-group">
+            <label for="gtaAddress" class="gta-label">Full Address / City &amp; State <span class="req">*</span></label>
+            <div class="gta-input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <input type="text" id="gtaAddress" name="address" class="gta-input" placeholder="e.g. Delhi / Mumbai, Maharashtra" required autocomplete="street-address">
+            </div>
+          </div>
+
+          <!-- 3. Personal Gmail -->
+          <div class="gta-form-group">
+            <label for="gtaEmail" class="gta-label">Your Personal Gmail Address <span class="req">*</span></label>
+            <div class="gta-input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <input type="email" id="gtaEmail" name="email" class="gta-input" placeholder="yourname@gmail.com" required autocomplete="email">
+            </div>
+            <span class="field-hint">★ Sent directly from your email to amangta599990@gmail.com</span>
+          </div>
+
+          <!-- 4. Contact Phone -->
+          <div class="gta-form-group">
+            <label for="gtaPhone" class="gta-label">Contact / Phone Number <span class="req">*</span></label>
+            <div class="gta-input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <input type="tel" id="gtaPhone" name="phone" class="gta-input" placeholder="+91 98765 43210" required autocomplete="tel">
+            </div>
+          </div>
+
+          <!-- 5. Course Month Selection -->
+          <div class="gta-form-group">
+            <label for="gtaCourse" class="gta-label">Select Course Program / Month <span class="req">*</span></label>
+            <div class="gta-input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <select id="gtaCourse" name="course" class="gta-select">
+                <option value="Month 01: Foundation → Intermediate (₹10,000)">Month 01: Foundation → Intermediate (₹10,000)</option>
+                <option value="Month 02: Advanced Animation + Kinetic Motion (₹10,000)">Month 02: Advanced Animation + Kinetic Motion (₹10,000)</option>
+                <option value="Month 03: Professional VFX + 3D Motion Design (₹20,000)">Month 03: Professional VFX + 3D Motion Design (₹20,000)</option>
+                <option value="Month 04: Client Work, High-Ticket Freelancing &amp; Mastery (₹25,000)">Month 04: Client Work, High-Ticket Freelancing &amp; Mastery (₹25,000)</option>
+                <option value="Complete 4-Month Masterclass (₹65,000)" selected>Complete 4-Month Masterclass (₹65,000)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 6. Experience Level -->
+          <div class="gta-form-group">
+            <label for="gtaLevel" class="gta-label">Current Experience Level</label>
+            <div class="gta-input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <select id="gtaLevel" name="level" class="gta-select">
+                <option value="Beginner (Starting fresh)">Beginner (Starting fresh)</option>
+                <option value="Intermediate (Know basics, want pro motion graphics)" selected>Intermediate (Know basics, want pro motion graphics)</option>
+                <option value="Advanced (Ready for high-paying client work)">Advanced (Ready for high-paying client work)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 7. Motivation & Goals -->
+          <div class="gta-form-group full-width">
+            <label for="gtaNotes" class="gta-label">What is your primary goal from this course? (Optional)</label>
+            <textarea id="gtaNotes" name="notes" class="gta-textarea" rows="3" placeholder="e.g. Master speed curves, 3D tracking, Sapphire VFX, and land international freelance clients..."></textarea>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="gta-form-actions">
+          <button type="submit" class="gta-submit-btn animated-submit-btn" id="gtaSubmitBtn">
+            <span class="btn-shimmer-sweep"></span>
+            <span class="btn-glow-pulse"></span>
+            <span class="btn-content-wrap">
+              <span class="btn-dot-live"></span>
+              <span class="btn-text">✦ Submit Academy Application</span>
+              <span class="btn-arrow-anim">↗</span>
+            </span>
+            <span class="btn-spinner" id="gtaBtnSpinner" style="display:none;"></span>
+          </button>
+        </div>
+
+        <!-- Live Status Banner -->
+        <div class="gta-form-status" id="gtaFormStatus" style="display:none;"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 8: ABOUT MINEGTA MOTION LAB
+       ========================================================================== -->
+  <section class="academy-about-section" id="about">
+    <div class="about-split-grid">
+      <div class="about-card-frame">
+        <div style="font-size:11px; font-weight:800; color:#22d3ee; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px;">CREATIVE MASTERY</div>
+        <h3>The MINEGTA Story</h3>
+        <p>
+          MINEGTA MOTION LAB was created by video creators for video creators. We spent years testing what separates amateur edits from studio-grade commercial sequences: mathematically tuned speed graphs, zero-banding color science, and strategic client positioning.
+        </p>
+        <p>
+          Our academy provides the exact framework used by world-class editors. No generic tutorials. No fluff. Just ruthless focus on precision animation, Hollywood-grade visual effects, and real client monetization.
+        </p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a class="nav-cta-btn" href="#courses">Explore 4-Month Mentorship ↗</a>
+          <a class="nav-shop-pill" href="shop.html">Browse MINEGTA SHOP ↗</a>
+        </div>
+      </div>
+
+      <div class="about-card-frame" style="background:rgba(2,6,23,0.85); border-color:rgba(34,211,238,0.25);">
+        <div style="font-size:11px; font-weight:800; color:#cbd5e1; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px;">DIRECT MENTORSHIP</div>
+        <h3>Why Direct Mentorship Outperforms Generic Courses</h3>
+        <p>
+          When you enroll in MINEGTA MOTION LAB, you get direct review sessions with Lead Mentor Aman. We inspect your keyframe easing, breakdown your spatial camera alignment, and give you actionable frame-by-frame guidance.
+        </p>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-top:20px;">
+          <div style="display:flex; align-items:center; gap:10px; font-size:13.5px; color:#ffffff;">
+            <span style="color:#22d3ee;">✦</span> Direct weekly portfolio &amp; project reviews
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; font-size:13.5px; color:#ffffff;">
+            <span style="color:#22d3ee;">✦</span> Private VIP Discord role &amp; active student network
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; font-size:13.5px; color:#ffffff;">
+            <span style="color:#22d3ee;">✦</span> International freelance client outreach blueprints
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 9: CONTACT & OFFICIAL DESKS
+       ========================================================================== -->
+  <section class="academy-contact-section" id="contact">
+    <div class="feature-box">
+      <div class="eyebrow" style="color:#22d3ee;">Direct Contact &amp; Community</div>
+      <h3>Need Help, Enquiries Or Custom Presets?</h3>
+      <p>Reach out directly for academy admissions, bundle enquiries, or instant creator support.</p>
+      
+      <p style="margin-top:14px; font-weight:600; color:#ffffff;">
+        Direct Admission Inbox: 
+        <a href="mailto:amangta599990@gmail.com" style="color:#22d3ee; text-decoration:underline;">amangta599990@gmail.com</a>
+        &nbsp;|&nbsp;
+        Support: 
+        <a href="mailto:minegta611@gmail.com" style="color:#22d3ee; text-decoration:underline;">minegta611@gmail.com</a>
+      </p>
+
+      <div class="socials-grid">
+        <!-- Instagram -->
+        <a class="social-btn social-instagram" href="https://www.instagram.com/minegta_?stkn=MTVidTk5bm9mb25pbg==" target="_blank" rel="noopener noreferrer" aria-label="Official Instagram">
+          <div class="social-icon-wrapper">
+            <img class="social-brand-img" src="images/icon-instagram.png" alt="Instagram Logo" width="32" height="32" loading="lazy">
+          </div>
+          <div class="social-info">
+            <span class="social-name">Instagram</span>
+            <span class="social-tag">@minegta_</span>
+          </div>
+          <span class="social-arrow">↗</span>
+        </a>
+
+        <!-- YouTube -->
+        <a class="social-btn social-youtube" href="https://www.youtube.com/@MINEGTA_OFFICIAL_1" target="_blank" rel="noopener noreferrer" aria-label="Official YouTube Channel">
+          <div class="social-icon-wrapper">
+            <img class="social-brand-img" src="images/icon-youtube.png" alt="YouTube Logo" width="32" height="32" loading="lazy">
+          </div>
+          <div class="social-info">
+            <span class="social-name">YouTube</span>
+            <span class="social-tag">@MINEGTA_OFFICIAL_1</span>
+          </div>
+          <span class="social-arrow">↗</span>
+        </a>
+
+        <!-- Discord -->
+        <a class="social-btn social-discord" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer" aria-label="Official Discord Community">
+          <div class="social-icon-wrapper">
+            <img class="social-brand-img" src="images/icon-discord.png" alt="Discord Logo" width="32" height="32" loading="lazy">
+          </div>
+          <div class="social-info">
+            <span class="social-name">Discord Server</span>
+            <span class="social-tag">VIP Community</span>
+          </div>
+          <span class="social-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer>
+    <div class="footer-in">
+      <span>© 2026 MINEGTA MOTION LAB • MINEGTA SHOP. All rights reserved.</span>
+      <div class="footer-meta-wrap">
+        <span>Official Mentorship by Aman (amangta599990@gmail.com)</span>
+        <button class="btn-admin-portal-link" id="openAdminBtn" type="button" title="Owner Admin Portal (Shortcut: Ctrl + Shift + A)">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span>Admin Portal</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       COURSE CONTACT & ENROLLMENT MODAL (DIRECT GMAIL & DISCORD)
+       ========================================================================== -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Enroll or Message About Course">
+    <div class="modal-box modal-box-vip">
+      <button class="modal-close" id="close" aria-label="Close Modal">×</button>
+      <div class="eyebrow" style="color:#22d3ee; letter-spacing:2px; font-weight:800;">⚡ MINEGTA MOTION LAB • ADMISSIONS DESK</div>
+      <h3 style="margin-top:6px; font-size:26px; font-weight:900; letter-spacing:-0.5px;">Direct Enrollment &amp; Enquiries</h3>
+      <p class="modal-sub" style="margin-bottom:18px;">Connect directly with Lead Mentor Aman via Gmail to ask questions or reserve your batch seat.</p>
+      
+      <div class="vip-item-banner">
+        <div class="vip-item-name" id="productName">Select Course Program</div>
+        <div class="vip-item-price-tag">
+          <span class="vip-price-lbl">Tuition / Price</span>
+          <span class="vip-price-val" id="payAmount">₹0</span>
+        </div>
+      </div>
+
+      <!-- Action Instructions -->
+      <div class="vip-order-instructions">
+        <h4 class="vip-instr-title">✦ Choose How You Want To Connect:</h4>
+        <p class="vip-instr-text">
+          Click below to message Aman directly on <strong>Gmail</strong> (email message automatically prepared with your program details), join our <strong>Official Discord</strong>, or copy the direct admissions address.
+        </p>
+      </div>
+
+      <!-- Official Communication Actions (Gmail & Discord) -->
+      <div class="vip-actions-container">
+        <!-- Direct Gmail (Primary Channel) -->
+        <a class="btn-vip-gmail" id="btnModalGmail" href="mailto:amangta599990@gmail.com" style="background:linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); border-color:#f87171; box-shadow:0 4px 20px rgba(220,38,38,0.35);">
+          <span class="btn-shine"></span>
+          <span class="btn-icon">✉️</span>
+          <div class="btn-txt-wrap">
+            <span class="btn-txt-main">Message Directly on Gmail ↗</span>
+            <span class="btn-txt-sub">amangta599990@gmail.com • Auto-prepares enquiry</span>
+          </div>
+        </a>
+
+        <!-- Discord -->
+        <a class="btn-vip-discord" id="btnModalDiscord" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer">
+          <span class="btn-shine"></span>
+          <span class="btn-icon">🎮</span>
+          <div class="btn-txt-wrap">
+            <span class="btn-txt-main">Enroll via Official Discord ↗</span>
+            <span class="btn-txt-sub">Join Discord Server (discord.gg/Sgf5aqqRVy) • VIP Onboarding</span>
+          </div>
+        </a>
+
+        <button type="button" class="btn-vip-copy" id="copyBtn">
+          <span>📋</span> Copy Contact Email (amangta599990@gmail.com)
+        </button>
+      </div>
+
+      <div class="vip-security-footer">
+        🔒 <b>Official MINEGTA MOTION LAB Mentorship:</b> 1-on-1 direct guidance under Lead Mentor Aman. Certification &amp; VIP community included.
+      </div>
+    </div>
   </div>
-</div>
 
-<!-- Floating Toast Container -->
-<div class="toast-container" id="toastContainer"></div>
+  <!-- 4K CC ZOOM LIGHTBOX -->
+  <div class="cc-lightbox" id="ccLightbox" aria-hidden="true" role="dialog" aria-label="CC Image Preview Lightbox">
+    <div class="cc-lightbox-frame">
+      <button class="cc-lightbox-close" id="ccLightboxClose" aria-label="Close Preview">×</button>
+      <button class="cc-lightbox-nav prev" id="ccLightboxPrev" aria-label="Previous Preview">‹</button>
+      <button class="cc-lightbox-nav next" id="ccLightboxNext" aria-label="Next Preview">›</button>
+      
+      <img id="ccLightboxImage" src="" alt="4K CC Preview">
+      <div class="cc-lightbox-label" id="ccLightboxLabel">CC 1 OF 5 — CLICK TO ZOOM — ESC TO CLOSE</div>
+    </div>
+  </div>
 
-<!-- FIREBASE CLOUD REALTIME DATABASE & APP SCRIPT -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<!-- THREE.JS 3D ENGINE & MASCOT RUNTIME -->
-<script src="assets/three.min.js"></script>
-<script src="assets/hero-3d-stage.js"></script>
-<script src="script.js"></script>
+  <!-- MASTER ADMIN COMMAND CENTER (PRESERVED) -->
+  <div class="modal admin-modal" id="adminPortalModal" role="dialog" aria-modal="true" aria-label="Master Admin Portal">
+    <div class="modal-box admin-box">
+      <button class="modal-close" id="adminPortalClose" aria-label="Close Admin Portal">×</button>
+      
+      <!-- Security Login Screen -->
+      <div class="admin-login-view" id="adminLoginView">
+        <div class="admin-shield-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
+        <div class="eyebrow">Owner Security Gateway</div>
+        <h3>Master Admin Portal</h3>
+        <p class="modal-sub">Protected by SHA-256 cryptographic hashing &amp; automated rate-limit defense.</p>
+        
+        <form id="adminLoginForm" class="auth-form" onsubmit="return false;">
+          <div class="auth-field">
+            <label for="adminUserField">Master Admin ID</label>
+            <input type="text" id="adminUserField" placeholder="Enter Admin ID" required autocomplete="username">
+          </div>
+          <div class="auth-field">
+            <label for="adminPassField">Security Key / Password</label>
+            <input type="password" id="adminPassField" placeholder="Enter Master Password" required autocomplete="current-password">
+          </div>
+          <div class="auth-lock-msg" id="adminLockMsg"></div>
+          <button type="submit" class="btn-auth-submit" id="adminLoginSubmit">Unlock Command Center ⚡</button>
+        </form>
+      </div>
+
+      <!-- Authenticated Dashboard -->
+      <div class="admin-dashboard-view" id="adminDashboardView" style="display:none;">
+        <div class="admin-dash-header">
+          <div class="admin-brand-block">
+            <div class="admin-badge-live"><span class="dot-pulse"></span> SYSTEM ONLINE</div>
+            <h2>Master Command Center</h2>
+            <span class="admin-subtext">Owner Control Panel — MINEGTA MOTION LAB</span>
+          </div>
+          <div class="admin-top-actions">
+            <button class="btn-admin-action btn-logout" id="adminLogoutBtn" type="button">Lock &amp; Sign Out</button>
+          </div>
+        </div>
+
+        <div class="admin-nav-tabs">
+          <button class="admin-tab active" data-tab="analytics" type="button">Analytics</button>
+          <button class="admin-tab" data-tab="catalog" type="button">Catalog &amp; Presets</button>
+          <button class="admin-tab" data-tab="applications" type="button">Student Admissions (<span id="gtaAppsCount">0</span>)</button>
+        </div>
+
+        <!-- Tab 1: Analytics -->
+        <div class="admin-tab-pane active" id="tabPane-analytics">
+          <div class="admin-stats-grid">
+            <div class="admin-stat-card">
+              <span class="stat-card-title">Total Visits</span>
+              <div class="stat-card-val" id="statTotalViews">0</div>
+            </div>
+            <div class="admin-stat-card">
+              <span class="stat-card-title">Unique Visitors</span>
+              <div class="stat-card-val" id="statUniqueVisitors">0</div>
+            </div>
+            <div class="admin-stat-card">
+              <span class="stat-card-title">Discord Clicks</span>
+              <div class="stat-card-val" id="statDiscordClicks">0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Catalog -->
+        <div class="admin-tab-pane" id="tabPane-catalog">
+          <div class="catalog-top-bar">
+            <h4>Active Store Products (<span id="adminCatalogCount">0</span>)</h4>
+            <button class="btn-sm-danger" id="resetCatalogBtn" type="button">Reset Default Catalog</button>
+          </div>
+          <div class="admin-catalog-list" id="adminCatalogList"></div>
+        </div>
+
+        <!-- Tab 3: Student Applications -->
+        <div class="admin-tab-pane" id="tabPane-applications">
+          <div class="section-title-row">
+            <h4>Student Admissions (Delivered to amangta599990@gmail.com)</h4>
+            <button class="btn-tool-outline" id="btnRefreshGtaApps" type="button">🔄 Refresh</button>
+          </div>
+          <div id="gtaAppsList" class="gta-apps-cards-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="assets/three.min.js"></script>
+  <script src="assets/hero-3d-stage.js"></script>
+  <script src="motion-lab.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

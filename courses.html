@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses &amp; Curriculum — MINEGTA MOTION LAB | 4-Month Mentorship Masterclass</title>
+  <meta name="description" content="Explore all courses, month-by-month curriculum, learning outcomes, and transparent tuition fees at MINEGTA MOTION LAB. Master After Effects & Motion Design.">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-face-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-face-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+  <meta property="og:title" content="Courses &amp; Curriculum — MINEGTA MOTION LAB">
+  <meta property="og:description" content="Explore India's premier 4-Month After Effects &amp; Motion Design roadmap with transparent month-by-month tuition fees.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/website-icon.png">
+
+  <!-- Schema.org Course Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "MINEGTA MOTION LAB 4-Month Mentorship Masterclass",
+    "description": "Comprehensive month-by-month After Effects & Motion Design roadmap by Aman. Learn speed graph physics, kinetic typography, 3D camera tracking, Hollywood VFX plugins, and international freelancing client systems.",
+    "provider": {
+      "@type": "Organization",
+      "name": "MINEGTA MOTION LAB",
+      "sameAs": "https://www.minegta.shop/"
+    },
+    "offers": [
+      { "@type": "Offer", "name": "Month 01: Foundation → Intermediate", "price": "10000", "priceCurrency": "INR" },
+      { "@type": "Offer", "name": "Month 02: Advanced Animation + Kinetic Motion", "price": "10000", "priceCurrency": "INR" },
+      { "@type": "Offer", "name": "Month 03: Professional VFX + 3D Motion Design", "price": "20000", "priceCurrency": "INR" },
+      { "@type": "Offer", "name": "Month 04: Client Work, High-Ticket Freelancing & Mastery", "price": "25000", "priceCurrency": "INR" },
+      { "@type": "Offer", "name": "Complete 4-Month Masterclass Mentorship Bundle", "price": "65000", "priceCurrency": "INR" }
+    ]
+  }
+  </script>
+
+  <!-- Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+
+  <!-- Reading Progress Bar -->
+  <div class="progress" id="progress"></div>
+
+  <!-- Ambient background canvas -->
+  <canvas id="weatherCanvas" aria-hidden="true"></canvas>
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html" aria-label="MINEGTA MOTION LAB Homepage">
+        <img class="nav-brand-img" src="images/website-icon.png" alt="Icon" width="34" height="34">
+        <div class="nav-brand-text">
+          <span class="nav-brand-title">MINEGTA</span>
+          <span class="nav-brand-sub">MOTION LAB</span>
+        </div>
+      </a>
+
+      <div class="nav-menu-links" id="navLinks">
+        <a href="index.html">HOME</a>
+        <a href="courses.html" class="active">COURSES</a>
+        <a href="shop.html" class="nav-shop-pill">
+          <span class="shop-bag-icon">🛍️</span>
+          <span>MINEGTA SHOP</span>
+        </a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="sound-toggle" id="soundToggle" title="Toggle audio" aria-label="Toggle Audio">
+          <span class="sound-icon-container">
+            <svg class="sound-svg sound-svg-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            <svg class="sound-svg sound-svg-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="22" y1="9" x2="16" y2="15"></line></svg>
+          </span>
+        </button>
+        <a class="nav-cta-btn" href="#apply">Apply Now ↗</a>
+        <button class="menu" id="menu" aria-label="Toggle Menu">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Courses Hero Section -->
+  <header class="academy-hero" style="min-height:auto; padding:130px 5% 50px 5%;">
+    <div style="max-width:920px; margin:0 auto; text-align:center;">
+      <div class="academy-eyebrow-badge">
+        <span class="eyebrow-live-dot"></span>
+        <span>OFFICIAL CURRICULUM • 4-MONTH MENTORSHIP</span>
+      </div>
+      <h1 class="academy-hero-title" style="font-size:clamp(36px, 5.5vw, 66px);">
+        MASTER AFTER EFFECTS.<br>
+        <span class="academy-title-gradient">FROM ZERO TO HIGH-TICKET PRO.</span>
+      </h1>
+      <p class="academy-hero-desc" style="max-width:760px; margin:0 auto 30px auto;">
+        India's most comprehensive month-by-month After Effects &amp; Motion Design roadmap by Aman. Learn speed graph physics, kinetic typography, 3D camera tracking, Hollywood VFX plugins, and international freelancing client systems.
+      </p>
+      <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
+        <span class="skill-tag">📅 4 Structured Monthly Phases</span>
+        <span class="skill-tag">🔥 1-on-1 Feedback from Lead Mentor Aman</span>
+        <span class="skill-tag">🔒 Direct Admissions: amangta599990@gmail.com</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Month-By-Month Showcase -->
+    <section class="academy-courses-section" style="padding-top:20px;">
+      <div class="academy-section-head">
+        <div class="section-eyebrow">Transparent Pricing</div>
+        <h2>Select Your Learning Phase</h2>
+        <p>Enroll month-by-month based on your current skill level, or take the complete 4-month batch for total mastery.</p>
+      </div>
+
+      <div class="courses-showcase-grid">
+        <!-- Month 01 -->
+        <div class="course-card-premium" id="m1">
+          <div>
+            <div class="course-card-top">
+              <span class="course-month-pill">MONTH 01</span>
+              <span class="course-duration-pill">4 WEEKS</span>
+            </div>
+            <h3 class="course-card-title">Foundation → Intermediate</h3>
+            <p class="course-card-tagline">Interface mastery, keyframe math, parenting &amp; introductory animation deliverables.</p>
+            <div class="course-price-wrap">
+              <span class="course-price-val">₹10,000</span>
+              <span class="course-price-term">/ Month</span>
+            </div>
+            <ul class="course-syllabus-list">
+              <li>Complete After Effects UI, Workspace &amp; 60 FPS Setup</li>
+              <li>Graph Editor Mechanics &amp; Bezier Spatial Interpolation</li>
+              <li>Parenting, Null Controllers &amp; Layer Stacking Systems</li>
+              <li>Precision Masking, Track Mattes &amp; AI Rotoscoping</li>
+              <li>Optical Effects, Chromatic Aberration &amp; Intro Assembly</li>
+            </ul>
+            <div class="course-live-project-box">
+              <strong>Live Project:</strong> High-Energy YouTube / Gaming Motion Intro + 1-on-1 Feedback.
+            </div>
+          </div>
+          <div class="course-card-actions">
+            <button type="button" class="btn-course-enroll" onclick="selectCourseMonth('Month 01: Foundation → Intermediate (₹10,000)')">Apply Now ↓</button>
+            <button type="button" class="btn-course-message" onclick="openCourseContactModal('Month 01: Foundation → Intermediate', 10000)">💬 Message Us</button>
+          </div>
+        </div>
+
+        <!-- Month 02 -->
+        <div class="course-card-premium" id="m2">
+          <div>
+            <div class="course-card-top">
+              <span class="course-month-pill">MONTH 02</span>
+              <span class="course-duration-pill">4 WEEKS</span>
+            </div>
+            <h3 class="course-card-title">Advanced Animation + Kinetic Motion</h3>
+            <p class="course-card-tagline">Speed graph secrets, kinetic typography, Mocha 3D tracking &amp; impact effects.</p>
+            <div class="course-price-wrap">
+              <span class="course-price-val">₹10,000</span>
+              <span class="course-price-term">/ Month</span>
+            </div>
+            <ul class="course-syllabus-list">
+              <li>Speed Graph Secrets for Snappy, Buttery Organic Motion</li>
+              <li>Kinetic Typography, Range Selectors &amp; Expressions</li>
+              <li>3D Camera Tracker &amp; Mocha AE Planar Tracking</li>
+              <li>Impact SFX Beat-Syncing &amp; Cinematic RGB Glitch</li>
+              <li>Multi-Layer Compositions with Synchronized Motion Blur</li>
+            </ul>
+            <div class="course-live-project-box">
+              <strong>Live Project:</strong> Fluid 60 FPS Kinetic Typography Showcase + 3D Tracked HUD.
+            </div>
+          </div>
+          <div class="course-card-actions">
+            <button type="button" class="btn-course-enroll" onclick="selectCourseMonth('Month 02: Advanced Animation + Kinetic Motion (₹10,000)')">Apply Now ↓</button>
+            <button type="button" class="btn-course-message" onclick="openCourseContactModal('Month 02: Advanced Animation + Kinetic Motion', 10000)">💬 Message Us</button>
+          </div>
+        </div>
+
+        <!-- Month 03 -->
+        <div class="course-card-premium featured" id="m3">
+          <div>
+            <div class="course-card-top">
+              <span class="course-month-pill" style="background:#ffffff; color:#030712;">MONTH 03 • PRO VFX</span>
+              <span class="course-duration-pill">4 WEEKS</span>
+            </div>
+            <h3 class="course-card-title">Professional VFX + 3D Motion Design</h3>
+            <p class="course-card-tagline">Master Sapphire, Deep Glow, Universe, Element 3D OBJ imports &amp; commercial showreels.</p>
+            <div class="course-price-wrap">
+              <span class="course-price-val">₹20,000</span>
+              <span class="course-price-term">/ Month</span>
+            </div>
+            <ul class="course-syllabus-list">
+              <li>3D Spatial Systems, Camera Rigs &amp; Studio Lighting</li>
+              <li>Boris FX Sapphire (S_Glow, S_Distort, S_Shake) &amp; Deep Glow</li>
+              <li>Element 3D: OBJ Model Imports &amp; Texture Mapping</li>
+              <li>Commercial Brand Packages &amp; Music Video VFX</li>
+              <li>10-Bit Color Science &amp; Studio Render Presets</li>
+            </ul>
+            <div class="course-live-project-box">
+              <strong>Live Project:</strong> Studio-Grade Commercial Showreel Sequence Ready for Agency Pitching.
+            </div>
+          </div>
+          <div class="course-card-actions">
+            <button type="button" class="btn-course-enroll" onclick="selectCourseMonth('Month 03: Professional VFX + 3D Motion Design (₹20,000)')">Apply Now ↓</button>
+            <button type="button" class="btn-course-message" onclick="openCourseContactModal('Month 03: Professional VFX + 3D Motion Design', 20000)">💬 Message Us</button>
+          </div>
+        </div>
+
+        <!-- Month 04 -->
+        <div class="course-card-premium featured" id="m4">
+          <div>
+            <div class="course-card-top">
+              <span class="course-month-pill" style="background:#ffffff; color:#030712;">MONTH 04 • FREELANCE</span>
+              <span class="course-duration-pill">4 WEEKS</span>
+            </div>
+            <h3 class="course-card-title">Client Work, High-Ticket Freelancing &amp; Mastery</h3>
+            <p class="course-card-tagline">Land international freelance clients, master pricing psychology &amp; graduate certified.</p>
+            <div class="course-price-wrap">
+              <span class="course-price-val">₹25,000</span>
+              <span class="course-price-term">/ Month</span>
+            </div>
+            <ul class="course-syllabus-list">
+              <li>Agency Production Pipeline: Moodboards &amp; Deadlines</li>
+              <li>High-Retention Formats: 9:16 Viral Reels &amp; Motion Posters</li>
+              <li>International Client Outreach: Cold Pitching &amp; Pricing ($$)</li>
+              <li>Professional Invoicing, Client Contracts &amp; Delivery</li>
+              <li>Final Capstone Master Project under Aman's 1-on-1 supervision</li>
+            </ul>
+            <div class="course-live-project-box">
+              <strong>Graduation:</strong> Official MINEGTA MOTION LAB Certification + Showreel Showcase.
+            </div>
+          </div>
+          <div class="course-card-actions">
+            <button type="button" class="btn-course-enroll" onclick="selectCourseMonth('Month 04: Client Work, High-Ticket Freelancing & Mastery (₹25,000)')">Apply Now ↓</button>
+            <button type="button" class="btn-course-message" onclick="openCourseContactModal('Month 04: Client Work & High-Ticket Freelancing', 25000)">💬 Message Us</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Master Bundle Banner -->
+      <div class="master-bundle-card">
+        <div class="bundle-info-side">
+          <span class="bundle-badge">✦ Complete 4-Month Masterclass Mentorship</span>
+          <h3>All 4 Months Combined • Complete Professional Transformation</h3>
+          <p>
+            Enroll in all 4 months together for end-to-end guidance from Lead Mentor Aman. Includes all MINE Preset Packs for free, VIP Discord feedback sessions, and private client leads.
+          </p>
+          <div class="bundle-perks-list">
+            <span class="bundle-perk-item">✓ 16 Weeks Structured Roadmap</span>
+            <span class="bundle-perk-item">✓ Direct 1-on-1 Mentorship</span>
+            <span class="bundle-perk-item">✓ All Preset Packs Free</span>
+            <span class="bundle-perk-item">✓ Official Studio Certification</span>
+          </div>
+        </div>
+        <div class="bundle-pricing-side">
+          <span style="font-size:12px; font-weight:800; text-transform:uppercase; color:#94a3b8;">FULL BATCH TUITION</span>
+          <div class="bundle-price-tag">₹65,000</div>
+          <div class="bundle-actions-stack">
+            <button type="button" class="btn-academy-primary" style="width:100%;" onclick="selectCourseMonth('Complete 4-Month Masterclass (₹65,000)')">Apply For Full Batch ↓</button>
+            <button type="button" class="btn-course-message" style="width:100%;" onclick="openCourseContactModal('Complete 4-Month Masterclass Mentorship', 65000)">✉️ Contact Admissions Desk (Gmail &amp; Discord)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Application Form Section -->
+    <section class="section reveal" id="apply" style="padding:40px 5% 80px 5%;">
+      <div class="gta-apply-box">
+        <div class="gta-apply-header">
+          <span class="apply-eyebrow">LIMITED BATCH ADMISSIONS</span>
+          <h2 class="apply-heading">Apply For MINEGTA MOTION LAB Mentorship</h2>
+          <p class="apply-sub">
+            Fill out your details below. Your personal application will be delivered directly to Lead Mentor Aman at 
+            <strong style="color:#ffffff;">amangta599990@gmail.com</strong>. We review every profile and respond within 24 hours.
+          </p>
+          <div class="locked-inbox-badge">
+            <span>🔒 Direct Admission Inbox:</span>
+            <code>amangta599990@gmail.com</code>
+            <span style="font-size:10px; color:#a1a1aa;">(Locked &amp; Verified)</span>
+          </div>
+        </div>
+
+        <form class="gta-apply-form" id="courseApplyForm" novalidate>
+          <div class="gta-form-grid">
+            <div class="gta-form-group">
+              <label for="applyName" class="gta-label">Student Full Name <span class="req">*</span></label>
+              <div class="gta-input-wrap">
+                <input type="text" id="applyName" name="name" class="gta-input" placeholder="e.g. Aman Sharma" required autocomplete="name">
+              </div>
+            </div>
+
+            <div class="gta-form-group">
+              <label for="applyAddress" class="gta-label">Full Address / City &amp; State <span class="req">*</span></label>
+              <div class="gta-input-wrap">
+                <input type="text" id="applyAddress" name="address" class="gta-input" placeholder="e.g. Delhi / Mumbai, Maharashtra" required autocomplete="street-address">
+              </div>
+            </div>
+
+            <div class="gta-form-group">
+              <label for="applyEmail" class="gta-label">Your Personal Gmail Address <span class="req">*</span></label>
+              <div class="gta-input-wrap">
+                <input type="email" id="applyEmail" name="email" class="gta-input" placeholder="yourname@gmail.com" required autocomplete="email">
+              </div>
+              <span class="field-hint">★ Sent directly from your email to amangta599990@gmail.com</span>
+            </div>
+
+            <div class="gta-form-group">
+              <label for="applyPhone" class="gta-label">Contact / Phone Number <span class="req">*</span></label>
+              <div class="gta-input-wrap">
+                <input type="tel" id="applyPhone" name="phone" class="gta-input" placeholder="+91 98765 43210" required autocomplete="tel">
+              </div>
+            </div>
+
+            <div class="gta-form-group">
+              <label for="applyCourse" class="gta-label">Select Course Program / Month <span class="req">*</span></label>
+              <div class="gta-input-wrap">
+                <select id="applyCourse" name="course" class="gta-select">
+                  <option value="Month 01: Foundation → Intermediate (₹10,000)">Month 01: Foundation → Intermediate (₹10,000)</option>
+                  <option value="Month 02: Advanced Animation + Kinetic Motion (₹10,000)">Month 02: Advanced Animation + Kinetic Motion (₹10,000)</option>
+                  <option value="Month 03: Professional VFX + 3D Motion Design (₹20,000)">Month 03: Professional VFX + 3D Motion Design (₹20,000)</option>
+                  <option value="Month 04: Client Work, High-Ticket Freelancing &amp; Mastery (₹25,000)">Month 04: Client Work, High-Ticket Freelancing &amp; Mastery (₹25,000)</option>
+                  <option value="Complete 4-Month Masterclass (₹65,000)" selected>Complete 4-Month Masterclass (₹65,000)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="gta-form-group">
+              <label for="applyLevel" class="gta-label">Current Experience Level</label>
+              <div class="gta-input-wrap">
+                <select id="applyLevel" name="level" class="gta-select">
+                  <option value="Beginner (Starting fresh)">Beginner (Starting fresh)</option>
+                  <option value="Intermediate (Know basics, want pro motion graphics)" selected>Intermediate (Know basics, want pro motion graphics)</option>
+                  <option value="Advanced (Ready for high-paying client work)">Advanced (Ready for high-paying client work)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="gta-form-group full-width">
+              <label for="applyNotes" class="gta-label">What is your primary goal from this course? (Optional)</label>
+              <textarea id="applyNotes" name="notes" class="gta-textarea" rows="3" placeholder="e.g. Master speed curves, 3D tracking, Sapphire VFX, and land international freelance clients..."></textarea>
+            </div>
+          </div>
+
+          <div class="gta-form-actions">
+            <button type="submit" class="gta-submit-btn animated-submit-btn" id="btnCourseSubmit">
+              <span class="btn-shimmer-sweep"></span>
+              <span class="btn-glow-pulse"></span>
+              <span class="btn-content-wrap">
+                <span class="btn-dot-live"></span>
+                <span class="btn-text">✦ Submit Academy Application</span>
+                <span class="btn-arrow-anim">↗</span>
+              </span>
+              <span class="btn-spinner" id="courseSpinner" style="display:none;"></span>
+            </button>
+          </div>
+
+          <div class="gta-form-status" id="courseFormStatus" style="display:none;"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal: Course Contact & VIP Admission -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Course Admissions Desk">
+    <div class="modal-box modal-box-vip">
+      <button class="modal-close" id="close" aria-label="Close Modal">×</button>
+      <div class="eyebrow" style="color:#22d3ee; letter-spacing:2px; font-weight:800;">⚡ MINEGTA MOTION LAB • ADMISSIONS DESK</div>
+      <h3 style="margin-top:6px; font-size:26px; font-weight:900;">Direct Enrollment &amp; Enquiries</h3>
+      <p class="modal-sub" style="margin-bottom:18px;">Direct batch seat reservation with 1-on-1 creator onboarding.</p>
+      
+      <div class="vip-item-banner">
+        <div class="vip-item-name" id="productName">Select Course Program</div>
+        <div class="vip-item-price-tag">
+          <span class="vip-price-lbl">Tuition Fee</span>
+          <span class="vip-price-val" id="payAmount">₹0</span>
+        </div>
+      </div>
+
+      <div class="vip-actions-container">
+        <!-- Direct Gmail (Primary Channel) -->
+        <a class="btn-vip-gmail" id="btnModalGmail" href="mailto:amangta599990@gmail.com" style="background:linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); border-color:#f87171; box-shadow:0 4px 20px rgba(220,38,38,0.35);">
+          <span class="btn-shine"></span>
+          <span class="btn-icon">✉️</span>
+          <div class="btn-txt-wrap">
+            <span class="btn-txt-main">Message Directly on Gmail ↗</span>
+            <span class="btn-txt-sub">amangta599990@gmail.com • Auto-prepares enquiry</span>
+          </div>
+        </a>
+
+        <!-- Discord -->
+        <a class="btn-vip-discord" id="btnModalDiscord" href="https://discord.gg/Sgf5aqqRVy" target="_blank" rel="noopener noreferrer">
+          <span class="btn-shine"></span>
+          <span class="btn-icon">🎮</span>
+          <div class="btn-txt-wrap">
+            <span class="btn-txt-main">Enroll via Official Discord ↗</span>
+            <span class="btn-txt-sub">Join Discord Server (discord.gg/Sgf5aqqRVy) • Instant Onboarding</span>
+          </div>
+        </a>
+
+        <button type="button" class="btn-vip-copy" id="copyBtn">
+          <span>📋</span> Copy Contact Email (amangta599990@gmail.com)
+        </button>
+      </div>
+
+      <div class="vip-security-footer">
+        🔒 <b>Official MINEGTA MOTION LAB Mentorship:</b> 1-on-1 direct guidance under Lead Mentor Aman. Certification &amp; VIP community included.
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-in">
+      <span>© 2026 MINEGTA MOTION LAB • All rights reserved.</span>
+      <div class="footer-meta-wrap">
+        <span>Official Mentorship by Aman (amangta599990@gmail.com)</span>
+        <a href="shop.html" style="color:#22d3ee; margin-left:14px; text-decoration:underline;">MINEGTA SHOP &rarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

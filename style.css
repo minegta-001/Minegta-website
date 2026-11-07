@@ -205,16 +205,24 @@ button {
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 18px 5%;
-  transition: padding 0.35s var(--ease-spring), background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
+  padding: 16px 5%;
+  background: rgba(7, 11, 22, 0.45);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+  transition: padding 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
 }
 .nav.scrolled {
   padding: 12px 5%;
-  background: rgba(5, 5, 7, 0.82);
-  backdrop-filter: blur(25px) saturate(180%);
-  -webkit-backdrop-filter: blur(25px) saturate(180%);
-  border-bottom: 1px solid var(--line-subtle);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+  background: rgba(7, 11, 22, 0.72);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.28);
 }
 .nav-inner {
   max-width: 1240px;
@@ -4088,7 +4096,7 @@ footer {
 }
 
 /* ==========================================================================
-   OFFICIAL DISCORD & DIRECT GMAIL VIP BUY SYSTEM (FULLY ANIMATED & TAGDA)
+   OFFICIAL DISCORD & DIRECT GMAIL VIP ACCESS ROUTING
    Discord Server: https://discord.gg/Sgf5aqqRVy
    Direct Gmail: minegta611@gmail.com
    ========================================================================== */
@@ -4460,4 +4468,1625 @@ footer {
   padding-top: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   text-align: center;
+}
+
+
+/* ==========================================================================
+   MINEGTA MOTION LAB — NEW LUXURY DESIGN SYSTEM
+   Pearl White • Platinum Silver • Ice Blue • Electric Cyan • Midnight Blue
+   Online Creative Academy & MINEGTA SHOP
+   ========================================================================== */
+
+/* Overriding and extending root tokens */
+:root {
+  --c-pearl: #f8fafc;
+  --c-pearl-pure: #ffffff;
+  --c-platinum: #cbd5e1;
+  --c-platinum-dark: #94a3b8;
+  --c-ice: #e0f2fe;
+  --c-ice-glow: #38bdf8;
+  --c-cyan: #22d3ee;
+  --c-cyan-deep: #0891b2;
+  --c-graphite: #1e293b;
+  --c-graphite-dark: #0f172a;
+  --c-midnight: #070b16;
+  --c-midnight-deep: #030712;
+
+  --bg-deep: #030712;
+  --bg: #070b16;
+  --bg-surface: #0f172a;
+  --bg-surface-light: #1e293b;
+  --bg-card: rgba(15, 23, 42, 0.78);
+  --panel: rgba(15, 23, 42, 0.85);
+  --panel-card: rgba(30, 41, 59, 0.65);
+  --panel-card-hover: rgba(30, 41, 59, 0.92);
+  --panel-glass: rgba(11, 19, 38, 0.82);
+
+  --titanium-white: #ffffff;
+  --titanium-light: #f8fafc;
+  --titanium-silver: #cbd5e1;
+  --titanium-border: rgba(255, 255, 255, 0.12);
+  --titanium-border-hover: rgba(34, 211, 238, 0.45);
+  --titanium-border-strong: rgba(255, 255, 255, 0.45);
+  --titanium-glow: rgba(34, 211, 238, 0.2);
+  --titanium-glow-sm: rgba(34, 211, 238, 0.1);
+  --titanium-glow-lg: rgba(34, 211, 238, 0.4);
+
+  --grad-pearl-cyan: linear-gradient(135deg, #ffffff 15%, #cbd5e1 45%, #22d3ee 85%, #ffffff 100%);
+  --grad-cyan-glow: linear-gradient(135deg, #22d3ee 0%, #0284c7 100%);
+  --grad-metallic: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+  --grad-midnight-glass: linear-gradient(180deg, rgba(15, 23, 42, 0.88) 0%, rgba(7, 11, 22, 0.95) 100%);
+  --grad-platinum-border: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(34, 211, 238, 0.35) 50%, rgba(255, 255, 255, 0.1) 100%);
+
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --line-subtle: rgba(255, 255, 255, 0.08);
+  --line-active: rgba(34, 211, 238, 0.35);
+  --line-strong: rgba(255, 255, 255, 0.45);
+
+  --shadow-lux: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 1px rgba(255, 255, 255, 0.14);
+  --shadow-card-hover: 0 35px 90px rgba(0, 0, 0, 0.95), 0 0 40px rgba(34, 211, 238, 0.12), 0 0 1px rgba(255, 255, 255, 0.35);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 980px;
+
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Global balanced midnight blue background with soft cyan depth */
+body {
+  background-color: var(--c-midnight);
+  background-image: 
+    radial-gradient(circle at 50% -80px, rgba(34, 211, 238, 0.14) 0%, transparent 60%),
+    radial-gradient(circle at 90% 20%, rgba(148, 163, 184, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 10% 60%, rgba(6, 182, 212, 0.07) 0%, transparent 50%),
+    linear-gradient(180deg, #070b16 0%, #0c1222 50%, #040714 100%);
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+/* Ambient Radial Glow Elements */
+.ambient-glow-1 {
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.16) 0%, transparent 70%);
+}
+.ambient-glow-2 {
+  background: radial-gradient(circle, rgba(203, 213, 225, 0.12) 0%, transparent 70%);
+}
+.ambient-glow-3 {
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.14) 0%, transparent 70%);
+}
+
+/* ==========================================================================
+   NAVIGATION BAR — MINEGTA MOTION LAB
+   ========================================================================== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 16px 5%;
+  transition: all 0.3s ease;
+}
+.nav.scrolled {
+  padding: 12px 5%;
+  background: rgba(7, 11, 22, 0.88);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85), 0 0 30px rgba(34, 211, 238, 0.06);
+}
+.nav-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 17px;
+  letter-spacing: -0.2px;
+  flex-shrink: 0;
+}
+.nav-brand-img {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  object-fit: cover;
+  border: 1px solid rgba(34, 211, 238, 0.4);
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.25);
+  transition: transform 0.3s var(--ease-spring);
+}
+.nav-brand:hover .nav-brand-img {
+  transform: scale(1.08) rotate(-3deg);
+  border-color: #22d3ee;
+  box-shadow: 0 0 22px rgba(34, 211, 238, 0.5);
+}
+.nav-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+.nav-brand-title {
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+.nav-brand-sub {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #22d3ee;
+}
+
+.nav-menu-links {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+.nav-menu-links a {
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: #94a3b8;
+  text-decoration: none;
+  position: relative;
+  padding: 6px 2px;
+  transition: color 0.2s ease;
+}
+.nav-menu-links a:hover,
+.nav-menu-links a.active {
+  color: #ffffff;
+}
+.nav-menu-links a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: #ffffff;
+  transition: width 0.25s var(--ease-spring);
+  border-radius: var(--radius-pill);
+}
+.nav-menu-links a:hover::after,
+.nav-menu-links a.active::after {
+  width: 100%;
+}
+
+/* Prominent MINEGTA SHOP Navigation Button */
+.nav-shop-pill {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px !important;
+  border-radius: var(--radius-pill);
+  background: rgba(34, 211, 238, 0.08) !important;
+  border: 1px solid rgba(34, 211, 238, 0.35) !important;
+  color: #22d3ee !important;
+  font-size: 11.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.8px !important;
+  box-shadow: 0 2px 10px rgba(34, 211, 238, 0.12);
+  transition: all 0.25s var(--ease-spring) !important;
+}
+.nav-shop-pill::after {
+  display: none !important;
+}
+.nav-shop-pill:hover,
+.nav-shop-pill.active {
+  background: #22d3ee !important;
+  color: #030712 !important;
+  border-color: #22d3ee !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 18px rgba(34, 211, 238, 0.35);
+}
+.nav-shop-pill .shop-bag-icon {
+  font-size: 13px;
+}
+
+/* Right Side CTA */
+.nav-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  border-radius: var(--radius-pill);
+  background: #ffffff;
+  color: #030712;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  border: 1px solid #ffffff;
+  box-shadow: 0 2px 12px rgba(255, 255, 255, 0.2);
+  transition: all 0.25s var(--ease-spring);
+  white-space: nowrap;
+}
+.nav-cta-btn:hover {
+  transform: translateY(-1px);
+  background: #f1f5f9;
+  box-shadow: 0 4px 18px rgba(255, 255, 255, 0.35);
+  color: #000000;
+}
+
+@media (max-width: 992px) {
+  .menu {
+    display: block !important;
+  }
+  .nav-menu-links {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: rgba(7, 11, 22, 0.92);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 24px 20px;
+    flex-direction: column;
+    gap: 16px;
+    display: none;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  }
+  .nav-menu-links.show {
+    display: flex;
+  }
+  .nav-menu-links a {
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+  }
+  .nav-shop-pill {
+    width: auto;
+    justify-content: center;
+    padding: 9px 24px !important;
+  }
+}
+
+/* ==========================================================================
+   ACADEMY HERO SECTION — MINEGTA MOTION LAB
+   ========================================================================== */
+.academy-hero {
+  position: relative;
+  min-height: 100vh;
+  padding: 120px 5% 60px 5%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.academy-hero-grid {
+  max-width: 1320px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 50px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.academy-hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.academy-eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  color: #67e8f9;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.12);
+}
+.eyebrow-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 10px #22d3ee;
+  animation: dotBlink 1.4s infinite;
+}
+.academy-hero-title {
+  font-size: clamp(40px, 6.2vw, 76px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+.academy-title-gradient {
+  background: linear-gradient(135deg, #ffffff 15%, #cbd5e1 45%, #22d3ee 85%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+.academy-hero-subtitle {
+  font-size: clamp(17px, 2.2vw, 22px);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+.academy-hero-desc {
+  font-size: clamp(15px, 1.8vw, 17px);
+  line-height: 1.65;
+  color: #94a3b8;
+  max-width: 620px;
+  margin-bottom: 34px;
+}
+.academy-hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+/* Primary Button: EXPLORE COURSES (Pearl/Platinum Metallic) */
+.btn-academy-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 32px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #cbd5e1 100%);
+  color: #030712 !important;
+  font-size: 14.5px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-decoration: none;
+  border: 1px solid #ffffff;
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3), 0 0 20px rgba(34, 211, 238, 0.15);
+  transition: all 0.28s var(--ease-spring);
+  position: relative;
+  overflow: hidden;
+}
+.btn-academy-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(255, 255, 255, 0.5), 0 0 30px rgba(34, 211, 238, 0.35);
+  color: #000000 !important;
+}
+
+/* Secondary Button: START YOUR CREATIVE JOURNEY */
+.btn-academy-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 30px;
+  border-radius: var(--radius-pill);
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(16px);
+  color: #ffffff !important;
+  font-size: 14.5px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-decoration: none;
+  border: 1px solid rgba(34, 211, 238, 0.5);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(34, 211, 238, 0.08);
+  transition: all 0.28s var(--ease-spring);
+}
+.btn-academy-secondary:hover {
+  transform: translateY(-3px);
+  border-color: #22d3ee;
+  background: rgba(34, 211, 238, 0.12);
+  color: #67e8f9 !important;
+  box-shadow: 0 12px 35px rgba(34, 211, 238, 0.25);
+}
+
+/* Hero Micro Trust Bar */
+.academy-hero-trust {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+.trust-item .trust-icon {
+  color: #22d3ee;
+  font-size: 14px;
+}
+
+/* Hero 3D Stage Wrap */
+.academy-hero-stage-card {
+  position: relative;
+  border-radius: 28px;
+  background: radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.8) 0%, rgba(11, 19, 38, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 35px 100px rgba(0, 0, 0, 0.95), 0 0 50px rgba(34, 211, 238, 0.08);
+  padding: 18px;
+  overflow: hidden;
+  backdrop-filter: blur(24px);
+}
+.stage-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 14px;
+}
+.stage-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #67e8f9;
+  letter-spacing: 0.5px;
+}
+.stage-drag-hint {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.stage-canvas-viewport {
+  width: 100%;
+  height: 380px;
+  border-radius: 18px;
+  background: #020617;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 992px) {
+  .academy-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .stage-canvas-viewport {
+    height: 300px;
+  }
+}
+
+/* ==========================================================================
+   ACADEMY INTRODUCTION SECTION
+   ========================================================================== */
+.academy-intro-section {
+  padding: 90px 5%;
+  position: relative;
+}
+.academy-section-head {
+  max-width: 840px;
+  margin: 0 auto 50px auto;
+  text-align: center;
+}
+.academy-section-head .section-eyebrow {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #22d3ee;
+  margin-bottom: 10px;
+}
+.academy-section-head h2 {
+  font-size: clamp(30px, 4.5vw, 52px);
+  font-weight: 900;
+  letter-spacing: -1.2px;
+  color: #ffffff;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.academy-section-head p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: #94a3b8;
+}
+
+.academy-skills-grid {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 960px) {
+  .academy-skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.skill-card {
+  border-radius: 22px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 32px 28px;
+  backdrop-filter: blur(20px);
+  transition: all 0.3s var(--ease-spring);
+  display: flex;
+  flex-direction: column;
+}
+.skill-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(34, 211, 238, 0.4);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(34, 211, 238, 0.08);
+}
+.skill-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 18px;
+}
+.skill-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+.skill-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #94a3b8;
+  margin-bottom: 18px;
+  flex-grow: 1;
+}
+.skill-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.skill-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+
+/* ==========================================================================
+   ACADEMY COURSES PRESENTATION SECTION
+   ========================================================================== */
+.academy-courses-section {
+  padding: 90px 5%;
+  position: relative;
+  background: radial-gradient(circle at 50% 20%, rgba(15, 23, 42, 0.8) 0%, rgba(7, 11, 22, 0.95) 100%);
+}
+.courses-showcase-grid {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-bottom: 36px;
+}
+@media (max-width: 880px) {
+  .courses-showcase-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.course-card-premium {
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8);
+  padding: 34px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s var(--ease-spring);
+}
+.course-card-premium:hover {
+  transform: translateY(-6px);
+  border-color: rgba(34, 211, 238, 0.45);
+  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.9), 0 0 40px rgba(34, 211, 238, 0.12);
+}
+.course-card-premium.featured {
+  border-color: rgba(34, 211, 238, 0.4);
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.75) 0%, rgba(11, 20, 42, 0.95) 100%);
+}
+
+.course-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.course-month-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  color: #22d3ee;
+}
+.course-duration-pill {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.course-card-title {
+  font-size: 22px;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 10px;
+  letter-spacing: -0.4px;
+}
+.course-card-tagline {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+/* Exact Pricing Tag */
+.course-price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 22px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.course-price-val {
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+.course-price-term {
+  font-size: 13px;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.course-syllabus-list {
+  list-style: none;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.course-syllabus-list li {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #cbd5e1;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.course-syllabus-list li::before {
+  content: "✦";
+  color: #22d3ee;
+  font-weight: 900;
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.course-live-project-box {
+  border-radius: 12px;
+  background: rgba(34, 211, 238, 0.05);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  padding: 12px 16px;
+  font-size: 12.5px;
+  color: #cbd5e1;
+  margin-bottom: 24px;
+}
+.course-live-project-box strong {
+  color: #22d3ee;
+}
+
+/* Course Action Buttons */
+.course-card-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.btn-course-enroll {
+  flex: 1;
+  min-width: 140px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #030712 !important;
+  font-size: 13px;
+  font-weight: 800;
+  border: 1px solid #ffffff;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.btn-course-enroll:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.45);
+  color: #000000 !important;
+}
+
+.btn-course-message {
+  flex: 1;
+  min-width: 140px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 20px;
+  border-radius: 12px;
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  color: #22d3ee !important;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.btn-course-message:hover {
+  background: rgba(34, 211, 238, 0.24);
+  border-color: #22d3ee;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+/* Master 4-Month Mentorship Bundle Banner */
+.master-bundle-card {
+  max-width: 1320px;
+  margin: 0 auto;
+  border-radius: 28px;
+  background: radial-gradient(circle at 80% 50%, rgba(34, 211, 238, 0.12) 0%, rgba(15, 23, 42, 0.95) 70%);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.9), 0 0 60px rgba(34, 211, 238, 0.1);
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 36px;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .master-bundle-card {
+    grid-template-columns: 1fr;
+    padding: 28px;
+  }
+}
+.bundle-info-side .bundle-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #22d3ee;
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 14px;
+}
+.bundle-info-side h3 {
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 12px;
+  letter-spacing: -0.6px;
+}
+.bundle-info-side p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin-bottom: 18px;
+}
+.bundle-perks-list {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.bundle-perk-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.bundle-pricing-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 28px;
+  border-radius: 20px;
+  background: rgba(2, 6, 23, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.bundle-price-tag {
+  font-size: clamp(38px, 5vw, 52px);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin: 6px 0 16px 0;
+}
+.bundle-actions-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   INTERACTIVE COURSE LEARNING COCKPIT
+   ========================================================================== */
+.academy-cockpit-section {
+  padding: 90px 5%;
+  position: relative;
+}
+.cockpit-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  border-radius: 28px;
+  background: radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.8) 0%, rgba(7, 11, 22, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.95);
+  overflow: hidden;
+  backdrop-filter: blur(24px);
+}
+.cockpit-top-bar {
+  padding: 18px 26px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: rgba(15, 23, 42, 0.7);
+}
+.cockpit-beacon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.8px;
+}
+.cockpit-module-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cockpit-tab-btn {
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.cockpit-tab-btn.active,
+.cockpit-tab-btn:hover {
+  background: rgba(34, 211, 238, 0.15);
+  border-color: #22d3ee;
+  color: #22d3ee;
+}
+
+.cockpit-main-body {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr;
+  min-height: 480px;
+}
+@media (max-width: 960px) {
+  .cockpit-main-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Video & Screen Player Side */
+.cockpit-player-view {
+  padding: 28px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cockpit-screen-frame {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  border-radius: 18px;
+  background: #020617;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+}
+.cockpit-screen-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.65;
+  transition: opacity 0.3s ease;
+}
+.cockpit-screen-overlay-badges {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 2;
+}
+.cockpit-screen-bottom-hud {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 18px;
+  background: linear-gradient(180deg, transparent 0%, rgba(2, 6, 23, 0.85) 40%, rgba(2, 6, 23, 0.98) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+}
+.cockpit-hud-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #cbd5e1;
+}
+.cockpit-hud-indicator .hud-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 8px #22d3ee;
+}
+.cockpit-hud-timecode {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #94a3b8;
+}
+.cockpit-badge-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(3, 7, 18, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.cockpit-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.cockpit-lesson-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+}
+.cockpit-lesson-dur {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #22d3ee;
+}
+.cockpit-lesson-summary {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #94a3b8;
+  margin-bottom: 18px;
+}
+.cockpit-playback-nav {
+  display: flex;
+  gap: 12px;
+}
+.cockpit-nav-btn {
+  padding: 9px 18px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #cbd5e1;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.cockpit-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+/* Lesson Playlist Side */
+.cockpit-playlist-view {
+  padding: 24px;
+  background: rgba(11, 19, 38, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+.playlist-header {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.playlist-items-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  max-height: 380px;
+  padding-right: 6px;
+}
+.playlist-item-card {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.playlist-item-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.playlist-item-card.active {
+  background: rgba(34, 211, 238, 0.12);
+  border-color: #22d3ee;
+}
+.pl-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pl-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 800;
+  color: #64748b;
+}
+.playlist-item-card.active .pl-num {
+  color: #22d3ee;
+}
+.pl-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+.playlist-item-card.active .pl-title {
+  color: #ffffff;
+}
+.pl-dur {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #64748b;
+}
+
+/* ==========================================================================
+   LIVE MOTION LAB (120 FPS KINETIC OSCILLOSCOPE) SECTION STYLES
+   ========================================================================== */
+.lab-stage-section {
+  padding: 100px 5% 120px 5%;
+  position: relative;
+  background: radial-gradient(circle at 50% 20%, rgba(15, 23, 42, 0.7) 0%, rgba(7, 11, 22, 0.98) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.lab-console-card {
+  max-width: 1320px;
+  margin: 0 auto;
+  border-radius: 24px;
+  background: rgba(11, 19, 38, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(20px);
+}
+.lab-canvas-container {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  background: #020617;
+  overflow: hidden;
+}
+.lab-canvas-container canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.lab-controls-deck {
+  max-width: 1320px;
+  margin: 28px auto 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.lab-control-item {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+}
+.lab-control-item:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(15, 23, 42, 0.85);
+}
+.lab-ctrl-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+.lab-ctrl-label span:last-child {
+  color: #22d3ee;
+  font-weight: 800;
+}
+.lab-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.lab-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #22d3ee;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.6);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.lab-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+.lab-toggle-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.lab-toggle-btn.active,
+.lab-toggle-btn:hover {
+  background: rgba(34, 211, 238, 0.12);
+  border-color: #22d3ee;
+  color: #22d3ee;
+}
+@media (max-width: 992px) {
+  .lab-controls-deck {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 580px) {
+  .lab-controls-deck {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   MINEGTA SHOP — DIGITAL MARKETPLACE SECTION & STYLES
+   ========================================================================== */
+.shop-section-hub {
+  padding: 90px 5%;
+  position: relative;
+  background: radial-gradient(circle at 50% 0%, rgba(30, 41, 59, 0.5) 0%, rgba(7, 11, 22, 0.95) 100%);
+}
+.shop-showcase-header {
+  max-width: 860px;
+  margin: 0 auto 44px auto;
+  text-align: center;
+}
+.shop-brand-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #22d3ee;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 14px;
+}
+.shop-showcase-header h2 {
+  font-size: clamp(32px, 4.8vw, 56px);
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+.shop-showcase-header p {
+  font-size: 16px;
+  color: #94a3b8;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* Category Filter Bar */
+.shop-filter-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 38px;
+}
+.shop-filter-btn {
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s var(--ease-spring);
+}
+.shop-filter-btn:hover,
+.shop-filter-btn.active {
+  background: #ffffff;
+  color: #030712;
+  border-color: #ffffff;
+  box-shadow: 0 4px 18px rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Product Cards Grid */
+.shop-products-grid {
+  max-width: 1320px;
+  margin: 0 auto 50px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 26px;
+}
+
+.shop-product-card {
+  border-radius: 22px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s var(--ease-spring);
+}
+.shop-product-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(34, 211, 238, 0.45);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 35px rgba(34, 211, 238, 0.12);
+}
+
+.product-thumb-frame {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: #020617;
+  overflow: hidden;
+  cursor: pointer;
+}
+.product-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s var(--ease-spring);
+}
+.shop-product-card:hover .product-thumb-img {
+  transform: scale(1.06);
+}
+.product-badge-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(3, 7, 18, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  backdrop-filter: blur(10px);
+}
+.product-zoom-hint {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: rgba(3, 7, 18, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #22d3ee;
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.shop-product-card:hover .product-zoom-hint {
+  opacity: 1;
+}
+
+.product-info-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+.product-name-row {
+  margin-bottom: 8px;
+}
+.product-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+}
+.product-short-desc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #94a3b8;
+  margin-bottom: 18px;
+  flex-grow: 1;
+}
+.product-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.product-price-val {
+  font-size: 22px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+}
+.btn-buy-product {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+  color: #030712 !important;
+  font-size: 12.5px;
+  font-weight: 800;
+  border: 1px solid #ffffff;
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.btn-buy-product:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+  color: #000000 !important;
+}
+
+/* Complete Store Banner CTA */
+.shop-gateway-banner {
+  max-width: 1320px;
+  margin: 0 auto;
+  border-radius: 26px;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.85);
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.gateway-banner-text h3 {
+  font-size: clamp(24px, 3.2vw, 36px);
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+.gateway-banner-text p {
+  font-size: 15px;
+  color: #cbd5e1;
+}
+.btn-explore-shop-full {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, #22d3ee 0%, #0284c7 100%);
+  color: #ffffff !important;
+  font-size: 14.5px;
+  font-weight: 800;
+  text-decoration: none;
+  border: 1px solid #38bdf8;
+  box-shadow: 0 8px 30px rgba(34, 211, 238, 0.35);
+  transition: all 0.25s var(--ease-spring);
+}
+.btn-explore-shop-full:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 14px 40px rgba(34, 211, 238, 0.55);
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   ABOUT & CONTACT & FOOTER ENHANCEMENTS
+   ========================================================================== */
+.academy-about-section {
+  padding: 90px 5%;
+  position: relative;
+}
+.about-split-grid {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .about-split-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.about-card-frame {
+  border-radius: 26px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 36px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
+}
+.about-card-frame h3 {
+  font-size: 26px;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 14px;
+}
+.about-card-frame p {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.academy-contact-section {
+  padding: 90px 5%;
+  position: relative;
+  background: radial-gradient(circle at 50% 100%, rgba(30, 41, 59, 0.6) 0%, rgba(7, 11, 22, 0.98) 100%);
+}
+
+/* Clean Footer */
+footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 40px 5%;
+  background: #030712;
+}
+.footer-in {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Accessibility: Respect Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
